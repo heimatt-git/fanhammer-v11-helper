@@ -14,6 +14,126 @@
    "id": "space-marines",
    "name": "Space Marines",
    "file": "data/space-marines.json"
+  },
+  {
+   "id": "agents-of-the-imperium",
+   "name": "Agents of the Imperium",
+   "file": "data/agents-of-the-imperium.json"
+  },
+  {
+   "id": "adeptus-custodes",
+   "name": "Adeptus Custodes",
+   "file": "data/adeptus-custodes.json"
+  },
+  {
+   "id": "adepta-sororitas",
+   "name": "Adepta Sororitas",
+   "file": "data/adepta-sororitas.json"
+  },
+  {
+   "id": "drukhari",
+   "name": "Drukhari",
+   "file": "data/drukhari.json"
+  },
+  {
+   "id": "aeldari",
+   "name": "Aeldari",
+   "file": "data/aeldari.json"
+  },
+  {
+   "id": "genestealer-cults",
+   "name": "Genestealer Cults",
+   "file": "data/genestealer-cults.json"
+  },
+  {
+   "id": "astra-militarum",
+   "name": "Astra Militarum",
+   "file": "data/astra-militarum.json"
+  },
+  {
+   "id": "chaos-space-marines",
+   "name": "Chaos Space Marines",
+   "file": "data/chaos-space-marines.json"
+  },
+  {
+   "id": "leagues-of-votann",
+   "name": "Leagues of Votann",
+   "file": "data/leagues-of-votann.json"
+  },
+  {
+   "id": "tau-empire",
+   "name": "T'au Empire",
+   "file": "data/tau-empire.json"
+  },
+  {
+   "id": "orks",
+   "name": "Orks",
+   "file": "data/orks.json"
+  },
+  {
+   "id": "grey-knights",
+   "name": "Grey Knights",
+   "file": "data/grey-knights.json"
+  },
+  {
+   "id": "necrons",
+   "name": "Necrons",
+   "file": "data/necrons.json"
+  },
+  {
+   "id": "white-scars",
+   "name": "White Scars \u2014 chapitre",
+   "file": "data/white-scars.json"
+  },
+  {
+   "id": "ultramarines",
+   "name": "Ultramarines \u2014 chapitre",
+   "file": "data/ultramarines.json"
+  },
+  {
+   "id": "space-wolves",
+   "name": "Space Wolves \u2014 chapitre",
+   "file": "data/space-wolves.json"
+  },
+  {
+   "id": "salamanders",
+   "name": "Salamanders \u2014 chapitre",
+   "file": "data/salamanders.json"
+  },
+  {
+   "id": "raven-guard",
+   "name": "Raven Guard \u2014 chapitre",
+   "file": "data/raven-guard.json"
+  },
+  {
+   "id": "iron-hands",
+   "name": "Iron Hands \u2014 chapitre",
+   "file": "data/iron-hands.json"
+  },
+  {
+   "id": "imperial-fists",
+   "name": "Imperial Fists \u2014 chapitre",
+   "file": "data/imperial-fists.json"
+  },
+  {
+   "id": "dark-angels",
+   "name": "Dark Angels \u2014 chapitre",
+   "file": "data/dark-angels.json"
+  },
+  {
+   "id": "deathwatch",
+   "name": "Deathwatch \u2014 chapitre",
+   "file": "data/deathwatch.json"
+  },
+  {
+   "id": "blood-angels",
+   "name": "Blood Angels \u2014 chapitre",
+   "file": "data/blood-angels.json"
+  },
+  {
+   "id": "black-templars",
+   "name": "Black Templars \u2014 chapitre",
+   "file": "data/black-templars.json"
   }
  ]
 }
