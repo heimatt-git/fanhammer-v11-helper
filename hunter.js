@@ -43,7 +43,17 @@ async function loadFaction(id) {
   if (D.factions[id]) return D.factions[id];
   const f = D.idx.factions.filter(function (x) { return x.id === id; })[0];
   if (!f) return null;
-  const data = await getJSON(f.file);
+  let data = await getJSON(f.file);
+  if (data.extends) {
+    /* chapitre : unités du codex de base + unités propres / modifiées du chapitre */
+    const base = await loadFaction(data.extends);
+    const map = {};
+    (base ? base.units : []).forEach(function (u) { map[u.id] = u; });
+    data.units.forEach(function (u) { map[u.id] = u; });
+    const all = Object.keys(map).map(function (k) { return map[k]; });
+    all.sort(function (a, b) { return (a.legends ? 1 : 0) - (b.legends ? 1 : 0) || a.name.localeCompare(b.name); });
+    data = Object.assign({}, data, { units: all });
+  }
   D.factions[id] = data;
   D.byId[id] = {};
   data.units.forEach(function (u) { D.byId[id][u.id] = u; });
