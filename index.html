@@ -93,6 +93,28 @@ footer a{color:var(--accent)}
 .rtab td.scn{white-space:nowrap}
 .rtab td.scn.chosen{background:#2a2610;color:var(--accent);font-weight:700;box-shadow:inset 0 0 0 1.5px var(--accent)}
 .rtab td select{margin-top:4px;font-size:.75rem;max-width:11rem}
+/* paliers de distance */
+.pal{display:inline-flex;gap:3px;flex-wrap:wrap;vertical-align:middle;margin-right:8px}
+.pal .pb{font:600 .72rem var(--font-body);padding:3px 7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:0;cursor:pointer}
+.pal .pb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.bdgtxt{margin-top:4px;font-size:.78rem;color:var(--muted)}
+.bdg{cursor:pointer}
+.build{display:block;margin-top:8px;color:var(--muted);font:.72rem monospace}
+/* tableau du plan : cartes sur petit écran */
+@media(max-width:700px){
+.rtab.plan,.rtab.plan tbody{display:block;width:100%}
+.rtab.plan tr.plan-h{display:none}
+.rtab.plan tr{display:block;border:1px solid var(--line);background:var(--surface);margin:0 0 10px;padding:8px 10px}
+.rtab.plan tr.dim{padding:6px 10px}
+.rtab.plan td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border:0;padding:3px 0;text-align:right}
+.rtab.plan td[data-l]::before{content:attr(data-l);color:var(--muted);font:600 .72rem monospace;text-transform:uppercase;text-align:left;flex:none}
+.rtab.plan td.c-cible{flex-wrap:wrap}
+.rtab.plan td .bdgtxt{flex-basis:100%;text-align:left;margin-top:2px}
+.rtab.plan td.c-unit{display:block;text-align:left;font-weight:700;padding-bottom:6px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.rtab.plan td.c-unit::before{display:none}
+.rtab.plan td.scn.chosen{box-shadow:none;background:#2a2610}
+.rtab.plan td select{max-width:100%}
+}
 .bdgs{display:inline-flex;gap:5px;margin-left:8px;vertical-align:middle}
 .bdg{width:20px;height:20px;display:block}
 .vsel{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
@@ -214,6 +236,7 @@ header{border-bottom:2px solid var(--accent);padding-bottom:12px}
   <section id="view-hunter" class="hunter" hidden></section>
   <footer>
     Règles tirées de résumés publics de la V11 (Wahapedia, Tactical40k, Bell of Lost Souls, Sprues &amp; Brews, Loaded Dice). Les points marqués « À vérifier » sont incertains ou diffèrent selon les sources : confirmez dans le PDF officiel des règles. Les conseils tactiques sont des recommandations, pas des règles.
+    <span class="build">Auspex v.11 · build b14</span>
   </footer>
 </div>
 
@@ -359,8 +382,8 @@ function fromHash(){ const h=location.hash.slice(1); if(FLOWS[h]&&h!==flow){flow
 window.addEventListener('hashchange',()=>{fromHash();render();});
 fromHash(); render();
 </script>
-<script src="engine.js"></script>
-<script src="hunter.js"></script>
+<script src="engine.js?v=b14"></script>
+<script src="hunter.js?v=b14"></script>
 
 <script>if("serviceWorker" in navigator&&location.protocol==="https:"||location.hostname==="localhost"){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
 </body>

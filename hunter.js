@@ -438,9 +438,19 @@ function renderSet(box) {
   }, 'ghost'));
 }
 
+const PALIERS = [[6, '6″'], [12, '12″'], [18, '18″'], [24, '24″'], [36, '36″+']];
+function keepScroll(fn) { const y = window.scrollY; fn(); window.scrollTo(0, y); }
+function palBar(cur, fn, cls) {
+  const w = el('span', 'pal' + (cls ? ' ' + cls : ''));
+  PALIERS.forEach(function (p) {
+    const b = btn(p[1], function () { fn(p[0]); }, 'pb'); b.setAttribute('aria-pressed', String(+cur === p[0])); b.title = 'Fixer la distance à ' + p[0] + '″'; w.appendChild(b);
+  });
+  return w;
+}
+
 function renderDist(box) {
   box.appendChild(el('h2', '', 'Distances'));
-  box.appendChild(el('p', 'muted', 'Distance en pouces entre chaque unité adverse et chacune de vos unités sur la table (bord de socle à bord de socle). Les unités en réserve arrivent à la distance minimale légale : leur case est inutile.'));
+  box.appendChild(el('p', 'muted', 'Distance en pouces entre chaque unité adverse et chacune de vos unités sur la table (bord de socle à bord de socle). Les unités en réserve arrivent à la distance minimale légale : leur case est inutile. Les boutons de palier fixent la distance à la valeur indiquée ; vous pouvez ensuite affiner à la main.'));
   if (!st.enemy.length) { box.appendChild(el('p', 'empty', 'Ajoutez d’abord des unités adverses.')); return; }
   const fill = el('div', 'fillbar');
   fill.appendChild(el('span', '', 'Remplir toutes les cases vides avec'));
@@ -452,16 +462,33 @@ function renderDist(box) {
     save(); render();
   }, 'primary'));
   box.appendChild(fill);
+  const fall = el('div', 'fillbar');
+  fall.appendChild(el('span', '', 'Tout régler d’un coup (écrase les valeurs) :'));
+  fall.appendChild(palBar(null, function (v) {
+    st.my.forEach(function (m) { if (m.reserve !== 'table') return; st.enemy.forEach(function (e) { st.dist[m.uid + '|' + e.uid] = v; }); });
+    save(); keepScroll(render);
+  }));
+  box.appendChild(fall);
   st.enemy.forEach(function (e) {
     const card = el('div', 'ucard');
     card.appendChild(el('h3', '', e.label));
+    const hd = el('div', 'fillbar');
+    hd.appendChild(el('span', 'muted small', 'Toutes mes unités sur la table à :'));
+    hd.appendChild(palBar(null, function (v) {
+      st.my.forEach(function (m) { if (m.reserve === 'table') st.dist[m.uid + '|' + e.uid] = v; });
+      save(); keepScroll(render);
+    }));
+    card.appendChild(hd);
     const wrap = el('div', 'tablewrap'); const t = el('table', 'dtab');
     st.my.forEach(function (m) {
       const tr = el('tr');
       tr.appendChild(el('td', '', m.label));
       const td = el('td', 'r');
       if (m.reserve !== 'table') { td.appendChild(el('span', 'muted', 'arrivée')); }
-      else td.appendChild(numInput(st.dist[m.uid + '|' + e.uid], function (v) { st.dist[m.uid + '|' + e.uid] = v; save(); }, { min: 0, w: '4.2rem', step: 0.5, label: 'distance ' + m.label + ' à ' + e.label }));
+      else {
+        td.appendChild(palBar(st.dist[m.uid + '|' + e.uid], function (v) { st.dist[m.uid + '|' + e.uid] = v; save(); keepScroll(render); }, 'cell'));
+        td.appendChild(numInput(st.dist[m.uid + '|' + e.uid], function (v) { st.dist[m.uid + '|' + e.uid] = v; save(); }, { min: 0, w: '4.2rem', step: 0.5, label: 'distance ' + m.label + ' à ' + e.label }));
+      }
       tr.appendChild(td); t.appendChild(tr);
     });
     wrap.appendChild(t); card.appendChild(wrap); box.appendChild(card);
@@ -469,10 +496,11 @@ function renderDist(box) {
 }
 
 /* ---------- résultats ---------- */
-function badge(kind, title) {
+function badge(kind, title, onTap) {
   const NS = 'http://www.w3.org/2000/svg';
   const sv = document.createElementNS(NS, 'svg');
-  sv.setAttribute('viewBox', '0 0 24 24'); sv.setAttribute('class', 'bdg ' + kind); sv.setAttribute('role', 'img'); sv.setAttribute('aria-label', title);
+  sv.setAttribute('viewBox', '0 0 24 24'); sv.setAttribute('class', 'bdg ' + kind); sv.setAttribute('role', 'button'); sv.setAttribute('tabindex', '0'); sv.setAttribute('aria-label', title);
+  if (onTap) { sv.addEventListener('click', function () { onTap(title); }); sv.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); onTap(title); } }); }
   const t = document.createElementNS(NS, 'title'); t.textContent = title; sv.appendChild(t);
   const add = function (tag, attrs) { const n = document.createElementNS(NS, tag); Object.keys(attrs).forEach(function (k) { n.setAttribute(k, attrs[k]); }); sv.appendChild(n); };
   if (kind === 'skull') {
@@ -615,38 +643,40 @@ function renderResults(box) {
 
   /* plan par unité */
   box.appendChild(el('h3', '', 'Qui chasse quoi'));
-  const wrap = el('div', 'tablewrap'); const t = el('table', 'rtab');
-  const th = el('tr'); ['Mon unité', 'Cible', 'Tir seul', 'Charge seule', 'Tir + charge', 'Retenu', 'Stratagème'].forEach(function (h, i) { th.appendChild(el('th', i >= 2 && i <= 4 ? 'r scn' : '', h)); }); t.appendChild(th);
+  const wrap = el('div', 'tablewrap'); const t = el('table', 'rtab plan');
+  const th = el('tr', 'plan-h'); ['Mon unité', 'Cible', 'Tir seul', 'Charge seule', 'Tir + charge', 'Retenu', 'Stratagème'].forEach(function (h, i) { th.appendChild(el('th', i >= 2 && i <= 4 ? 'r scn' : '', h)); }); t.appendChild(th);
   const ROLE = { shoot: 'Tir', melee: 'Mêlée', hybrid: 'Hybride' };
   const bestOf = function (t) { return t.targets.length ? t.targets[0].pts : 0; };
   const maxBest = Math.max.apply(null, p.threats.map(bestOf).concat([1]));
   p.assign.slice().sort(function (a, b) { return b.final.pts - a.final.pts; }).forEach(function (a) {
     const tr = el('tr'); const my = st.my[a.u], f = a.final;
-    const c0 = el('td', ''); c0.appendChild(el('div', '', my.label));
+    const c0 = el('td', 'c-unit'); c0.dataset.l = 'Mon unité'; c0.appendChild(el('div', '', my.label));
     c0.appendChild(select([
       { value: '', label: 'Rôle : auto (' + ROLE[E.autoRole(my)].toLowerCase() + ')' },
       { value: 'shoot', label: 'Rôle : tir' }, { value: 'melee', label: 'Rôle : mêlée' }, { value: 'hybrid', label: 'Rôle : hybride' }
     ], my.role || '', function (v) { my.role = v || undefined; save(); render(); }, 'rôle'));
     tr.appendChild(c0);
-    const ce = el('td', ''); const en = st.enemy[a.e];
+    const ce = el('td', 'c-cible'); ce.dataset.l = 'Cible'; const en = st.enemy[a.e];
     ce.appendChild(document.createTextNode(en.label));
     const ib = el('span', 'bdgs');
-    const th = p.threats[a.e], bt = bestOf(th);
-    if (bt > 0 && bt / maxBest > 0.6) ib.appendChild(badge('skull', 'Menace forte : peut retirer jusqu’à ' + Math.round(bt) + ' pts de votre armée'));
-    if (p.oc[a.e] >= 5 || en.objective) ib.appendChild(badge('flag', 'Fort OC : ' + p.oc[a.e] + (en.objective ? ' · tient un objectif' : '')));
-    if (ib.childNodes.length) ce.appendChild(ib);
+    const det = el('div', 'bdgtxt'); det.hidden = true;
+    const tap = function (txt) { if (!det.hidden && det.textContent === txt) { det.hidden = true; } else { det.textContent = txt; det.hidden = false; } };
+    const thr = p.threats[a.e], bt = bestOf(thr);
+    if (bt > 0 && bt / maxBest > 0.6) ib.appendChild(badge('skull', 'Menace forte : peut retirer jusqu’à ' + Math.round(bt) + ' pts de votre armée', tap));
+    if (p.oc[a.e] >= 5 || en.objective) ib.appendChild(badge('flag', 'Fort OC : ' + p.oc[a.e] + (en.objective ? ' · tient un objectif' : ''), tap));
+    if (ib.childNodes.length) { ce.appendChild(ib); ce.appendChild(det); }
     tr.appendChild(ce);
-    [['shoot', 'shoot'], ['charge', 'melee'], ['both', 'hybrid']].forEach(function (k) {
+    [['shoot', 'Tir seul'], ['charge', 'Charge seule'], ['both', 'Tir + charge']].forEach(function (k) {
       const v = f.sc ? f.sc[k[0]] : null;
-      const td = el('td', 'r scn' + (f.scn === k[0] ? ' chosen' : ''));
+      const td = el('td', 'r scn' + (f.scn === k[0] ? ' chosen' : '')); td.dataset.l = k[1];
       td.appendChild(document.createTextNode(v && v.frac > 0 ? pct(v.frac) : '—'));
       if (v && v.frac > 0) td.appendChild(el('div', 'muted small', Math.round(v.pts) + ' pts'));
       tr.appendChild(td);
     });
-    const rc = el('td', ''); rc.appendChild(el('strong', '', ROLE[f.role] + (f.roleAuto ? ' (auto)' : '')));
+    const rc = el('td', ''); rc.dataset.l = 'Retenu'; rc.appendChild(el('strong', '', ROLE[f.role] + (f.roleAuto ? ' (auto)' : '')));
     rc.appendChild(el('div', 'muted small', f.mode.join(' + ') || '—'));
     tr.appendChild(rc);
-    tr.appendChild(el('td', '', a.strats.join(', ') || '—'));
+    const cst = el('td', '', a.strats.join(', ') || '—'); cst.dataset.l = 'Stratagème'; tr.appendChild(cst);
     t.appendChild(tr);
   });
   p.unassigned.forEach(function (i) {
