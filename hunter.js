@@ -119,7 +119,7 @@ async function init() {
 function render() {
   root.textContent = '';
   const nav = el('div', 'htabs');
-  [['results', 'Résultats'], ['enemy', 'Armée adverse'], ['dist', 'Distances'], ['my', 'Mon armée'], ['set', 'Réglages']].forEach(function (t) {
+  [['results', 'Résultats'], ['enemy', 'Armée adverse'], ['my', 'Mon armée'], ['dist', 'Distances'], ['set', 'Réglages']].forEach(function (t) {
     const b = btn(t[1], function () { tab = t[0]; render(); window.scrollTo(0, 0); });
     b.setAttribute('aria-pressed', String(tab === t[0])); if (t[0] === 'results') b.classList.add('hres'); nav.appendChild(b);
   });
