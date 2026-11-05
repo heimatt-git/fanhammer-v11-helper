@@ -1,0 +1,19 @@
+{
+ "factions": [
+  {
+   "id": "tyranids",
+   "name": "Tyranids",
+   "file": "data/tyranids.json"
+  },
+  {
+   "id": "adeptus-mechanicus",
+   "name": "Adeptus Mechanicus",
+   "file": "data/adeptus-mechanicus.json"
+  },
+  {
+   "id": "space-marines",
+   "name": "Space Marines",
+   "file": "data/space-marines.json"
+  }
+ ]
+}

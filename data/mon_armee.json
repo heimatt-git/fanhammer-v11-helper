@@ -1,0 +1,338 @@
+{
+ "meta": {
+  "nom": "Liste du 28 novembre 2026",
+  "detachement": "Subterranean Assault",
+  "points": 2000,
+  "warlord": "The Swarmlord"
+ },
+ "army": [
+  {
+   "uid": "m1",
+   "label": "Hyperadapted Raveners + Raveners (unité attachée)",
+   "pts": 305,
+   "reserve": "ds",
+   "synapse": true,
+   "mods": {
+    "sustained": 1
+   },
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "hyperadapted_raveners",
+     "models": 5,
+     "w": {
+      "melee:Prime claws and talons (Ravener Prime)": 1,
+      "melee:Ravener heavy claws and talons": 4,
+      "ranged:Venom bolt": 1
+     }
+    },
+    {
+     "f": "tyranids",
+     "id": "raveners",
+     "models": 5,
+     "w": {
+      "melee:Ravener claws and talons": 5
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m2",
+   "label": "Raveners (2)",
+   "pts": 125,
+   "reserve": "ds",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "raveners",
+     "models": 5,
+     "w": {
+      "melee:Ravener claws and talons": 5
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m3",
+   "label": "Neurotyrant",
+   "pts": 120,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "neurotyrant",
+     "models": 1,
+     "w": {
+      "ranged:Psychic Scream": 1,
+      "melee:Neurotyrant claws and lashes": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m4",
+   "label": "The Red Terror",
+   "pts": 120,
+   "reserve": "ds",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "red_terror",
+     "models": 1,
+     "w": {
+      "melee:Gaping maw": 1,
+      "melee:Scything talons": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m5",
+   "label": "The Swarmlord (Warlord)",
+   "pts": 210,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "swarmlord",
+     "models": 1,
+     "w": {
+      "ranged:Synaptic pulse": 1,
+      "melee:Bone sabres": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m6",
+   "label": "Trygon (Trygon Prime)",
+   "pts": 155,
+   "reserve": "ds",
+   "synapse": true,
+   "enh": {
+    "meleeS": 1,
+    "meleeWS": 1
+   },
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "trygon",
+     "models": 1,
+     "w": {
+      "ranged:Bio-electric pulse": 1,
+      "melee:Trygon scything talons": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m7",
+   "label": "Tyranid Prime with Lash Whip",
+   "pts": 75,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "prime_lash_whip",
+     "models": 1,
+     "w": {
+      "melee:Rending claw": 1,
+      "melee:Lash whip": 1,
+      "melee:Scything talons": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m8",
+   "label": "Hormagaunts (1)",
+   "pts": 70,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "hormagaunts",
+     "models": 10,
+     "w": {
+      "melee:Hormagaunt talons": 10
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m9",
+   "label": "Hormagaunts (2)",
+   "pts": 70,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "hormagaunts",
+     "models": 10,
+     "w": {
+      "melee:Hormagaunt talons": 10
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m10",
+   "label": "Tyrannocyte",
+   "pts": 80,
+   "reserve": "ds",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "tyrannocyte",
+     "models": 1,
+     "w": {
+      "ranged:Tyrannocyte bio-weapons": 1,
+      "melee:Flensing whips": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m11",
+   "label": "Biovores",
+   "pts": 60,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "biovores",
+     "models": 1,
+     "w": {
+      "ranged:Spore Mine launcher": 1,
+      "melee:Chitin-barbed limbs": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m12",
+   "label": "Lictor",
+   "pts": 60,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "lictor",
+     "models": 1,
+     "w": {
+      "melee:Lictor claws and talons": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m13",
+   "label": "Maleceptor (1)",
+   "pts": 180,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "maleceptor",
+     "models": 1,
+     "w": {
+      "ranged:Psychic overload": 1,
+      "melee:Massive scything talons": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m14",
+   "label": "Maleceptor (2)",
+   "pts": 180,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "maleceptor",
+     "models": 1,
+     "w": {
+      "ranged:Psychic overload": 1,
+      "melee:Massive scything talons": 1
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  },
+  {
+   "uid": "m15",
+   "label": "Zoanthropes (Neurothrope + 5)",
+   "pts": 190,
+   "reserve": "table",
+   "synapse": true,
+   "comps": [
+    {
+     "f": "tyranids",
+     "id": "zoanthropes",
+     "models": 6,
+     "w": {
+      "ranged:Warp Blast": 6,
+      "melee:Chitinous claws and teeth": 6
+     }
+    }
+   ],
+   "rules": {
+    "rerollOnes": true
+   }
+  }
+ ]
+}

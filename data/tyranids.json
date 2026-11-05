@@ -1,0 +1,4446 @@
+{
+ "meta": {
+  "faction": "Tyranids (Tyranides)",
+  "edition": "Warhammer 40,000 11e édition",
+  "collected": "2026-11-04",
+  "source": "Wahapedia (wahapedia.ru/wh40k11ed/factions/tyranids) lu via extraction automatique ; stratagèmes génériques : manuel de terrain communautaire (non officiel)",
+  "reliability": "Les fiches ont été lues par un outil de résumé, pas copiées à la main : à vérifier contre le codex/PDF officiel avant usage compétitif. Cases null = non indiqué sur la page.",
+  "missing": [
+   "Détachements Ambush Predators, Talons of the Norn Queen, Warrior Bioform Onslaught : règle, améliorations et stratagèmes V11 introuvables (la version trouvée pour Warrior Bioform Onslaught était de la 10e édition, non retenue)",
+   "Détachements Boarding Actions (Biotide Boarding Swarm, Infestation Swarm)",
+   "Stratagèmes génériques officiels V11 non confirmés sur Wahapedia (liste communautaire utilisée)"
+  ],
+  "known_data_flags": [
+   "Hive Tyrant : le mot-clé BLAST n'apparaît pas sur les canons à distance dans l'extraction, alors qu'il est présent sur le Winged Hive Tyrant : à vérifier",
+   "Neurogaunts : coûts 11/21/22 modèles à vérifier (probablement 10+1 nodebeast, 20+1 ou 20+2)",
+   "Raveners, Hyperadapted Raveners, Hive Guard, Pyrovores, Exocrine, Haruspex, Maleceptor, Tyrannocyte, Norn, Tyrannofex, Screamer-killer : deux coûts selon le rang de l'unité dans l'armée (1re-2e unité / 3e et suivantes)",
+   "Effet exact du couvert (−1 BS ou +1 sauvegarde) : sources contradictoires",
+   "Maleceptor : 180 pts pour les deux premières unités (confirmé par la liste d'armée), 190 pts supposé pour la 3e et suivantes"
+  ],
+  "synapse_note": "synapse_source = l'unité possède le mot-clé SYNAPSE (elle crée la portée synaptique) ; les autres unités TYRANIDS en bénéficient si elles sont à 6″ d'une source."
+ },
+ "army_rules": {
+  "Synapse": "Une unité TYRANIDS à 6″ ou moins d'un modèle SYNAPSE allié est dans la portée synaptique : ses tests de Battle-shock se font à 3D6 au lieu de 2D6, et ses attaques de mêlée gagnent +1 en Force.",
+  "Shadow in the Warp": "Une fois par bataille, en phase de Commandement de l'un ou l'autre joueur, si une unité de votre armée ayant cette règle est sur le champ de bataille : chaque unité ennemie fait un test de Battle-shock, avec −1 si elle est à 6″ ou moins d'une unité SYNAPSE de votre armée."
+ },
+ "core_stratagems_community_unofficial": [
+  {
+   "n": "Command Re-Roll",
+   "cp": 1,
+   "when": "Tout tour, toute phase",
+   "effect": "Relancer un jet (avance, charge, dégâts, hazard, touche, sauvegarde, blessure, nombre d'attaques) d'une unité ou modèle allié."
+  },
+  {
+   "n": "Epic Challenge",
+   "cp": 1,
+   "when": "Votre phase de Combat",
+   "effect": "Un CHARACTER choisi gagne PRECISION en mêlée jusqu'à la fin de la phase."
+  },
+  {
+   "n": "Insane Bravery",
+   "cp": 1,
+   "when": "Votre phase de Commandement, avant un test de Battle-shock",
+   "effect": "Le test réussit automatiquement. Une fois par bataille."
+  },
+  {
+   "n": "Explosives",
+   "cp": 1,
+   "when": "Votre phase de Tir",
+   "effect": "Unité EXPLOSIVES/GRENADES : 6D6 contre une unité ennemie visible à 8″ max, chaque 4+ = 1 blessure mortelle."
+  },
+  {
+   "n": "Crushing Impact",
+   "cp": 1,
+   "when": "Votre phase de Charge, après un mouvement de charge d'un MONSTER/VEHICLE",
+   "effect": "Autant de D6 que l'Endurance du modèle : chaque 5+ = 1 blessure mortelle à l'ennemi, chaque 1 = 1 blessure mortelle à vous (6 max au total)."
+  },
+  {
+   "n": "Rapid Ingress",
+   "cp": 1,
+   "when": "Fin de la phase de Mouvement adverse",
+   "effect": "Une unité en Strategic Reserves arrive (ingress move). Interdit au premier battle round."
+  },
+  {
+   "n": "Fire Overwatch",
+   "cp": 1,
+   "when": "Fin de la phase de Mouvement adverse",
+   "effect": "Une unité non engagée tire sur un ennemi visible à 24″ max ; touche seulement sur un 6 non modifié."
+  },
+  {
+   "n": "Smokescreen",
+   "cp": 1,
+   "when": "Début de la phase de Tir adverse",
+   "effect": "Unité SMOKE : les attaques qui la visent bénéficient du couvert."
+  },
+  {
+   "n": "Heroic Intervention",
+   "cp": "1 ou 2",
+   "when": "Fin de la phase de Charge adverse",
+   "effect": "Leap to Defend (1 PC) : charger une unité qui vient de charger. Into the Fray (2 PC) : charger tout ennemi à 6″ max, jet de charge > 6 compte pour 6."
+  },
+  {
+   "n": "Counteroffensive",
+   "cp": 2,
+   "when": "Phase de Combat adverse, après les attaques d'une unité ennemie",
+   "effect": "Une unité éligible gagne Fights First et combat ensuite."
+  }
+ ],
+ "detachments": [
+  {
+   "name": "Invasion Fleet",
+   "dp": 3,
+   "rule": "Hyper-adaptations : au début du premier battle round, choisissez une adaptation active pour toutes vos unités TYRANIDS : Swarming Instincts (contre INFANTRY/SWARM : SUSTAINED HITS 1), Hyper-aggression (contre MONSTER/VEHICLE : LETHAL HITS), Hive Predators (contre CHARACTER : PRECISION sur Coup Critique).",
+   "enhancements": [
+    {
+     "n": "Alien Cunning",
+     "pts": 30,
+     "effect": "Après déploiement, redéployez jusqu'à 3 unités TYRANIDS, qui peuvent aller en Strategic Reserves sans limite."
+    },
+    {
+     "n": "Perfectly Adapted",
+     "pts": 15,
+     "effect": "Une fois par tour, relance un jet de touche, blessure, dégâts, avance, charge ou sauvegarde du porteur."
+    },
+    {
+     "n": "Synaptic Linchpin",
+     "pts": 20,
+     "effect": "Une unité TYRANIDS à 9″ du porteur est dans la portée synaptique."
+    },
+    {
+     "n": "Adaptive Biology",
+     "pts": 25,
+     "effect": "FNP 5+ ; FNP 4+ s'il a moins de PV que son total de départ au début d'un tour."
+    }
+   ],
+   "stratagems": [
+    {
+     "n": "Rapid Regeneration",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Tir ou Combat adverse, après le choix des cibles",
+     "effect": "Unité TYRANIDS ciblée : FNP 6+ (5+ si en portée synaptique) jusqu'à la fin de la phase. Ne s'applique pas aux blessures mortelles."
+    },
+    {
+     "n": "Adrenal Surge",
+     "cp": 2,
+     "type": "Battle Tactic",
+     "when": "Phase de Combat",
+     "effect": "Jusqu'à 2 unités en portée synaptique (ou 1 autre) : un jet de touche non modifié de 5+ est un Critical Hit."
+    },
+    {
+     "n": "Death Frenzy",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Phase de Combat, après le choix des cibles",
+     "effect": "Chaque modèle détruit n'ayant pas combattu : D6, sur 4+ il reste, combat après l'ennemi, puis est retiré."
+    },
+    {
+     "n": "Overrun",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Phase de Combat, avant une Consolidation",
+     "effect": "Consolidation +3″ si finit engagée ; ou mouvement Normal de 6″ si en portée synaptique et hors engagement."
+    },
+    {
+     "n": "Predatory Imperative",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Votre phase de Commandement",
+     "effect": "Jusqu'à 2 unités en portée synaptique : choisissez une autre Hyper-adaptation jusqu'à votre prochaine phase de Commandement."
+    },
+    {
+     "n": "Endless Swarm",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Votre phase de Commandement",
+     "effect": "Jusqu'à 2 unités ENDLESS MULTITUDE : ramène D3+3 modèles détruits par unité."
+    }
+   ]
+  },
+  {
+   "name": "Crusher Stampede",
+   "dp": 2,
+   "rule": "Enraged Behemoths : chaque attaque d'un TYRANIDS MONSTER gagne +1 à la touche si son unité est sous son effectif de départ, +1 à la blessure si elle est sous la moitié. Une unité MONSTER à son effectif de départ (hors Battle-shock) gagne +2 OC par modèle.",
+   "enhancements": [
+    {
+     "n": "Ominous Presence",
+     "pts": 15,
+     "effect": "Porteur MONSTER : +3 OC."
+    },
+    {
+     "n": "Enraged Reserves",
+     "pts": 20,
+     "effect": "Porteur MONSTER détruit au corps à corps sans avoir combattu : D6, 3+ = reste, combat, puis retiré."
+    },
+    {
+     "n": "Null Nodules",
+     "pts": 10,
+     "effect": "Une fois par bataille, FNP 5+ contre les attaques psychiques jusqu'à la fin de la phase."
+    },
+    {
+     "n": "Monstrous Nemesis",
+     "pts": 25,
+     "effect": "Mêlée contre MONSTER/VEHICLE : +1 à la blessure."
+    }
+   ],
+   "stratagems": [
+    {
+     "n": "Corrosive Viscera",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Après la destruction d'un MONSTER avec Deadly Demise qui ne vole pas",
+     "effect": "Les blessures mortelles de Deadly Demise sont infligées automatiquement."
+    },
+    {
+     "n": "Rampaging Monstrosities",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Phase de Combat",
+     "effect": "Unité MONSTER non encore sélectionnée : relance les jets de touche."
+    },
+    {
+     "n": "Savage Roar",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Phase de Combat adverse/votre phase, après le choix des cibles",
+     "effect": "L'unité ennemie fait un test de Battle-shock ; ses attaques contre vous : −1 touche, et −1 blessure si le test est raté."
+    },
+    {
+     "n": "Untrammelled Ferocity",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Votre phase de Mouvement",
+     "effect": "Unité MONSTER : traverse modèles (hors TITANIC) et terrains ≤ 4″ ; test sur 1 pour les terrains plus hauts."
+    },
+    {
+     "n": "Swarm-Guided Salvoes",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Votre phase de Tir",
+     "effect": "Armes à distance avec IGNORES COVER ; peut ignorer les modificateurs de BS et de touche."
+    },
+    {
+     "n": "Massive Impact",
+     "cp": 1,
+     "type": "Epic Deed",
+     "when": "Phase de Charge, après une charge de MONSTER",
+     "effect": "6D6 : chaque 4+ inflige 1 blessure mortelle à une unité ennemie engagée."
+    }
+   ]
+  },
+  {
+   "name": "Unending Swarm",
+   "dp": 2,
+   "rule": "Insurmountable Odds : pendant la phase de Tir adverse, si un modèle ENDLESS MULTITUDE est détruit, l'unité fait un mouvement surge de D6″.",
+   "enhancements": [
+    {
+     "n": "Relentless Hunger",
+     "pts": 20,
+     "effect": "+2″ de Mouvement à l'unité du porteur."
+    },
+    {
+     "n": "Naturalised Camouflage",
+     "pts": 30,
+     "effect": "Début du 1er round : jusqu'à 3 unités ENDLESS MULTITUDE à 9″ ont le couvert jusqu'à la fin du round."
+    },
+    {
+     "n": "Piercing Talons",
+     "pts": 25,
+     "effect": "Sur un Critical Wound, PA améliorée de 1."
+    },
+    {
+     "n": "Adrenalised Onslaught",
+     "pts": 15,
+     "effect": "Pile-in et consolidation : +3″."
+    }
+   ],
+   "stratagems": [
+    {
+     "n": "Synaptic Goading",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "effect": "Relancer le D6 de surge ; peut finir près d'un objectif ; peut quitter l'engagement."
+    },
+    {
+     "n": "Unending Waves",
+     "cp": 2,
+     "type": "Strategic Ploy",
+     "effect": "Une unité ENDLESS MULTITUDE détruite revient en Strategic Reserves à son effectif de départ. Une fois par bataille."
+    },
+    {
+     "n": "Teeming Masses",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Tir ou Combat adverse, après le choix des cibles",
+     "effect": "−1 à la touche contre l'unité."
+    },
+    {
+     "n": "Swarming Masses",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Votre Tir ou Combat",
+     "effect": "SUSTAINED HITS 1 ; si 15 modèles ou plus, un 5+ non modifié est un Critical Hit."
+    },
+    {
+     "n": "Bounding Advance",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Votre Mouvement",
+     "effect": "Pas de jet d'avance : +6″ de Mouvement à la place."
+    },
+    {
+     "n": "Preservation Imperative",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Tir adverse, après le choix des cibles",
+     "effect": "L'unité est considérée comme comptant moins de 5 modèles pour BLAST."
+    }
+   ]
+  },
+  {
+   "name": "Assimilation Swarm",
+   "dp": 2,
+   "rule": "Feed the Swarm : en phase de Commandement, chaque unité HARVESTER peut Régénérer une unité TYRANIDS à 6″ (1 fois par phase et par unité) : un modèle récupère D3+1 PV, ou un modèle INFANTRY détruit revient (jusqu'à 3 si ENDLESS MULTITUDE).",
+   "enhancements": [
+    {
+     "n": "Regenerating Monstrosity",
+     "pts": 20,
+     "effect": "L'unité du porteur peut être régénérée deux fois par phase."
+    },
+    {
+     "n": "Instinctive Defence",
+     "pts": 15,
+     "effect": "Si à 6″ d'un HARVESTER : Heroic Intervention coûte 1 PC de moins sur l'unité et ses modèles ont Fights First."
+    },
+    {
+     "n": "Biophagic Flow (Aura)",
+     "pts": 10,
+     "effect": "Portée de Feed the Swarm passée à 9″ pour un HARVESTER à 12″."
+    },
+    {
+     "n": "Parasitic Biomorphology",
+     "pts": 25,
+     "effect": "+1 Force en mêlée ; +1 Attaques ensuite si l'unité détruit une unité ennemie près d'un HARVESTER."
+    }
+   ],
+   "stratagems": [
+    {
+     "n": "Broodguard Impulse",
+     "cp": 1,
+     "type": "Epic Deed",
+     "when": "HARVESTER détruit",
+     "effect": "+1 blessure contre l'unité qui l'a détruit, jusqu'à la fin de la bataille."
+    },
+    {
+     "n": "Reclaim Biomass",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Une unité TYRANIDS est détruite à 6″ d'un HARVESTER",
+     "effect": "Régénère une autre unité TYRANIDS à 6″."
+    },
+    {
+     "n": "Tyrannoformed",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Votre Commandement",
+     "effect": "Un objectif tenu par un HARVESTER reste sous votre contrôle."
+    },
+    {
+     "n": "Ablative Carapace",
+     "cp": 2,
+     "type": "Epic Deed",
+     "when": "Tir ou Combat adverse, après le choix des cibles",
+     "effect": "HARVESTER ciblé : FNP 5+ ; FNP 4+ sur un objectif contrôlé."
+    },
+    {
+     "n": "Secure Biomass",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Phase de Combat",
+     "effect": "Armes de mêlée LETHAL HITS ; HARVESTER : un 5+ non modifié est un Critical Hit."
+    },
+    {
+     "n": "Rapacious Hunger",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Votre Combat, après avoir détruit une unité",
+     "effect": "L'unité se régénère immédiatement ; HARVESTER : jusqu'à 3 PV au lieu de D3."
+    }
+   ]
+  },
+  {
+   "name": "Vanguard Onslaught",
+   "dp": 2,
+   "rule": "Questing Tendrils : les unités TYRANIDS concernées peuvent charger après un Fall Back ; les VANGUARD INVADER peuvent charger après une Advance. Deathleaper peut être WARLORD.",
+   "enhancements": [
+    {
+     "n": "Hunting Grounds",
+     "pts": 30,
+     "effect": "Quand l'adversaire place une unité de réserve, D6 : 2+ = elle fait un test de Battle-shock."
+    },
+    {
+     "n": "Chameleonic",
+     "pts": 15,
+     "effect": "L'unité a Stealth (VANGUARD INVADER)."
+    },
+    {
+     "n": "Stalker",
+     "pts": 10,
+     "effect": "Début de bataille : choisissez une unité ennemie, +1 touche et +1 blessure du porteur contre elle."
+    },
+    {
+     "n": "Neuronode",
+     "pts": 20,
+     "effect": "Redéployez jusqu'à 3 unités VANGUARD INVADER, en Strategic Reserves sans limite."
+    }
+   ],
+   "stratagems": [
+    {
+     "n": "Surprise Assault",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Votre Tir ou Combat, après le choix des cibles",
+     "effect": "L'unité ennemie ciblée fait un test de Battle-shock ; +1 touche contre elle, +1 blessure aussi si raté."
+    },
+    {
+     "n": "Assassin Beasts",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Phase de Combat",
+     "effect": "Armes de mêlée PRECISION (VANGUARD INVADER INFANTRY)."
+    },
+    {
+     "n": "Seeded Broods",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Votre Mouvement",
+     "effect": "Unités en réserve : le numéro du battle round compte pour +1 à l'arrivée."
+    },
+    {
+     "n": "Hypersensory Scillia",
+     "cp": 2,
+     "type": "Strategic Ploy",
+     "when": "Mouvement adverse, après le mouvement d'une unité ennemie",
+     "effect": "Jusqu'à 2 unités VANGUARD INVADER à 8″ font un mouvement Normal de 6″."
+    },
+    {
+     "n": "Unseen Lurkers",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Tir adverse, après le choix des cibles",
+     "effect": "VANGUARD INVADER ciblé : ne peut être pris pour cible qu'à 18″ max."
+    },
+    {
+     "n": "Invisible Hunter",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Fin du Combat adverse",
+     "effect": "Jusqu'à 2 unités VANGUARD INVADER (à plus de 3″ de l'ennemi) retournent en Strategic Reserves."
+    }
+   ]
+  },
+  {
+   "name": "Synaptic Nexus",
+   "dp": 2,
+   "rule": "Synaptic Imperatives : au début de chaque tour de bataille, choisissez un impératif (une fois chacun par bataille) : Synaptic Augmentation (invulnérable 5+ en portée synaptique), Surging Vitality (+1 Advance et Charge), Goaded to Slaughter (+1 à la touche en mêlée).",
+   "enhancements": [
+    {
+     "n": "Power of the Hive Mind",
+     "pts": 10,
+     "effect": "PSYKER : +1 Force et +1 PA aux armes psychiques."
+    },
+    {
+     "n": "Psychostatic Disruption",
+     "pts": 30,
+     "effect": "Les réserves ennemies ne peuvent arriver à moins de 12″ ; une fois par bataille, 4+ pour empêcher une arrivée aux tours 1-2."
+    },
+    {
+     "n": "Synaptic Control",
+     "pts": 20,
+     "effect": "Les attaques allouées au porteur ont leurs Dégâts réduits de 1."
+    },
+    {
+     "n": "The Dirgeheart of Kharis (Aura)",
+     "pts": 15,
+     "effect": "Ennemis à 9″ : Ld −1."
+    }
+   ],
+   "stratagems": [
+    {
+     "n": "The Smothering Shadow",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "effect": "Après un Battle-shock raté ennemi : 6D6, chaque 3+ = 1 blessure mortelle (SYNAPSE à 12″)."
+    },
+    {
+     "n": "Synaptic Channelling",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Commandement",
+     "effect": "Une unité TYRANIDS à 9″ d'une SYNAPSE est en portée synaptique."
+    },
+    {
+     "n": "Irresistible Will",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Votre Tir ou Combat",
+     "effect": "Relance des touches et blessures de 1 contre une unité ennemie à 24″ si l'attaquant est à 6″ de la SYNAPSE."
+    },
+    {
+     "n": "Reinforced Hive Node",
+     "cp": 1,
+     "type": "Battle Tactic",
+     "when": "Tir ou Combat adverse, après le choix des cibles",
+     "effect": "PA des attaques contre la SYNAPSE réduite de 1."
+    },
+    {
+     "n": "Imperative Dominance",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Commandement",
+     "effect": "Choisissez un impératif (même déjà utilisé) pour une unité."
+    },
+    {
+     "n": "Override Instincts",
+     "cp": 1,
+     "type": "Strategic Ploy",
+     "when": "Mouvement",
+     "effect": "Une unité qui s'est repliée peut tirer et charger."
+    }
+   ]
+  },
+  {
+   "name": "Subterranean Assault",
+   "dp": 3,
+   "incomplete": false,
+   "rule": "Surprise Assault : relance des touches de 1 pour vos TYRANIDS ; les unités MAWLOC et TRYGON deviennent BURROWER et placent un marqueur de tunnel (40 mm) à l'arrivée ; une unité arrivant de réserve peut se placer à 9″ max d'un marqueur de tunnel, à plus de 6″ des ennemis ; un ennemi qui finit à 3″ d'un marqueur le retire ; jusqu'à 2 TRYGON deviennent CHARACTER. Terror from the Deep d'un MAWLOC ne se déclenche pas via un marqueur.",
+   "enhancements": [
+    {
+     "n": "Synaptic Strategy",
+     "pts": 15,
+     "effect": "Une fois par bataille, Rapid Ingress sur l'unité du porteur pour 0 PC."
+    },
+    {
+     "n": "Tremor Senses",
+     "pts": 20,
+     "effect": "Redéployez jusqu'à 3 unités TYRANIDS, en Strategic Reserves sans limite."
+    },
+    {
+     "n": "Intellect (« Vanguard Intellect » dans l'application)",
+     "pts": 15,
+     "effect": "Deep Strike autorisé aux 1re à 3e phases de Mouvement, quelles que soient les règles de mission. Réservé aux modèles TYRANIDS ayant Deep Strike. Coût confirmé par la liste du joueur (165 + 15 = 180)."
+    },
+    {
+     "n": "Trygon Prime",
+     "pts": 20,
+     "effect": "(à confirmer dans ce détachement) TRYGON : SYNAPSE, +1 Force et +1 CC en mêlée."
+    }
+   ],
+   "stratagems": [
+    {
+     "n": "Adaptive Optimisation",
+     "cp": 1,
+     "type": "Wargear",
+     "when": "Commandement",
+     "effect": "Une unité MAWLOC ou TRYGON gagne SYNAPSE jusqu'à la prochaine phase de Commandement."
+    },
+    {
+     "n": "Replenishing Swarms",
+     "cp": 1,
+     "effect": "Dans une unité près d'un marqueur de tunnel : récupère D3+1 PV ou ramène D3+1 modèles détruits (1 PV)."
+    },
+    {
+     "n": "Enfilading Emergence",
+     "cp": 1,
+     "effect": "Les unités arrivées de réserve ont SUSTAINED HITS 1 et IGNORES COVER jusqu'à la prochaine phase de Combat."
+    },
+    {
+     "n": "Swarming Assault",
+     "cp": 1,
+     "effect": "Les unités TYRANIDS à 6″ d'un MONSTER arrivé de réserve relancent leurs jets de charge."
+    },
+    {
+     "n": "Tunnel Network",
+     "cp": 1,
+     "when": "Fin de votre phase de Mouvement",
+     "effect": "Déplace une unité d'un marqueur de tunnel à un autre (à 9″ d'un marqueur)."
+    },
+    {
+     "n": "Retreat Below",
+     "cp": 1,
+     "when": "Fin du Combat adverse",
+     "effect": "Jusqu'à 2 unités BURROWER retournent en Strategic Reserves."
+    }
+   ],
+   "source_note": "Stratagèmes fournis par le joueur (application d'armée, données v995). Leur texte n'a pas été recoupé sur Wahapedia. La distance d'arrivée est de 9″ d'un marqueur de tunnel et à plus de 6″ des ennemis (Wahapedia) ; le joueur mentionne « au lieu de 5″ » : à confirmer."
+  },
+  {
+   "name": "Ambush Predators",
+   "dp": 1,
+   "incomplete": true,
+   "rule": null,
+   "enhancements": [],
+   "stratagems": []
+  },
+  {
+   "name": "Talons of the Norn Queen",
+   "dp": 1,
+   "incomplete": true,
+   "rule": null,
+   "enhancements": [],
+   "stratagems": []
+  },
+  {
+   "name": "Warrior Bioform Onslaught",
+   "dp": 1,
+   "incomplete": true,
+   "rule": null,
+   "enhancements": [],
+   "stratagems": []
+  }
+ ],
+ "units": [
+  {
+   "id": "deathleaper",
+   "name": "Deathleaper",
+   "role": "Epic Character Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 80
+    }
+   ],
+   "M": "8",
+   "T": 6,
+   "Sv": "3+",
+   "inv": "4+",
+   "W": 7,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Lictor claws and talons",
+     "A": "6",
+     "WS": "2+",
+     "S": 7,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "PRECISION"
+     ]
+    }
+   ],
+   "abilities": [
+    "Fights First",
+    "Infiltrators",
+    "Lone Operative (invisible au-delà de 12″)",
+    "Stealth",
+    "Synapse",
+    "Feeder Tendrils : détruire un CHARACTER = +1 PC",
+    "Fear of the Unseen (aura 6″) : ennemis Ld −1, test de Battle-shock supplémentaire s'ils sont sous leur effectif",
+    "Hunter Organism : ne peut pas être WARLORD (sauf Vanguard Onslaught)"
+   ],
+   "kw": [
+    "INFANTRY",
+    "CHARACTER",
+    "EPIC HERO",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "old_one_eye",
+   "name": "Old One Eye",
+   "role": "Epic Character Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 130
+    }
+   ],
+   "M": "8",
+   "T": 9,
+   "Sv": "2+",
+   "inv": null,
+   "W": 9,
+   "Ld": "8+",
+   "OC": 3,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Claws and talons — strike",
+     "A": "6",
+     "WS": "3+",
+     "S": 14,
+     "AP": -3,
+     "D": "D6+1",
+     "kw": []
+    },
+    {
+     "n": "Claws and talons — sweep",
+     "A": "12",
+     "WS": "3+",
+     "S": 6,
+     "AP": -1,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Feel No Pain 5+",
+    "Alpha Leader : l'unité dirigée relance les jets de touche",
+    "Unstoppable Monster : récupère D3 PV au début de chaque phase de Commandement"
+   ],
+   "kw": [
+    "MONSTER",
+    "CHARACTER",
+    "EPIC HERO",
+    "GREAT DEVOURER"
+   ],
+   "leader": {
+    "leads": [
+     "Carnifexes"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "red_terror",
+   "name": "The Red Terror",
+   "role": "Epic Character Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 120
+    }
+   ],
+   "M": "10",
+   "T": 8,
+   "Sv": "3+",
+   "inv": null,
+   "W": 9,
+   "Ld": "8+",
+   "OC": 3,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Gaping maw",
+     "A": "1",
+     "WS": "2+",
+     "S": 5,
+     "AP": 0,
+     "D": "D3+2",
+     "kw": [
+      "EXTRA ATTACKS",
+      "DEVASTATING WOUNDS",
+      "PRECISION"
+     ]
+    },
+    {
+     "n": "Scything talons",
+     "A": "12",
+     "WS": "2+",
+     "S": 7,
+     "AP": -2,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Swallow Whole : contre INFANTRY/MOUNTED/BEASTS, un jet de blessure non modifié réussi avec gaping maw est critique ; chaque modèle détruit rend D3+2 PV",
+    "Subterranean Hunter : en fin de Combat, si non engagé, retourne en Strategic Reserves"
+   ],
+   "kw": [
+    "CHARACTER",
+    "EPIC HERO",
+    "MONSTER",
+    "MOBILE",
+    "BURROWER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "swarmlord",
+   "name": "The Swarmlord",
+   "role": "Epic Character Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 210
+    }
+   ],
+   "M": "8",
+   "T": 10,
+   "Sv": "2+",
+   "inv": "4+",
+   "W": 10,
+   "Ld": "7+",
+   "OC": 3,
+   "ranged": [
+    {
+     "n": "Synaptic pulse",
+     "range": "18",
+     "A": "D6+3",
+     "BS": "-",
+     "S": 5,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "PSYCHIC",
+      "TORRENT"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Bone sabres",
+     "A": "8",
+     "WS": "2+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Shadow in the Warp",
+    "Hive Commander : +1 PC au début de votre phase de Commandement",
+    "Malign Presence : si WARLORD, les stratagèmes ciblant une unité ennemie à 12″ coûtent 1 PC de plus",
+    "Domination of the Hive Mind (aura 9″) : une unité TYRANIDS est en portée synaptique"
+   ],
+   "kw": [
+    "MONSTER",
+    "CHARACTER",
+    "EPIC HERO",
+    "PSYKER",
+    "GREAT DEVOURER",
+    "SYNAPSE",
+    "HIVE TYRANT"
+   ],
+   "leader": {
+    "leads": [
+     "Tyrant Guard"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "broodlord",
+   "name": "Broodlord",
+   "role": "Character Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 80
+    }
+   ],
+   "M": "8",
+   "T": 5,
+   "Sv": "4+",
+   "inv": "4+",
+   "W": 6,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Claws and talons",
+     "A": "5",
+     "WS": "2+",
+     "S": 6,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "DEVASTATING WOUNDS",
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "abilities": [
+    "Vicious Insight : l'unité dirigée a DEVASTATING WOUNDS",
+    "Hypnotic Gaze (psychique) : début du Combat, une unité engagée a −1 à la touche",
+    "Scouts 8″",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "INFANTRY",
+    "CHARACTER",
+    "PSYKER",
+    "GREAT DEVOURER",
+    "SYNAPSE",
+    "VANGUARD INVADER"
+   ],
+   "leader": {
+    "leads": [
+     "Genestealers"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "hyperadapted_raveners",
+   "name": "Hyperadapted Raveners",
+   "role": "Character Infantry",
+   "pts": [
+    {
+     "models": 5,
+     "pts": 165,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 5,
+     "pts": 175,
+     "note": "3e unité et suivantes"
+    }
+   ],
+   "M": "10",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 6,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [
+    {
+     "n": "Venom bolt",
+     "range": "12",
+     "A": "D6+3",
+     "BS": "-",
+     "S": 6,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "ASSAULT",
+      "IGNORES COVER",
+      "TORRENT"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Prime claws and talons (Ravener Prime)",
+     "A": "6",
+     "WS": "3+",
+     "S": 5,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "ANTI-MONSTER 5+",
+      "ANTI-VEHICLE 5+",
+      "TWIN-LINKED"
+     ]
+    },
+    {
+     "n": "Ravener heavy claws and talons",
+     "A": "3",
+     "WS": "3+",
+     "S": 5,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "ANTI-MONSTER 5+",
+      "ANTI-VEHICLE 5+",
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Alpha Invader : SUSTAINED HITS 1 pour l'unité",
+    "Hypersensory Array : une fois par tour de bataille, cible de Rapid Ingress / Heroic Intervention pour 1 PC de moins",
+    "Shadow in the Warp (Ravener Prime)"
+   ],
+   "comp": "1 Ravener Prime + 4 Raveners (3 heavy claws ; 1 avec venom bolt)",
+   "kw": [
+    "INFANTRY",
+    "CHARACTER (Ravener Prime)",
+    "SYNAPSE (Ravener Prime)",
+    "VANGUARD INVADER",
+    "BURROWERS"
+   ],
+   "leader": {
+    "leads": [
+     "Raveners"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "parasite_of_mortrex",
+   "name": "Parasite of Mortrex",
+   "role": "Character Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 65
+    }
+   ],
+   "M": "12",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 5,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Barbed ovipositor",
+     "A": "1",
+     "WS": "2+",
+     "S": 3,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "ANTI-INFANTRY 3+",
+      "EXTRA ATTACKS"
+     ]
+    },
+    {
+     "n": "Clawed limbs",
+     "A": "6",
+     "WS": "2+",
+     "S": 5,
+     "AP": -1,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Lone Operative",
+    "Stealth",
+    "Parasitic Infection : si l'ovipositor détruit une unité INFANTRY, ajoute D3 Ripper Swarms à 3″",
+    "It Itches! : début du Combat, une unité engagée fait un test de Battle-shock"
+   ],
+   "kw": [
+    "INFANTRY",
+    "CHARACTER",
+    "FLY",
+    "SYNAPSE",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": true
+  },
+  {
+   "id": "prime_lash_whip",
+   "name": "Tyranid Prime with Lash Whip",
+   "role": "Character Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 75
+    }
+   ],
+   "M": "10",
+   "T": 5,
+   "Sv": "3+",
+   "inv": null,
+   "W": 6,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Rending claw",
+     "A": "4",
+     "WS": "2+",
+     "S": 8,
+     "AP": -2,
+     "D": "3",
+     "kw": []
+    },
+    {
+     "n": "Lash whip",
+     "A": "8",
+     "WS": "2+",
+     "S": 4,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    },
+    {
+     "n": "Scything talons",
+     "A": "6",
+     "WS": "2+",
+     "S": 6,
+     "AP": -2,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Alpha Warrior : SUSTAINED HITS 1 pour l'unité",
+    "Aggressive Leader-beast : si une unité ennemie a détruit un modèle de l'unité en phase de Tir, surge move de D6″",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "INFANTRY",
+    "CHARACTER",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": {
+    "leads": [
+     "Hormagaunts",
+     "Termagants",
+     "Tyranid Warriors with Melee Bio-weapons",
+     "Tyranid Warriors with Ranged Bio-weapons"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "winged_prime",
+   "name": "Winged Tyranid Prime",
+   "role": "Character Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 65
+    }
+   ],
+   "M": "12",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 6,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Prime talons",
+     "A": "6",
+     "WS": "2+",
+     "S": 6,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Alpha Warrior : SUSTAINED HITS 1 pour l'unité",
+    "Death Blow : détruit au corps à corps sans avoir combattu, D6 4+ = combat quand même",
+    "Deep Strike",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "INFANTRY",
+    "CHARACTER",
+    "FLY",
+    "GREAT DEVOURER",
+    "SYNAPSE",
+    "VANGUARD INVADER"
+   ],
+   "leader": {
+    "leads": [
+     "Gargoyles",
+     "Tyranid Warriors with Melee Bio-weapons",
+     "Tyranid Warriors with Ranged Bio-weapons"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "malanthrope",
+   "name": "Malanthrope",
+   "role": "Character Infantry (Warhammer Legends)",
+   "legends": true,
+   "pts": [
+    {
+     "models": 1,
+     "pts": 75
+    }
+   ],
+   "M": "6",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 10,
+   "Ld": "7+",
+   "OC": 3,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Grasping tail",
+     "A": "4",
+     "WS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Enhanced Toxic Miasma : portée de Foul Spores portée à 9″",
+    "Prey Adaptation : l'unité choisit SUSTAINED HITS 1, LANCE ou LETHAL HITS en mêlée",
+    "Stealth",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "INFANTRY",
+    "CHARACTER",
+    "FLY",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": {
+    "leads": [
+     "Venomthropes"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "hive_tyrant",
+   "name": "Hive Tyrant",
+   "role": "Character Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 195
+    }
+   ],
+   "M": "8",
+   "T": 10,
+   "Sv": "2+",
+   "inv": "4+",
+   "W": 10,
+   "Ld": "7+",
+   "OC": 3,
+   "ranged": [
+    {
+     "n": "Heavy venom cannon",
+     "range": "36",
+     "A": "D3",
+     "BS": "2+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "BLAST (à vérifier)"
+     ]
+    },
+    {
+     "n": "Stranglethorn cannon",
+     "range": "36",
+     "A": "D6+1",
+     "BS": "2+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "BLAST (à vérifier)"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Monstrous bonesword and lash whip",
+     "A": "6",
+     "WS": "2+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "TWIN-LINKED"
+     ]
+    },
+    {
+     "n": "Monstrous scything talons",
+     "A": "4",
+     "WS": "2+",
+     "S": 7,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Will of the Hive Mind : une fois par tour de bataille, un stratagème ciblant une unité TYRANIDS à 12″ coûte 1 PC de moins",
+    "Onslaught (aura psychique 6″) : armes à distance des TYRANIDS amis avec ASSAULT et LETHAL HITS",
+    "Shadow in the Warp"
+   ],
+   "options": "Bonesword and lash whip remplaçable par heavy venom cannon, stranglethorn cannon ou monstrous scything talons ; scything talons remplaçable par un canon ; pas deux fois le même canon",
+   "kw": [
+    "MONSTER",
+    "CHARACTER",
+    "PSYKER",
+    "GREAT DEVOURER",
+    "SYNAPSE",
+    "HIVE TYRANT"
+   ],
+   "leader": {
+    "leads": [
+     "Tyrant Guard"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "neurotyrant",
+   "name": "Neurotyrant",
+   "role": "Character Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 120
+    }
+   ],
+   "M": "6",
+   "T": 8,
+   "Sv": "4+",
+   "inv": "4+",
+   "W": 9,
+   "Ld": "7+",
+   "OC": 3,
+   "ranged": [
+    {
+     "n": "Psychic Scream",
+     "range": "18",
+     "A": "2D6",
+     "BS": "-",
+     "S": 5,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "IGNORES COVER",
+      "PSYCHIC",
+      "TORRENT"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Neurotyrant claws and lashes",
+     "A": "6",
+     "WS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Node Lash (psychique) : l'unité dirigée gagne +1 à la touche, et +1 à la blessure si la cible est Battle-shocked",
+    "Psychic Terror (psychique) : −1 supplémentaire au test de Shadow in the Warp ennemi",
+    "Neuroloids : en phase de Commandement, jusqu'à 2 unités TYRANIDS à 18″ sont en portée synaptique",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "MONSTER",
+    "CHARACTER",
+    "FLY",
+    "PSYKER",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": {
+    "leads": [
+     "Neurogaunts",
+     "Tyrant Guard",
+     "Zoanthropes"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "tervigon",
+   "name": "Tervigon",
+   "role": "Character Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 150
+    }
+   ],
+   "M": "8",
+   "T": 11,
+   "Sv": "2+",
+   "inv": null,
+   "W": 16,
+   "Ld": "7+",
+   "OC": 5,
+   "ranged": [
+    {
+     "n": "Stinger salvoes",
+     "range": "24",
+     "A": "8",
+     "BS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "melee": [
+    {
+     "n": "Massive crushing claws",
+     "A": "4",
+     "WS": "4+",
+     "S": 12,
+     "AP": -3,
+     "D": "D6+1",
+     "kw": []
+    },
+    {
+     "n": "Massive scything talons — strike",
+     "A": "4",
+     "WS": "3+",
+     "S": 9,
+     "AP": -2,
+     "D": "D6",
+     "kw": []
+    },
+    {
+     "n": "Massive scything talons — sweep",
+     "A": "8",
+     "WS": "3+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D6",
+    "Spawn Termagants : en phase de Commandement, une unité TERMAGANTS à 6″ récupère jusqu'à D3+3 modèles",
+    "Brood Progenitor (aura psychique 6″) : armes à distance des TERMAGANTS avec LETHAL HITS",
+    "Damaged (1-5 PV) : −1 à la touche",
+    "Shadow in the Warp"
+   ],
+   "options": "Massive scything talons remplaçables par massive crushing claws",
+   "kw": [
+    "MONSTER",
+    "CHARACTER",
+    "PSYKER",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": null,
+   "synapse_source": true
+  },
+  {
+   "id": "winged_hive_tyrant",
+   "name": "Winged Hive Tyrant",
+   "role": "Character Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 185
+    }
+   ],
+   "M": "12",
+   "T": 9,
+   "Sv": "2+",
+   "inv": "4+",
+   "W": 10,
+   "Ld": "7+",
+   "OC": 3,
+   "ranged": [
+    {
+     "n": "Heavy venom cannon",
+     "range": "36",
+     "A": "D3",
+     "BS": "2+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "BLAST"
+     ]
+    },
+    {
+     "n": "Stranglethorn cannon",
+     "range": "36",
+     "A": "D6+1",
+     "BS": "2+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "BLAST"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Monstrous bonesword and lash whip",
+     "A": "6",
+     "WS": "2+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "TWIN-LINKED"
+     ]
+    },
+    {
+     "n": "Monstrous scything talons",
+     "A": "4",
+     "WS": "2+",
+     "S": 7,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    },
+    {
+     "n": "Tyrant talons",
+     "A": "5",
+     "WS": "2+",
+     "S": 7,
+     "AP": -2,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Deep Strike",
+    "Will of the Hive Mind : stratagème à 12″ moins 1 PC, une fois par tour de bataille",
+    "Paroxysm (psychique) : début du Combat, unité ennemie visible à 12″ : D6, 1 = D3 blessures mortelles au PSYKER, 2+ = Attaques −1 pour ses armes",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "MONSTER",
+    "CHARACTER",
+    "PSYKER",
+    "FLY",
+    "GREAT DEVOURER",
+    "SYNAPSE",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": true
+  },
+  {
+   "id": "gargoyles",
+   "name": "Gargoyles",
+   "role": "Battleline",
+   "pts": [
+    {
+     "models": 10,
+     "pts": 75
+    },
+    {
+     "models": 20,
+     "pts": 150
+    }
+   ],
+   "M": "12",
+   "T": 3,
+   "Sv": "6+",
+   "inv": null,
+   "W": 1,
+   "Ld": "8+",
+   "OC": 2,
+   "ranged": [
+    {
+     "n": "Fleshborer",
+     "range": "18",
+     "A": "1",
+     "BS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "ASSAULT"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Blinding venom",
+     "A": "1",
+     "WS": "4+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Winged Swarm : après avoir tiré, si non engagée, mouvement Normal de 6″ (pas de charge ce tour)"
+   ],
+   "kw": [
+    "INFANTRY",
+    "BATTLELINE",
+    "FLY",
+    "GREAT DEVOURER",
+    "ENDLESS MULTITUDE",
+    "VANGUARD INVADER"
+   ],
+   "leader": {
+    "ledBy": [
+     "Winged Tyranid Prime"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "hormagaunts",
+   "name": "Hormagaunts",
+   "role": "Battleline",
+   "pts": [
+    {
+     "models": 10,
+     "pts": 70
+    },
+    {
+     "models": 20,
+     "pts": 120
+    }
+   ],
+   "M": "10",
+   "T": 3,
+   "Sv": "5+",
+   "inv": null,
+   "W": 1,
+   "Ld": "8+",
+   "OC": 2,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Hormagaunt talons",
+     "A": "3",
+     "WS": "4+",
+     "S": 3,
+     "AP": -1,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Bounding Leap : peut charger après une Advance"
+   ],
+   "kw": [
+    "INFANTRY",
+    "BATTLELINE",
+    "GREAT DEVOURER",
+    "ENDLESS MULTITUDE"
+   ],
+   "leader": {
+    "ledBy": [
+     "Tyranid Prime with Lash Whip"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "termagants",
+   "name": "Termagants",
+   "role": "Battleline",
+   "pts": [
+    {
+     "models": 10,
+     "pts": 55
+    },
+    {
+     "models": 20,
+     "pts": 110
+    }
+   ],
+   "M": "6",
+   "T": 3,
+   "Sv": "5+",
+   "inv": null,
+   "W": 1,
+   "Ld": "8+",
+   "OC": 2,
+   "ranged": [
+    {
+     "n": "Fleshborer",
+     "range": "18",
+     "A": "1",
+     "BS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "ASSAULT"
+     ]
+    },
+    {
+     "n": "Shardlauncher",
+     "range": "18",
+     "A": "D3",
+     "BS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "BLAST",
+      "HEAVY"
+     ]
+    },
+    {
+     "n": "Spike rifle",
+     "range": "24",
+     "A": "1",
+     "BS": "4+",
+     "S": 4,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "HEAVY"
+     ]
+    },
+    {
+     "n": "Strangleweb",
+     "range": "18",
+     "A": "D6",
+     "BS": "-",
+     "S": 2,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "ASSAULT",
+      "DEVASTATING WOUNDS",
+      "TORRENT"
+     ]
+    },
+    {
+     "n": "Termagant devourer",
+     "range": "18",
+     "A": "2",
+     "BS": "4+",
+     "S": 4,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Termagant spinefists",
+     "range": "12",
+     "A": "2",
+     "BS": "4+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "ASSAULT",
+      "PISTOL",
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Chitinous claws and teeth",
+     "A": "1",
+     "WS": "4+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Skulking Horrors : mouvement ennemi finissant à 8″ ou moins et hors contact : mouvement Normal de D6″"
+   ],
+   "options": "Fleshborer remplaçable par devourer ou spinefists ; par tranche de 10 : un shardlauncher, un spike rifle ou un strangleweb",
+   "kw": [
+    "INFANTRY",
+    "BATTLELINE",
+    "GREAT DEVOURER",
+    "ENDLESS MULTITUDE"
+   ],
+   "leader": {
+    "ledBy": [
+     "Tyranid Prime with Lash Whip"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "tyrannocyte",
+   "name": "Tyrannocyte",
+   "role": "Dedicated Transport",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 80,
+     "note": "1re-3e unité"
+    },
+    {
+     "models": 1,
+     "pts": 90,
+     "note": "4e unité et suivantes"
+    }
+   ],
+   "M": "8",
+   "T": 9,
+   "Sv": "3+",
+   "inv": null,
+   "W": 10,
+   "Ld": "8+",
+   "OC": 2,
+   "ranged": [
+    {
+     "n": "Tyrannocyte bio-weapons",
+     "range": "24",
+     "A": "5",
+     "BS": "4+",
+     "S": 5,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "melee": [
+    {
+     "n": "Flensing whips",
+     "A": "6",
+     "WS": "4+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Deep Strike",
+    "Aerial Seeding : commence en réserve, arrive aux tours 1-3, les passagers débarquent à plus de 8″ des ennemis",
+    "Transport : 20 INFANTRY TYRANIDS ou 1 MONSTER de W ≤ 12"
+   ],
+   "kw": [
+    "MONSTER",
+    "FLY",
+    "FRAME",
+    "TRANSPORT",
+    "DEDICATED TRANSPORT",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "mucolid_spores",
+   "name": "Mucolid Spores",
+   "role": "Beast",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 30
+    },
+    {
+     "models": 2,
+     "pts": 60
+    }
+   ],
+   "M": "4",
+   "T": 4,
+   "Sv": "7+",
+   "inv": null,
+   "W": 3,
+   "Ld": "8+",
+   "OC": 0,
+   "ranged": [],
+   "melee": [],
+   "abilities": [
+    "Bio-minefield : les ennemis ne peuvent pas commencer/finir une Advance à moins de 6″",
+    "Floating Death : à chaque fin de mouvement, chaque modèle à moins de 3″ d'un ennemi est détruit ; unité ennemie : D6 2-5 = D3 blessures mortelles, 6 = D6",
+    "Deep Strike"
+   ],
+   "kw": [
+    "BEAST",
+    "FLY",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "spore_mines",
+   "name": "Spore Mines",
+   "role": "Beast",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 55
+    },
+    {
+     "models": 6,
+     "pts": 110
+    }
+   ],
+   "M": "4",
+   "T": 1,
+   "Sv": "7+",
+   "inv": null,
+   "W": 1,
+   "Ld": "8+",
+   "OC": 0,
+   "ranged": [],
+   "melee": [],
+   "abilities": [
+    "Deep Strike",
+    "Bio-minefield : pas d'Advance ennemie à moins de 6″",
+    "Floating Death : à chaque fin de mouvement, chaque modèle à moins de 3″ d'un ennemi est détruit ; D6 : 2-5 = 1 blessure mortelle, 6 = D3"
+   ],
+   "kw": [
+    "BEAST",
+    "FLY",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "barbgaunts",
+   "name": "Barbgaunts",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 5,
+     "pts": 50
+    },
+    {
+     "models": 10,
+     "pts": 100
+    }
+   ],
+   "M": "6",
+   "T": 4,
+   "Sv": "4+",
+   "inv": null,
+   "W": 2,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [
+    {
+     "n": "Barblauncher",
+     "range": "24",
+     "A": "D6",
+     "BS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "BLAST",
+      "HEAVY"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Chitinous claws and teeth",
+     "A": "1",
+     "WS": "4+",
+     "S": 4,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Disruption Bombardment : un ennemi INFANTRY touché subit −2 Mouvement, −2 Advance et −2 Charge jusqu'à la fin de son prochain tour"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "biovores",
+   "name": "Biovores",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 60
+    },
+    {
+     "models": 2,
+     "pts": 100
+    },
+    {
+     "models": 3,
+     "pts": 140
+    }
+   ],
+   "M": "5",
+   "T": 6,
+   "Sv": "3+",
+   "inv": null,
+   "W": 5,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [
+    {
+     "n": "Spore Mine launcher",
+     "range": "48",
+     "A": "D3",
+     "BS": "4+",
+     "S": 6,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "BLAST",
+      "DEVASTATING WOUNDS",
+      "HEAVY",
+      "INDIRECT FIRE"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Chitin-barbed limbs",
+     "A": "2",
+     "WS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise 1",
+    "Seed Spore Mines : une fois par tour, au lieu de tirer, ajoute une unité SPORE MINES (1 modèle par Biovore) à 48″ et plus de 8″ des ennemis"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "genestealers",
+   "name": "Genestealers",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 5,
+     "pts": 75,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 10,
+     "pts": 140,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 5,
+     "pts": 85,
+     "note": "3e et suivantes"
+    },
+    {
+     "models": 10,
+     "pts": 150,
+     "note": "3e et suivantes"
+    }
+   ],
+   "M": "8",
+   "T": 4,
+   "Sv": "5+",
+   "inv": "5+",
+   "W": 2,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Genestealer claws and talons",
+     "A": "4",
+     "WS": "2+",
+     "S": 4,
+     "AP": -2,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Scouts 8″",
+    "Vanguard Predator : relance des touches de 1 ; relance des blessures de 1 si la cible est à portée d'un objectif"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": {
+    "ledBy": [
+     "Broodlord"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "hive_guard",
+   "name": "Hive Guard",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 80,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 6,
+     "pts": 160,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 3,
+     "pts": 90,
+     "note": "3e et suivantes"
+    },
+    {
+     "models": 6,
+     "pts": 170,
+     "note": "3e et suivantes"
+    }
+   ],
+   "M": "6",
+   "T": 7,
+   "Sv": "3+",
+   "inv": null,
+   "W": 4,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [
+    {
+     "n": "Impaler cannon",
+     "range": "36",
+     "A": "4",
+     "BS": "4+",
+     "S": 5,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "HEAVY",
+      "INDIRECT FIRE"
+     ]
+    },
+    {
+     "n": "Shockcannon",
+     "range": "24",
+     "A": "2",
+     "BS": "3+",
+     "S": 7,
+     "AP": -1,
+     "D": "3",
+     "kw": [
+      "ANTI-VEHICLE 2+"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Chitinous claws and teeth",
+     "A": "3",
+     "WS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Defensive Stance : contre Fire Overwatch, touché sur 5+ non modifié (4+ sur un objectif contrôlé)"
+   ],
+   "options": "Tout nombre de modèles peut remplacer son shockcannon par un impaler cannon",
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "lictor",
+   "name": "Lictor",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 60
+    }
+   ],
+   "M": "8",
+   "T": 6,
+   "Sv": "4+",
+   "inv": null,
+   "W": 6,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Lictor claws and talons",
+     "A": "6",
+     "WS": "2+",
+     "S": 7,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "PRECISION"
+     ]
+    }
+   ],
+   "abilities": [
+    "Fights First",
+    "Infiltrators",
+    "Lone Operative",
+    "Stealth",
+    "Feeder Tendrils : détruire un CHARACTER = +1 PC",
+    "Pheromone Trail : une fois par tour de bataille, Rapid Ingress pour 0 PC"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "neurogaunts",
+   "name": "Neurogaunts",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 11,
+     "pts": 45
+    },
+    {
+     "models": 21,
+     "pts": 90
+    },
+    {
+     "models": 22,
+     "pts": 90
+    }
+   ],
+   "M": "6",
+   "T": 3,
+   "Sv": "6+",
+   "inv": null,
+   "W": 1,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Chitinous claws and teeth",
+     "A": "1",
+     "WS": "4+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Neurocytes : en portée synaptique d'une unité TYRANIDS (hors NEUROGAUNTS), l'unité a SYNAPSE"
+   ],
+   "comp": "1-2 Neurogaunt Nodebeasts + 10-20 Neurogaunts",
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "ENDLESS MULTITUDE"
+   ],
+   "leader": {
+    "ledBy": [
+     "Neurotyrant"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "neurolictor",
+   "name": "Neurolictor",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 80
+    },
+    {
+     "models": 1,
+     "pts": 90
+    }
+   ],
+   "M": "8",
+   "T": 5,
+   "Sv": "4+",
+   "inv": "4+",
+   "W": 7,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Piercing claws and talons",
+     "A": "6",
+     "WS": "2+",
+     "S": 6,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "PRECISION"
+     ]
+    }
+   ],
+   "abilities": [
+    "Feeder Tendrils : détruire un CHARACTER = +1 PC",
+    "Neural Disruption : en Commandement, une unité ennemie à 12″ fait un test de Battle-shock",
+    "Psychological Saboteur (aura 12″) : −1 à la touche des unités ennemies Battle-shocked ; +1 à la blessure pour vos TYRANIDS contre elles",
+    "Infiltrators",
+    "Lone Operative",
+    "Stealth",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER",
+    "SYNAPSE"
+   ],
+   "leader": null,
+   "synapse_source": true
+  },
+  {
+   "id": "pyrovores",
+   "name": "Pyrovores",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 40,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 2,
+     "pts": 70,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 3,
+     "pts": 100,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 1,
+     "pts": 50,
+     "note": "3e et suivantes"
+    },
+    {
+     "models": 2,
+     "pts": 80,
+     "note": "3e et suivantes"
+    },
+    {
+     "models": 3,
+     "pts": 110,
+     "note": "3e et suivantes"
+    }
+   ],
+   "M": "5",
+   "T": 6,
+   "Sv": "3+",
+   "inv": null,
+   "W": 5,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [
+    {
+     "n": "Flamespurt",
+     "range": "12",
+     "A": "D6+1",
+     "BS": "-",
+     "S": 6,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "IGNORES COVER",
+      "TORRENT",
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Chitin-barbed limbs",
+     "A": "2",
+     "WS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise 1",
+    "Burning Spray : une unité ennemie touchée perd le bénéfice du couvert jusqu'à la fin de la phase"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "HARVESTER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "raveners",
+   "name": "Raveners",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 5,
+     "pts": 125,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 5,
+     "pts": 135,
+     "note": "3e et suivantes"
+    }
+   ],
+   "M": "10",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 3,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Ravener claws and talons",
+     "A": "3",
+     "WS": "3+",
+     "S": 5,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Death From Below : en fin de tour adverse, si hors engagement, peut retourner en Strategic Reserves"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER",
+    "BURROWERS"
+   ],
+   "leader": {
+    "ledBy": [
+     "Hyperadapted Raveners"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "warriors_melee",
+   "name": "Tyranid Warriors with Melee Bio-weapons",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 75
+    },
+    {
+     "models": 6,
+     "pts": 150
+    }
+   ],
+   "M": "6",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 3,
+   "Ld": "7+",
+   "OC": 2,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Tyranid Warrior claws and talons",
+     "A": "6",
+     "WS": "3+",
+     "S": 5,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "abilities": [
+    "Adaptive Instincts : une fois par tour et par unité, +1 Force en mêlée ou +1 Endurance",
+    "Shadow in the Warp"
+   ],
+   "comp": "1 Prime + 2-5 Warriors",
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": {
+    "ledBy": [
+     "Tyranid Prime with Lash Whip",
+     "Winged Tyranid Prime"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "warriors_ranged",
+   "name": "Tyranid Warriors with Ranged Bio-weapons",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 60
+    },
+    {
+     "models": 6,
+     "pts": 120
+    }
+   ],
+   "M": "6",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 3,
+   "Ld": "7+",
+   "OC": 2,
+   "ranged": [
+    {
+     "n": "Barbed strangler",
+     "range": "36",
+     "A": "D6+1",
+     "BS": "4+",
+     "S": 6,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "BLAST"
+     ]
+    },
+    {
+     "n": "Deathspitter",
+     "range": "24",
+     "A": "3",
+     "BS": "4+",
+     "S": 5,
+     "AP": -1,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Devourer",
+     "range": "18",
+     "A": "5",
+     "BS": "4+",
+     "S": 4,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Spinefists",
+     "range": "12",
+     "A": "2",
+     "BS": "4+",
+     "S": 4,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "ASSAULT",
+      "PISTOL",
+      "TWIN-LINKED"
+     ]
+    },
+    {
+     "n": "Venom cannon",
+     "range": "36",
+     "A": "D3",
+     "BS": "4+",
+     "S": 9,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "BLAST"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Tyranid Warrior claws and talons",
+     "A": "5",
+     "WS": "3+",
+     "S": 5,
+     "AP": -1,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Adaptable Predators : peut tirer et charger après un Fall Back",
+    "Shadow in the Warp"
+   ],
+   "options": "Devourer remplaçable par deathspitter ou spinefists ; par tranche de 3 : barbed strangler ou venom cannon",
+   "comp": "1 Prime + 2-5 Warriors",
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": {
+    "ledBy": [
+     "Tyranid Prime with Lash Whip",
+     "Winged Tyranid Prime"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "tyrant_guard",
+   "name": "Tyrant Guard",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 80
+    },
+    {
+     "models": 6,
+     "pts": 170
+    }
+   ],
+   "M": "6",
+   "T": 8,
+   "Sv": "3+",
+   "inv": null,
+   "W": 4,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Scything talons and rending claws",
+     "A": "5",
+     "WS": "3+",
+     "S": 5,
+     "AP": -1,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Bone cleaver, lash whip and rending claws",
+     "A": "3",
+     "WS": "3+",
+     "S": 5,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    },
+    {
+     "n": "Crushing claws and rending claws",
+     "A": "2",
+     "WS": "4+",
+     "S": 8,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "abilities": [
+    "Guardian Organism : le CHARACTER qui dirige l'unité a Feel No Pain 5+"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER"
+   ],
+   "leader": {
+    "ledBy": [
+     "Hive Tyrant",
+     "Neurotyrant",
+     "The Swarmlord"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "venomthropes",
+   "name": "Venomthropes",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 55
+    },
+    {
+     "models": 6,
+     "pts": 110
+    }
+   ],
+   "M": "6",
+   "T": 5,
+   "Sv": "4+",
+   "inv": null,
+   "W": 3,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Toxic lashes",
+     "A": "5",
+     "WS": "3+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "ANTI-INFANTRY 2+"
+     ]
+    }
+   ],
+   "abilities": [
+    "Stealth",
+    "Foul Spores (aura 6″) : les unités TYRANIDS amies ont Stealth"
+   ],
+   "kw": [
+    "INFANTRY",
+    "FLY",
+    "GREAT DEVOURER"
+   ],
+   "leader": {
+    "ledBy": [
+     "Malanthrope"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "von_ryans_leapers",
+   "name": "Von Ryan's Leapers",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 55
+    },
+    {
+     "models": 6,
+     "pts": 105
+    }
+   ],
+   "M": "10",
+   "T": 5,
+   "Sv": "4+",
+   "inv": "6+",
+   "W": 3,
+   "Ld": "8+",
+   "OC": 1,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Leaper's talons",
+     "A": "6",
+     "WS": "3+",
+     "S": 5,
+     "AP": -1,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Fights First",
+    "Infiltrators",
+    "Stealth",
+    "Pouncing Leap : cible de Heroic Intervention pour 1 PC de moins, sans bloquer les autres usages"
+   ],
+   "kw": [
+    "INFANTRY",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "zoanthropes",
+   "name": "Zoanthropes",
+   "role": "Infantry",
+   "pts": [
+    {
+     "models": 3,
+     "pts": 90
+    },
+    {
+     "models": 6,
+     "pts": 190
+    }
+   ],
+   "M": "5",
+   "T": 5,
+   "Sv": "5+",
+   "inv": "4+",
+   "W": 3,
+   "Ld": "7+",
+   "OC": 1,
+   "ranged": [
+    {
+     "n": "Warp Blast — witchfire",
+     "range": "24",
+     "A": "D3",
+     "BS": "3+",
+     "S": 7,
+     "AP": -2,
+     "D": "D3",
+     "kw": [
+      "BLAST",
+      "PSYCHIC"
+     ]
+    },
+    {
+     "n": "Warp Blast — focused witchfire",
+     "range": "24",
+     "A": "1",
+     "BS": "3+",
+     "S": 12,
+     "AP": -3,
+     "D": "D6+1",
+     "kw": [
+      "LETHAL HITS",
+      "PSYCHIC"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Chitinous claws and teeth",
+     "A": "2",
+     "WS": "5+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Spirit Leech (aura psychique 6″) : si l'unité contient un Neurothrope, un test de Battle-shock raté ennemi inflige D3 blessures mortelles et soigne D3 PV",
+    "Warp Field (aura psychique 6″) : TYRANIDS amis avec invulnérable 6+"
+   ],
+   "comp": "1 Neurothrope + 2-5 Zoanthropes",
+   "kw": [
+    "INFANTRY",
+    "PSYKER",
+    "FLY",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": {
+    "ledBy": [
+     "Neurotyrant"
+    ]
+   },
+   "synapse_source": true
+  },
+  {
+   "id": "carnifexes",
+   "name": "Carnifexes",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 90
+    },
+    {
+     "models": 2,
+     "pts": 180
+    }
+   ],
+   "M": "8",
+   "T": 9,
+   "Sv": "2+",
+   "inv": null,
+   "W": 8,
+   "Ld": "8+",
+   "OC": 3,
+   "ranged": [
+    {
+     "n": "Bio-plasma",
+     "range": "12",
+     "A": "D3",
+     "BS": "4+",
+     "S": 7,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "ASSAULT",
+      "BLAST"
+     ]
+    },
+    {
+     "n": "Deathspitters with slimer maggots",
+     "range": "24",
+     "A": "6",
+     "BS": "4+",
+     "S": 7,
+     "AP": -2,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Devourers with brainleech worms",
+     "range": "18",
+     "A": "12",
+     "BS": "4+",
+     "S": 6,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Heavy venom cannon",
+     "range": "36",
+     "A": "D3",
+     "BS": "4+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "BLAST"
+     ]
+    },
+    {
+     "n": "Spine banks",
+     "range": "6",
+     "A": "5",
+     "BS": "4+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "ASSAULT"
+     ]
+    },
+    {
+     "n": "Stranglethorn cannon",
+     "range": "36",
+     "A": "D6+1",
+     "BS": "4+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "BLAST"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Carnifex crushing claws",
+     "A": "4",
+     "WS": "4+",
+     "S": 12,
+     "AP": -3,
+     "D": "D6+1",
+     "kw": []
+    },
+    {
+     "n": "Carnifex extra scything talons",
+     "A": "2",
+     "WS": "4+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    },
+    {
+     "n": "Carnifex scything talons",
+     "A": "6",
+     "WS": "4+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": []
+    },
+    {
+     "n": "Chitinous claws and teeth",
+     "A": "4",
+     "WS": "4+",
+     "S": 6,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise 1",
+    "Blistering Assault : pendant le Tir adverse, après qu'une unité ennemie a tiré et qu'un modèle a perdu un PV, mouvement surge de D6+2″ (0″ autorisé)"
+   ],
+   "options": "Extra scything talons et scything talons remplaçables par deathspitters, devourers, crushing claws ou (extra) heavy venom cannon / stranglethorn cannon ; un bio-plasma et un spine banks par modèle",
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER"
+   ],
+   "leader": {
+    "ledBy": [
+     "Old One Eye"
+    ]
+   },
+   "synapse_source": false
+  },
+  {
+   "id": "exocrine",
+   "name": "Exocrine",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 135,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 1,
+     "pts": 145,
+     "note": "3e et suivantes"
+    }
+   ],
+   "M": "8",
+   "T": 10,
+   "Sv": "3+",
+   "inv": null,
+   "W": 14,
+   "Ld": "8+",
+   "OC": 4,
+   "ranged": [
+    {
+     "n": "Bio-plasmic cannon",
+     "range": "36",
+     "A": "D6+3",
+     "BS": "3+",
+     "S": 9,
+     "AP": -3,
+     "D": "3",
+     "kw": [
+      "BLAST",
+      "HEAVY"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Powerful limbs",
+     "A": "3",
+     "WS": "3+",
+     "S": 7,
+     "AP": 0,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Symbiotic Targeting : après avoir tiré, vos TYRANIDS relancent les touches de 1 contre une unité touchée",
+    "Damaged (1-5 PV) : −1 à la touche"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "harpy",
+   "name": "Harpy",
+   "role": "Monster (Aircraft)",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 185
+    }
+   ],
+   "M": "-",
+   "T": 9,
+   "Sv": "3+",
+   "inv": null,
+   "W": 12,
+   "Ld": "8+",
+   "OC": "-",
+   "ranged": [
+    {
+     "n": "Stinger salvoes",
+     "range": "24",
+     "A": "8",
+     "BS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Twin heavy venom cannon",
+     "range": "36",
+     "A": "D3",
+     "BS": "3+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "BLAST",
+      "TWIN-LINKED"
+     ]
+    },
+    {
+     "n": "Twin stranglethorn cannon",
+     "range": "36",
+     "A": "D6+1",
+     "BS": "2+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "BLAST",
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Scything wings",
+     "A": "4",
+     "WS": "4+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Spore Mine Cysts : fin du Combat adverse, soit 6D6 (chaque 3+ = 1 blessure mortelle) sur une unité ennemie visible à 24″, soit ajoute D3 Spore Mines",
+    "Damaged (1-4 PV) : −1 à la touche"
+   ],
+   "options": "Twin stranglethorn cannon remplaçable par twin heavy venom cannon",
+   "kw": [
+    "MONSTER",
+    "FLY",
+    "AIRCRAFT",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "haruspex",
+   "name": "Haruspex",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 125
+    },
+    {
+     "models": 1,
+     "pts": 135
+    }
+   ],
+   "M": "8",
+   "T": 11,
+   "Sv": "3+",
+   "inv": null,
+   "W": 14,
+   "Ld": "8+",
+   "OC": 4,
+   "ranged": [
+    {
+     "n": "Grasping tongue",
+     "range": "12",
+     "A": "1",
+     "BS": "3+",
+     "S": 6,
+     "AP": -2,
+     "D": "D6+1",
+     "kw": [
+      "PRECISION"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Ravenous maw",
+     "A": "14",
+     "WS": "3+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    },
+    {
+     "n": "Shovelling claws",
+     "A": "4",
+     "WS": "3+",
+     "S": 14,
+     "AP": -2,
+     "D": "D6+1",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Grisly Spectacle : après avoir combattu et détruit des unités ennemies, chaque unité ennemie à 6″ fait un test de Battle-shock",
+    "Damaged (1-5 PV) : −1 à la touche"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER",
+    "HARVESTER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "hive_crone",
+   "name": "Hive Crone",
+   "role": "Monster (Aircraft)",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 170
+    }
+   ],
+   "M": "-",
+   "T": 9,
+   "Sv": "3+",
+   "inv": null,
+   "W": 12,
+   "Ld": "8+",
+   "OC": "-",
+   "ranged": [
+    {
+     "n": "Drool cannon",
+     "range": "12",
+     "A": "2D6",
+     "BS": "-",
+     "S": 6,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "TORRENT"
+     ]
+    },
+    {
+     "n": "Stinger salvoes",
+     "range": "24",
+     "A": "8",
+     "BS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    },
+    {
+     "n": "Tentaclids",
+     "range": "36",
+     "A": "4",
+     "BS": "3+",
+     "S": 7,
+     "AP": 0,
+     "D": "2",
+     "kw": [
+      "ANTI-VEHICLE 4+",
+      "DEVASTATING WOUNDS"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Scything wings",
+     "A": "4",
+     "WS": "4+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    },
+    {
+     "n": "Thorax spur",
+     "A": "1",
+     "WS": "3+",
+     "S": 10,
+     "AP": -3,
+     "D": "D6",
+     "kw": [
+      "ANTI-FLY 2+",
+      "EXTRA ATTACKS"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Airborne Predator : +1 à la touche contre une unité qui vole",
+    "Damaged (1-4 PV) : −1 à la touche"
+   ],
+   "kw": [
+    "MONSTER",
+    "FLY",
+    "AIRCRAFT",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "maleceptor",
+   "name": "Maleceptor",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 180,
+     "note": "1re-2e unité (confirmé par la liste du joueur)"
+    },
+    {
+     "models": 1,
+     "pts": 190,
+     "note": "3e unité et suivantes (probable)"
+    }
+   ],
+   "M": "8",
+   "T": 11,
+   "Sv": "3+",
+   "inv": "4+",
+   "W": 14,
+   "Ld": "7+",
+   "OC": 4,
+   "ranged": [
+    {
+     "n": "Psychic overload",
+     "range": "18",
+     "A": "D6+3",
+     "BS": "3+",
+     "S": 10,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "BLAST",
+      "PSYCHIC"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Massive scything talons — strike",
+     "A": "3",
+     "WS": "3+",
+     "S": 9,
+     "AP": -2,
+     "D": "D6+1",
+     "kw": []
+    },
+    {
+     "n": "Massive scything talons — sweep",
+     "A": "6",
+     "WS": "3+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Encephalic Diffusion (aura psychique 6″) : unités ennemies −1 à la touche, et −1 à la blessure si sous la moitié de l'effectif",
+    "Damaged (1-5 PV) : −1 à la touche",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "MONSTER",
+    "PSYKER",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": null,
+   "synapse_source": true
+  },
+  {
+   "id": "mawloc",
+   "name": "Mawloc",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 130
+    }
+   ],
+   "M": "10",
+   "T": 10,
+   "Sv": "3+",
+   "inv": null,
+   "W": 14,
+   "Ld": "8+",
+   "OC": 4,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Distensible jaw",
+     "A": "1",
+     "WS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "3",
+     "kw": [
+      "ANTI-INFANTRY 4+",
+      "DEVASTATING WOUNDS",
+      "EXTRA ATTACKS"
+     ]
+    },
+    {
+     "n": "Mawloc scything talons",
+     "A": "16",
+     "WS": "3+",
+     "S": 8,
+     "AP": -2,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Terror From The Deep : à chaque arrivée par Deep Strike, pour chaque unité ennemie à 12″ : D6, 2-4 = D3 blessures mortelles, 5+ = 3 blessures mortelles et Battle-shock",
+    "Damaged (1-5 PV) : −1 à la touche"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER",
+    "BURROWER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "norn_assimilator",
+   "name": "Norn Assimilator",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 250
+    },
+    {
+     "models": 1,
+     "pts": 270
+    }
+   ],
+   "M": "10",
+   "T": 11,
+   "Sv": "2+",
+   "inv": null,
+   "W": 16,
+   "Ld": "7+",
+   "OC": 5,
+   "ranged": [
+    {
+     "n": "Toxinjector harpoon",
+     "range": "12",
+     "A": "2",
+     "BS": "2+",
+     "S": 12,
+     "AP": -3,
+     "D": "D6+1",
+     "kw": [
+      "HARPOONED"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Monstrous scything talons",
+     "A": "6",
+     "WS": "2+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": []
+    },
+    {
+     "n": "Toxinjector harpoon",
+     "A": "4",
+     "WS": "2+",
+     "S": 12,
+     "AP": -3,
+     "D": "D6+1",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D6",
+    "Singular Purpose : au 1er round, choisir une unité ennemie (relance touche et blessure) ou un objectif (FNP 5+ et OC 15)",
+    "Harpoon Barbs : une fois par tour, quand une unité ennemie engagée recule, D6 2+ = D6 blessures mortelles",
+    "Harpooned : +2 aux jets de charge vers un MONSTER/VEHICLE touché à 12″",
+    "Damaged (1-5 PV) : −1 à la touche",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER",
+    "SYNAPSE",
+    "HARVESTER"
+   ],
+   "leader": null,
+   "synapse_source": true
+  },
+  {
+   "id": "norn_emissary",
+   "name": "Norn Emissary",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 250
+    },
+    {
+     "models": 1,
+     "pts": 270
+    }
+   ],
+   "M": "10",
+   "T": 11,
+   "Sv": "2+",
+   "inv": "4+",
+   "W": 16,
+   "Ld": "7+",
+   "OC": 5,
+   "ranged": [
+    {
+     "n": "Psychic Tendril — neuroparasite",
+     "range": "18",
+     "A": "2",
+     "BS": "2+",
+     "S": 8,
+     "AP": -2,
+     "D": "D3",
+     "kw": [
+      "PRECISION",
+      "PSYCHIC"
+     ]
+    },
+    {
+     "n": "Psychic Tendril — neuroblast",
+     "range": "18",
+     "A": "2D6",
+     "BS": "2+",
+     "S": 6,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "BLAST",
+      "PSYCHIC"
+     ]
+    },
+    {
+     "n": "Psychic Tendril — neurolance",
+     "range": "18",
+     "A": "2",
+     "BS": "2+",
+     "S": 12,
+     "AP": -3,
+     "D": "D6",
+     "kw": [
+      "MELTA 2",
+      "PSYCHIC"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Monstrous scything talons",
+     "A": "6",
+     "WS": "2+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": []
+    },
+    {
+     "n": "Monstrous rending claws",
+     "A": "4",
+     "WS": "2+",
+     "S": 7,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D6",
+    "Singular Purpose (idem Assimilator)",
+    "Unnatural Resilience : FNP 4+ contre les blessures mortelles",
+    "Damaged (1-5 PV) : −1 à la touche",
+    "Shadow in the Warp"
+   ],
+   "kw": [
+    "MONSTER",
+    "PSYKER",
+    "GREAT DEVOURER",
+    "SYNAPSE"
+   ],
+   "leader": null,
+   "synapse_source": true
+  },
+  {
+   "id": "psychophage",
+   "name": "Psychophage",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 110
+    }
+   ],
+   "M": "12",
+   "T": 9,
+   "Sv": "3+",
+   "inv": null,
+   "W": 10,
+   "Ld": "8+",
+   "OC": 3,
+   "ranged": [
+    {
+     "n": "Psychoclastic torrent",
+     "range": "12",
+     "A": "D6",
+     "BS": "-",
+     "S": 6,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "IGNORES COVER",
+      "TORRENT"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Talons and betentacled maw",
+     "A": "6",
+     "WS": "3+",
+     "S": 6,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "ANTI-PSYKER 4+",
+      "DEVASTATING WOUNDS"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise 1",
+    "Feel No Pain 5+",
+    "Bio-stimulus : après son tir, une unité ennemie touchée subit +1 PA des attaques de mêlée TYRANIDS (une fois par tour)",
+    "Feeding Frenzy : en mêlée contre une unité sous son effectif de départ, +1 à la touche ; +1 à la blessure si sous la moitié"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER",
+    "HARVESTER",
+    "SMOKE"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "screamer_killer",
+   "name": "Screamer-killer",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 125,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 1,
+     "pts": 135,
+     "note": "3e et suivantes"
+    }
+   ],
+   "M": "8",
+   "T": 9,
+   "Sv": "2+",
+   "inv": null,
+   "W": 10,
+   "Ld": "8+",
+   "OC": 3,
+   "ranged": [
+    {
+     "n": "Bio-plasmic scream",
+     "range": "18",
+     "A": "D6+3",
+     "BS": "4+",
+     "S": 8,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "ASSAULT",
+      "BLAST"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Screamer-killer talons",
+     "A": "10",
+     "WS": "3+",
+     "S": 10,
+     "AP": -2,
+     "D": "3",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise 1",
+    "Death Scream : après avoir tiré, une unité touchée fait un test de Battle-shock avec −1"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "sporocyst",
+   "name": "Sporocyst",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 145
+    }
+   ],
+   "M": "-",
+   "T": 10,
+   "Sv": "3+",
+   "inv": null,
+   "W": 10,
+   "Ld": "8+",
+   "OC": 0,
+   "ranged": [
+    {
+     "n": "Sporocyst bio-weapons",
+     "range": "24",
+     "A": "10",
+     "BS": "4+",
+     "S": 5,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "melee": [
+    {
+     "n": "Flensing whips",
+     "A": "6",
+     "WS": "4+",
+     "S": 7,
+     "AP": -1,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Seed Mucolids : une fois par tour, au lieu de tirer, ajoute des Mucolid Spores à 18″ et plus de 8″ des ennemis",
+    "Hive Defences : Fire Overwatch pour 0 PC, une fois par tour"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "toxicrene",
+   "name": "Toxicrene",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 120
+    }
+   ],
+   "M": "8",
+   "T": 11,
+   "Sv": "3+",
+   "inv": null,
+   "W": 14,
+   "Ld": "8+",
+   "OC": 4,
+   "ranged": [
+    {
+     "n": "Massive toxic lashes",
+     "range": "9",
+     "A": "2D6",
+     "BS": "3+",
+     "S": 6,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "ANTI-INFANTRY 2+"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Massive toxic lashes",
+     "A": "12",
+     "WS": "3+",
+     "S": 6,
+     "AP": -1,
+     "D": "2",
+     "kw": [
+      "ANTI-INFANTRY 2+"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D3",
+    "Grasping Tendrils : une unité ennemie engagée (hors TITANIC) qui recule reste immobile sur 3+",
+    "Hypertoxic Miasma (aura 6″) : fin de votre Mouvement, par unité ennemie, D6 : 2-3 = 1 blessure mortelle, 4-5 = D3, 6 = D6"
+   ],
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER",
+    "FRAME"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "trygon",
+   "name": "Trygon",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 135
+    }
+   ],
+   "M": "10",
+   "T": 10,
+   "Sv": "3+",
+   "inv": null,
+   "W": 14,
+   "Ld": "8+",
+   "OC": 4,
+   "ranged": [
+    {
+     "n": "Bio-electric pulse",
+     "range": "12",
+     "A": "6",
+     "BS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "SUSTAINED HITS 2"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Trygon scything talons",
+     "A": "12",
+     "WS": "3+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Subterranean Tunnels : arrive à plus de 6″ des ennemis mais ne charge pas ce tour",
+    "Damaged (1-5 PV) : −1 à la touche"
+   ],
+   "enhancement": "Trygon Prime (20 pts)",
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER",
+    "VANGUARD INVADER",
+    "BURROWER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "tyrannofex",
+   "name": "Tyrannofex",
+   "role": "Monster",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 170,
+     "note": "1re-2e unité"
+    },
+    {
+     "models": 1,
+     "pts": 180,
+     "note": "3e et suivantes"
+    }
+   ],
+   "M": "9",
+   "T": 12,
+   "Sv": "2+",
+   "inv": null,
+   "W": 16,
+   "Ld": "8+",
+   "OC": 5,
+   "ranged": [
+    {
+     "n": "Acid spray",
+     "range": "18",
+     "A": "D6+6",
+     "BS": "-",
+     "S": 6,
+     "AP": -2,
+     "D": "2",
+     "kw": [
+      "TORRENT"
+     ]
+    },
+    {
+     "n": "Fleshborer hive",
+     "range": "24",
+     "A": "20",
+     "BS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "HEAVY",
+      "SUSTAINED HITS 1",
+      "TWIN-LINKED"
+     ]
+    },
+    {
+     "n": "Rupture cannon",
+     "range": "48",
+     "A": "2",
+     "BS": "3+",
+     "S": 18,
+     "AP": -4,
+     "D": "D6+6",
+     "kw": [
+      "HEAVY"
+     ]
+    },
+    {
+     "n": "Stinger salvoes",
+     "range": "24",
+     "A": "8",
+     "BS": "3+",
+     "S": 5,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "melee": [
+    {
+     "n": "Powerful limbs",
+     "A": "4",
+     "WS": "3+",
+     "S": 8,
+     "AP": 0,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D6",
+    "Resilient Organism : une fois par bataille, quand une attaque lui est allouée, ses Dégâts sont ramenés à 0",
+    "Damaged (1-5 PV) : −1 à la touche"
+   ],
+   "options": "Fleshborer hive remplaçable par acid spray (+10 pts) ou rupture cannon (+20 pts)",
+   "kw": [
+    "MONSTER",
+    "GREAT DEVOURER",
+    "FRAME"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "harridan",
+   "name": "Harridan",
+   "role": "Titanic Monster (Forge World)",
+   "forgeworld": true,
+   "pts": [
+    {
+     "models": 1,
+     "pts": 610,
+     "note": "1re unité"
+    },
+    {
+     "models": 1,
+     "pts": 660,
+     "note": "2e et suivantes"
+    }
+   ],
+   "M": "14",
+   "T": 10,
+   "Sv": "3+",
+   "inv": null,
+   "W": 30,
+   "Ld": "8+",
+   "OC": 0,
+   "ranged": [
+    {
+     "n": "Dire bio-cannon",
+     "range": "48",
+     "A": "D6+6",
+     "BS": "3+",
+     "S": 10,
+     "AP": -3,
+     "D": "3",
+     "kw": [
+      "BLAST"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Gargantuan scything talons",
+     "A": "6",
+     "WS": "3+",
+     "S": 14,
+     "AP": -2,
+     "D": "D6",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise 2D6",
+    "Hover",
+    "Frenzied Metabolism : +1 à la blessure au tir, puis D6 : 2+ = D3 blessures mortelles au Harridan",
+    "Damaged (1-10 PV) : −1 à la touche",
+    "Transport : 20 Gargoyles et 1 Winged Tyranid Prime"
+   ],
+   "note": "2 dire bio-cannons",
+   "kw": [
+    "MONSTER",
+    "TITANIC",
+    "FLY",
+    "TRANSPORT",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "hierophant",
+   "name": "Hierophant",
+   "role": "Titanic Monster (Forge World)",
+   "forgeworld": true,
+   "pts": [
+    {
+     "models": 1,
+     "pts": 810
+    },
+    {
+     "models": 1,
+     "pts": 910
+    }
+   ],
+   "M": "12",
+   "T": 14,
+   "Sv": "2+",
+   "inv": "5+",
+   "W": 30,
+   "Ld": "8+",
+   "OC": 12,
+   "ranged": [
+    {
+     "n": "Bio-plasma torrent",
+     "range": "12",
+     "A": "3D6",
+     "BS": "-",
+     "S": 7,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "ASSAULT",
+      "TORRENT"
+     ]
+    },
+    {
+     "n": "Dire bio-cannon",
+     "range": "48",
+     "A": "D6+6",
+     "BS": "3+",
+     "S": 10,
+     "AP": -3,
+     "D": "3",
+     "kw": [
+      "BLAST"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Lashwhip pods",
+     "A": "10",
+     "WS": "3+",
+     "S": 5,
+     "AP": -1,
+     "D": "1",
+     "kw": [
+      "EXTRA ATTACKS"
+     ]
+    },
+    {
+     "n": "Titanic scything talons",
+     "A": "8",
+     "WS": "3+",
+     "S": 20,
+     "AP": -2,
+     "D": "D6+1",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise 2D6",
+    "Apex-beast : +1 à la touche contre une unité Battle-shocked",
+    "Stalking Forward : traverse modèles (hors TITANIC) et terrains ≤ 4″",
+    "Transport : 20 TYRANIDS INFANTRY",
+    "Damaged (1-10 PV) : OC −6 et −1 à la touche"
+   ],
+   "kw": [
+    "MONSTER",
+    "TITANIC",
+    "TOWERING",
+    "FRAME",
+    "TRANSPORT",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "barbed_hierodule",
+   "name": "Barbed Hierodule",
+   "role": "Monster (Warhammer Legends)",
+   "legends": true,
+   "pts": [
+    {
+     "models": 1,
+     "pts": 340
+    }
+   ],
+   "M": "8",
+   "T": 12,
+   "Sv": "2+",
+   "inv": null,
+   "W": 18,
+   "Ld": "8+",
+   "OC": 5,
+   "ranged": [
+    {
+     "n": "Bio-cannon blast",
+     "range": "48",
+     "A": "D6+3",
+     "BS": "3+",
+     "S": 9,
+     "AP": -2,
+     "D": "2",
+     "kw": []
+    }
+   ],
+   "melee": [
+    {
+     "n": "Hierodule scything talons",
+     "A": "8",
+     "WS": "3+",
+     "S": 14,
+     "AP": -2,
+     "D": "D3+3",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D6",
+    "Overgrown Barbs : après son tir, une unité ennemie touchée (hors TITANIC) est supprimée : −1 à la touche jusqu'au prochain tour",
+    "Damaged (1-6 PV) : −1 à la touche"
+   ],
+   "note": "2 bio-cannons",
+   "kw": [
+    "MONSTER",
+    "FRAME",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "dimachaeron",
+   "name": "Dimachaeron",
+   "role": "Monster (Warhammer Legends)",
+   "legends": true,
+   "pts": [
+    {
+     "models": 1,
+     "pts": 200
+    }
+   ],
+   "M": "12",
+   "T": 10,
+   "Sv": "3+",
+   "inv": "5+",
+   "W": 16,
+   "Ld": "7+",
+   "OC": 5,
+   "ranged": [],
+   "melee": [
+    {
+     "n": "Massive scything sickle-talons",
+     "A": "10",
+     "WS": "3+",
+     "S": 9,
+     "AP": -2,
+     "D": "3",
+     "kw": [
+      "TWIN-LINKED"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D6",
+    "Digestion Spine : après le Combat, si des modèles ennemis (hors VEHICLE) sont détruits, regagne jusqu'à D3 PV",
+    "Damaged (1-5 PV) : −1 à la touche"
+   ],
+   "kw": [
+    "MONSTER",
+    "FRAME",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "scythed_hierodule",
+   "name": "Scythed Hierodule",
+   "role": "Monster (Warhammer Legends)",
+   "legends": true,
+   "pts": [
+    {
+     "models": 1,
+     "pts": 330
+    }
+   ],
+   "M": "12",
+   "T": 12,
+   "Sv": "2+",
+   "inv": null,
+   "W": 18,
+   "Ld": "8+",
+   "OC": 5,
+   "ranged": [
+    {
+     "n": "Bio-acid spray",
+     "range": "18",
+     "A": "3D6",
+     "BS": "-",
+     "S": 6,
+     "AP": -2,
+     "D": "1",
+     "kw": [
+      "TORRENT"
+     ]
+    }
+   ],
+   "melee": [
+    {
+     "n": "Hierodule scything talons",
+     "A": "10",
+     "WS": "3+",
+     "S": 14,
+     "AP": -2,
+     "D": "D3+3",
+     "kw": []
+    }
+   ],
+   "abilities": [
+    "Deadly Demise D6",
+    "Irresistible Force : peut charger après un Fall Back",
+    "Damaged (1-6 PV) : −1 à la touche"
+   ],
+   "kw": [
+    "MONSTER",
+    "FRAME",
+    "GREAT DEVOURER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "ripper_swarms",
+   "name": "Ripper Swarms",
+   "role": "Swarm",
+   "pts": [
+    {
+     "models": 1,
+     "pts": 30
+    },
+    {
+     "models": 2,
+     "pts": 40
+    },
+    {
+     "models": 3,
+     "pts": 50
+    }
+   ],
+   "M": "6",
+   "T": 2,
+   "Sv": "6+",
+   "inv": null,
+   "W": 4,
+   "Ld": "8+",
+   "OC": 0,
+   "ranged": [
+    {
+     "n": "Spinemaws pistol",
+     "range": "6",
+     "A": "4",
+     "BS": "5+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "melee": [
+    {
+     "n": "Chitinous claws and teeth",
+     "A": "6",
+     "WS": "5+",
+     "S": 2,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "SUSTAINED HITS 1"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Chitinous Horrors (aura) : l'OC des unités ennemies engagées est réduit de moitié par modèle"
+   ],
+   "options": "Chaque modèle peut avoir un spinemaws pistol",
+   "kw": [
+    "SWARM",
+    "GREAT DEVOURER",
+    "HARVESTER"
+   ],
+   "leader": null,
+   "synapse_source": false
+  },
+  {
+   "id": "sky_slasher_swarms",
+   "name": "Sky-slasher Swarms",
+   "role": "Swarm (Warhammer Legends)",
+   "legends": true,
+   "pts": [
+    {
+     "models": 3,
+     "pts": 60
+    }
+   ],
+   "M": "12",
+   "T": 2,
+   "Sv": "6+",
+   "inv": null,
+   "W": 4,
+   "Ld": "8+",
+   "OC": 0,
+   "ranged": [
+    {
+     "n": "Spinemaws pistol",
+     "range": "6",
+     "A": "4",
+     "BS": "5+",
+     "S": 3,
+     "AP": 0,
+     "D": "1",
+     "kw": []
+    }
+   ],
+   "melee": [
+    {
+     "n": "Claws and teeth",
+     "A": "6",
+     "WS": "5+",
+     "S": 2,
+     "AP": 0,
+     "D": "1",
+     "kw": [
+      "SUSTAINED HITS 1"
+     ]
+    }
+   ],
+   "abilities": [
+    "Deep Strike",
+    "Chitinous Horrors (aura) : OC ennemi réduit de moitié"
+   ],
+   "kw": [
+    "SWARM",
+    "GREAT DEVOURER",
+    "FLY"
+   ],
+   "leader": null,
+   "synapse_source": false
+  }
+ ]
+}

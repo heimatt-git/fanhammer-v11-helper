@@ -1,0 +1,2662 @@
+{
+"meta": {
+"faction": "Space Marines",
+"source": "wahapedia.ru/wh40k11ed (extraction automatique, à vérifier)"
+},
+"units": [
+{
+"id": "aggressor_squad",
+"name": "Aggressor Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 3,
+"pts": 90,
+"note": ""
+},
+{
+"models": 6,
+"pts": 180,
+"note": ""
+}
+],
+"M": 5,
+"T": 6,
+"Sv": "3+",
+"inv": null,
+"W": 3,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Auto Boltstorm Gauntlets",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"TWIN-LINKED"
+],
+"range": 18,
+"BS": "3+"
+},
+{
+"n": "Fragstorm Grenade Launcher",
+"A": "3",
+"S": 4,
+"AP": -1,
+"D": "1",
+"kw": [
+"BLAST 1"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Twin Power Fists",
+"A": "3",
+"S": 8,
+"AP": -2,
+"D": "2",
+"kw": [
+"TWIN-LINKED"
+],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY",
+"GRAVIS"
+]
+},
+{
+"id": "assault_intercessor_squad",
+"name": "Assault Intercessor Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 85,
+"note": ""
+},
+{
+"models": 10,
+"pts": 170,
+"note": ""
+}
+],
+"M": 6,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Heavy Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "assault_intercessors_with_jump_packs",
+"name": "Assault Intercessors With Jump Packs",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 95,
+"note": ""
+},
+{
+"models": 10,
+"pts": 190,
+"note": ""
+}
+],
+"M": 12,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Heavy Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [
+"Deep Strike"
+],
+"kw": [
+"INFANTRY",
+"FLY"
+]
+},
+{
+"id": "ballistus_dreadnought",
+"name": "Ballistus Dreadnought",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 150,
+"note": ""
+}
+],
+"M": 8,
+"T": 10,
+"Sv": "2+",
+"inv": null,
+"W": 12,
+"Ld": "6+",
+"OC": 4,
+"ranged": [
+{
+"n": "Ballistus Lascannon",
+"A": "2",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Ballistus Missile Launcher — Krak",
+"A": "2",
+"S": 10,
+"AP": -2,
+"D": "D3+3",
+"kw": [],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Ballistus Missile Launcher — Frag",
+"A": "D6+6",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"BLAST 2"
+],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Storm Bolters",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 4"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Feet",
+"A": "5",
+"S": 7,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [
+"Deadly Demise D3"
+],
+"kw": [
+"VEHICLE",
+"WALKER"
+]
+},
+{
+"id": "bladeguard_veteran_squad",
+"name": "Bladeguard Veteran Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 3,
+"pts": 90,
+"note": ""
+},
+{
+"models": 6,
+"pts": 180,
+"note": ""
+}
+],
+"M": 6,
+"T": 5,
+"Sv": "3+",
+"inv": "4+",
+"W": 3,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Heavy Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Master-crafted Power Sword",
+"A": "4",
+"S": 5,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "blood_claws",
+"name": "Blood Claws",
+"role": "Infantry",
+"pts": [
+{
+"models": 10,
+"pts": 150,
+"note": ""
+},
+{
+"models": 20,
+"pts": 290,
+"note": ""
+}
+],
+"M": 7,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 12,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+},
+{
+"n": "Power Weapon",
+"A": "4",
+"S": 5,
+"AP": -2,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "captain",
+"name": "Captain",
+"role": "Character",
+"pts": [
+{
+"models": 1,
+"pts": 90,
+"note": ""
+}
+],
+"M": 6,
+"T": 5,
+"Sv": "3+",
+"inv": "4+",
+"W": 5,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Master-crafted Bolter",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"RAPID FIRE 1",
+"ASSAULT"
+],
+"range": 24,
+"BS": "2+"
+},
+{
+"n": "Heavy Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 18,
+"BS": "2+"
+}
+],
+"melee": [
+{
+"n": "Master-crafted Power Weapon",
+"A": "6",
+"S": 6,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "2+"
+},
+{
+"n": "Power Fist",
+"A": "5",
+"S": 8,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "2+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY",
+"CHARACTER"
+]
+},
+{
+"id": "captain_in_terminator_armour",
+"name": "Captain In Terminator Armour",
+"role": "Character",
+"pts": [
+{
+"models": 1,
+"pts": 90,
+"note": ""
+}
+],
+"M": 5,
+"T": 6,
+"Sv": "2+",
+"inv": "4+",
+"W": 6,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Storm Bolter",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "2+"
+},
+{
+"n": "Combi-weapon — Purgatus",
+"A": "2",
+"S": 7,
+"AP": -2,
+"D": "2",
+"kw": [],
+"range": 24,
+"BS": "2+"
+}
+],
+"melee": [
+{
+"n": "Relic Fist",
+"A": "5",
+"S": 8,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "2+"
+},
+{
+"n": "Relic Weapon",
+"A": "6",
+"S": 6,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "2+"
+}
+],
+"abilities": [
+"Deep Strike"
+],
+"kw": [
+"INFANTRY",
+"CHARACTER",
+"TERMINATOR"
+]
+},
+{
+"id": "centurion_devastator_squad",
+"name": "Centurion Devastator Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 3,
+"pts": 175,
+"note": ""
+},
+{
+"models": 6,
+"pts": 350,
+"note": ""
+}
+],
+"M": 4,
+"T": 7,
+"Sv": "2+",
+"inv": null,
+"W": 4,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Centurion Missile Launcher",
+"A": "2",
+"S": 9,
+"AP": -2,
+"D": "3",
+"kw": [
+"BLAST 1"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Grav-cannon",
+"A": "3",
+"S": 6,
+"AP": -1,
+"D": "3",
+"kw": [
+"ANTI-VEHICLE 2+"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Twin Lascannon",
+"A": "1",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [
+"TWIN-LINKED"
+],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Twin Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"TWIN-LINKED",
+"SUSTAINED HITS 1",
+"RAPID FIRE 2"
+],
+"range": 36,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Centurion Fists",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "death_company_marines",
+"name": "Death Company Marines",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 90,
+"note": ""
+},
+{
+"models": 10,
+"pts": 170,
+"note": ""
+}
+],
+"M": 6,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Bolt Rifle — Saturation",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"ASSAULT",
+"RAPID FIRE 1"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Heavy Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+},
+{
+"n": "Power Fist",
+"A": "3",
+"S": 8,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "3+"
+},
+{
+"n": "Thunder Hammer",
+"A": "3",
+"S": 8,
+"AP": -2,
+"D": "3",
+"kw": [
+"DEVASTATING WOUNDS"
+],
+"WS": "4+"
+}
+],
+"abilities": [
+"Feel No Pain 6+"
+],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "dreadnought",
+"name": "Dreadnought",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 135,
+"note": ""
+}
+],
+"M": 6,
+"T": 9,
+"Sv": "2+",
+"inv": null,
+"W": 8,
+"Ld": "6+",
+"OC": 3,
+"ranged": [
+{
+"n": "Assault Cannon",
+"A": "6",
+"S": 6,
+"AP": -2,
+"D": "1",
+"kw": [
+"SUSTAINED HITS 1"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Twin Lascannon",
+"A": "1",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [
+"TWIN-LINKED"
+],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Multi-melta",
+"A": "2",
+"S": 10,
+"AP": -3,
+"D": "D3+2",
+"kw": [
+"MELTA 3"
+],
+"range": 18,
+"BS": "3+"
+},
+{
+"n": "Heavy Plasma Cannon — Standard",
+"A": "3",
+"S": 9,
+"AP": -2,
+"D": "2",
+"kw": [
+"BLAST 1",
+"HEAVY"
+],
+"range": 36,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Dreadnought Fist",
+"A": "5",
+"S": 12,
+"AP": -2,
+"D": "3",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [
+"Deadly Demise 1"
+],
+"kw": [
+"VEHICLE",
+"WALKER"
+]
+},
+{
+"id": "eliminator_squad",
+"name": "Eliminator Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 3,
+"pts": 85,
+"note": ""
+}
+],
+"M": 8,
+"T": 4,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Bolt Sniper Rifle",
+"A": "1",
+"S": 6,
+"AP": -2,
+"D": "3",
+"kw": [
+"HEAVY",
+"PRECISION"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Instigator Bolt Carbine",
+"A": "2",
+"S": 5,
+"AP": -2,
+"D": "2",
+"kw": [
+"RAPID FIRE 2",
+"PRECISION"
+],
+"range": 24,
+"BS": "2+"
+},
+{
+"n": "Las Fusil",
+"A": "1",
+"S": 10,
+"AP": -3,
+"D": "D3+3",
+"kw": [
+"HEAVY"
+],
+"range": 36,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Ceramite Fists",
+"A": "3",
+"S": 5,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "eradicator_squad_with_melta_rifles",
+"name": "Eradicator Squad with Melta Rifles",
+"role": "Infantry",
+"pts": [
+{
+"models": 3,
+"pts": 100,
+"note": ""
+},
+{
+"models": 6,
+"pts": 200,
+"note": ""
+}
+],
+"M": 5,
+"T": 6,
+"Sv": "3+",
+"inv": null,
+"W": 3,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Melta Rifle",
+"A": "1",
+"S": 10,
+"AP": -3,
+"D": "D3+2",
+"kw": [
+"MELTA 2"
+],
+"range": 18,
+"BS": "3+"
+},
+{
+"n": "Multi-melta",
+"A": "2",
+"S": 10,
+"AP": -3,
+"D": "D3+2",
+"kw": [
+"MELTA 3"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Ceramite Fists",
+"A": "3",
+"S": 5,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY",
+"GRAVIS"
+]
+},
+{
+"id": "gladiator_lancer",
+"name": "Gladiator Lancer",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 160,
+"note": ""
+}
+],
+"M": 10,
+"T": 10,
+"Sv": "3+",
+"inv": null,
+"W": 12,
+"Ld": "6+",
+"OC": 3,
+"ranged": [
+{
+"n": "Laser Destroyer",
+"A": "2",
+"S": 14,
+"AP": -3,
+"D": "D6+3",
+"kw": [
+"HEAVY"
+],
+"range": 72,
+"BS": "3+"
+},
+{
+"n": "Defensive Array",
+"A": "6",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 6"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Hull",
+"A": "3",
+"S": 6,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D3"
+],
+"kw": [
+"VEHICLE"
+]
+},
+{
+"id": "grey_hunters",
+"name": "Grey Hunters",
+"role": "Infantry",
+"pts": [
+{
+"models": 10,
+"pts": 180,
+"note": ""
+}
+],
+"M": 7,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 3,
+"ranged": [
+{
+"n": "Bolt Carbine",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 1",
+"ASSAULT"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+},
+{
+"n": "Power Weapon",
+"A": "4",
+"S": 5,
+"AP": -2,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "heavy_intercessor_squad",
+"name": "Heavy Intercessor Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 115,
+"note": ""
+},
+{
+"models": 10,
+"pts": 230,
+"note": ""
+}
+],
+"M": 5,
+"T": 6,
+"Sv": "3+",
+"inv": null,
+"W": 3,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Heavy Bolt Rifle",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"HEAVY",
+"RAPID FIRE 1"
+],
+"range": 30,
+"BS": "3+"
+},
+{
+"n": "Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"HEAVY",
+"SUSTAINED HITS 1",
+"RAPID FIRE 2"
+],
+"range": 36,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Ceramite Fists",
+"A": "3",
+"S": 5,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY",
+"GRAVIS"
+]
+},
+{
+"id": "hellblaster_squad",
+"name": "Hellblaster Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 115,
+"note": ""
+},
+{
+"models": 10,
+"pts": 230,
+"note": ""
+}
+],
+"M": 6,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Plasma Incinerator — Standard",
+"A": "2",
+"S": 7,
+"AP": -2,
+"D": "2",
+"kw": [
+"ASSAULT",
+"RAPID FIRE 1"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Plasma Incinerator — Supercharge",
+"A": "2",
+"S": 8,
+"AP": -3,
+"D": "2",
+"kw": [
+"ASSAULT",
+"RAPID FIRE 1",
+"HAZARDOUS"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Ceramite Fists",
+"A": "3",
+"S": 5,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "impulsor",
+"name": "Impulsor",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 70,
+"note": ""
+}
+],
+"M": 12,
+"T": 9,
+"Sv": "3+",
+"inv": null,
+"W": 11,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Bellicatus Missile Array — Krak",
+"A": "1",
+"S": 10,
+"AP": -2,
+"D": "D3+3",
+"kw": [],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Ironhail Skytalon Array",
+"A": "6",
+"S": 4,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 6"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Storm Bolters",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 4"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Hull",
+"A": "3",
+"S": 6,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D3",
+"Transport 7"
+],
+"kw": [
+"VEHICLE",
+"TRANSPORT"
+]
+},
+{
+"id": "inceptor_squad",
+"name": "Inceptor Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 3,
+"pts": 130,
+"note": ""
+},
+{
+"models": 6,
+"pts": 260,
+"note": ""
+}
+],
+"M": 10,
+"T": 6,
+"Sv": "3+",
+"inv": null,
+"W": 3,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Assault Bolters",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"ASSAULT",
+"TWIN-LINKED",
+"SUSTAINED HITS 2"
+],
+"range": 18,
+"BS": "3+"
+},
+{
+"n": "Plasma Exterminators — Standard",
+"A": "2",
+"S": 7,
+"AP": -2,
+"D": "2",
+"kw": [
+"ASSAULT",
+"TWIN-LINKED"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Ceramite Fists",
+"A": "3",
+"S": 5,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [
+"Deep Strike"
+],
+"kw": [
+"INFANTRY",
+"FLY",
+"GRAVIS"
+]
+},
+{
+"id": "infiltrator_squad",
+"name": "Infiltrator Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 85,
+"note": ""
+},
+{
+"models": 10,
+"pts": 150,
+"note": ""
+}
+],
+"M": 8,
+"T": 4,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Marksman Bolt Carbine",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 1",
+"PRECISION"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Ceramite Fists",
+"A": "3",
+"S": 5,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [
+"Infiltrate"
+],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "intercessor_squad",
+"name": "Intercessor Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 85,
+"note": ""
+},
+{
+"models": 10,
+"pts": 170,
+"note": ""
+}
+],
+"M": 6,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Bolt Rifle — Focused Fire",
+"A": "1",
+"S": 6,
+"AP": -1,
+"D": "2",
+"kw": [
+"RAPID FIRE 1",
+"HEAVY"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Bolt Rifle — Saturation",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"ASSAULT",
+"RAPID FIRE 1"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 12,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "5",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "land_raider",
+"name": "Land Raider",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 245,
+"note": ""
+}
+],
+"M": 10,
+"T": 12,
+"Sv": "2+",
+"inv": null,
+"W": 16,
+"Ld": "6+",
+"OC": 5,
+"ranged": [
+{
+"n": "Godhammer Lascannon",
+"A": "2",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Twin Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"TWIN-LINKED",
+"SUSTAINED HITS 1",
+"RAPID FIRE 2"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Multi-melta",
+"A": "2",
+"S": 10,
+"AP": -3,
+"D": "D3+2",
+"kw": [
+"MELTA 3"
+],
+"range": 18,
+"BS": "3+"
+},
+{
+"n": "Storm Bolter",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Tracks",
+"A": "6",
+"S": 8,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D6",
+"Transport 14"
+],
+"kw": [
+"VEHICLE",
+"TRANSPORT"
+]
+},
+{
+"id": "marneus_calgar",
+"name": "Marneus Calgar",
+"role": "Epic Hero",
+"pts": [
+{
+"models": 1,
+"pts": 180,
+"note": ""
+}
+],
+"M": 6,
+"T": 6,
+"Sv": "2+",
+"inv": "4+",
+"W": 6,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Gauntlets of Ultramar",
+"A": "4",
+"S": 5,
+"AP": -2,
+"D": "2",
+"kw": [
+"TWIN-LINKED"
+],
+"range": 18,
+"BS": "2+"
+}
+],
+"melee": [
+{
+"n": "Gauntlets of Ultramar",
+"A": "6",
+"S": 10,
+"AP": -3,
+"D": "3",
+"kw": [
+"TWIN-LINKED"
+],
+"WS": "2+"
+}
+],
+"abilities": [
+"Deep Strike"
+],
+"kw": [
+"INFANTRY",
+"CHARACTER",
+"TERMINATOR",
+"EPIC HERO"
+]
+},
+{
+"id": "outrider_squad",
+"name": "Outrider Squad",
+"role": "Mounted",
+"pts": [
+{
+"models": 3,
+"pts": 80,
+"note": ""
+},
+{
+"models": 6,
+"pts": 160,
+"note": ""
+}
+],
+"M": 12,
+"T": 6,
+"Sv": "3+",
+"inv": null,
+"W": 4,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Twin Bolt Rifle",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"TWIN-LINKED",
+"ASSAULT",
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "2+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+},
+{
+"n": "Thunder Hammer",
+"A": "3",
+"S": 8,
+"AP": -2,
+"D": "3",
+"kw": [
+"DEVASTATING WOUNDS"
+],
+"WS": "4+"
+}
+],
+"abilities": [],
+"kw": [
+"MOUNTED"
+]
+},
+{
+"id": "predator_annihilator",
+"name": "Predator Annihilator",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 135,
+"note": ""
+}
+],
+"M": 10,
+"T": 10,
+"Sv": "3+",
+"inv": null,
+"W": 11,
+"Ld": "6+",
+"OC": 3,
+"ranged": [
+{
+"n": "Predator Twin Lascannon",
+"A": "1",
+"S": 14,
+"AP": -3,
+"D": "D3+3",
+"kw": [
+"TWIN-LINKED"
+],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Lascannon",
+"A": "1",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"RAPID FIRE 2",
+"SUSTAINED HITS 1"
+],
+"range": 36,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Tracks",
+"A": "3",
+"S": 6,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D3"
+],
+"kw": [
+"VEHICLE"
+]
+},
+{
+"id": "predator_destructor",
+"name": "Predator Destructor",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 140,
+"note": ""
+}
+],
+"M": 10,
+"T": 10,
+"Sv": "3+",
+"inv": null,
+"W": 11,
+"Ld": "6+",
+"OC": 3,
+"ranged": [
+{
+"n": "Predator Autocannon",
+"A": "4",
+"S": 9,
+"AP": -1,
+"D": "3",
+"kw": [
+"RAPID FIRE 2"
+],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Lascannon",
+"A": "1",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"SUSTAINED HITS 1",
+"RAPID FIRE 2"
+],
+"range": 36,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Tracks",
+"A": "3",
+"S": 6,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D3"
+],
+"kw": [
+"VEHICLE"
+]
+},
+{
+"id": "redemptor_dreadnought",
+"name": "Redemptor Dreadnought",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 170,
+"note": ""
+}
+],
+"M": 8,
+"T": 10,
+"Sv": "2+",
+"inv": null,
+"W": 12,
+"Ld": "6+",
+"OC": 4,
+"ranged": [
+{
+"n": "Heavy Onslaught Gatling Cannon",
+"A": "12",
+"S": 6,
+"AP": -1,
+"D": "1",
+"kw": [],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Macro Plasma Incinerator — Standard",
+"A": "D3+3",
+"S": 9,
+"AP": -3,
+"D": "2",
+"kw": [
+"BLAST 1"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Macro Plasma Incinerator — Supercharge",
+"A": "D3+3",
+"S": 10,
+"AP": -4,
+"D": "3",
+"kw": [
+"BLAST 1",
+"HAZARDOUS"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Storm Bolters",
+"A": "4",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 4"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Fragstorm Grenade Launchers",
+"A": "6",
+"S": 4,
+"AP": -1,
+"D": "1",
+"kw": [
+"BLAST 2"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Redemptor Fist",
+"A": "5",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [
+"Deadly Demise D3"
+],
+"kw": [
+"VEHICLE",
+"WALKER"
+]
+},
+{
+"id": "repulsor",
+"name": "Repulsor",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 190,
+"note": ""
+}
+],
+"M": 10,
+"T": 12,
+"Sv": "3+",
+"inv": null,
+"W": 16,
+"Ld": "6+",
+"OC": 5,
+"ranged": [
+{
+"n": "Heavy Onslaught Gatling Cannon",
+"A": "12",
+"S": 6,
+"AP": -1,
+"D": "1",
+"kw": [],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Twin Lascannon",
+"A": "1",
+"S": 12,
+"AP": -3,
+"D": "D3+3",
+"kw": [
+"TWIN-LINKED"
+],
+"range": 48,
+"BS": "3+"
+},
+{
+"n": "Las-talon",
+"A": "2",
+"S": 10,
+"AP": -3,
+"D": "D3+3",
+"kw": [],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Twin Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"RAPID FIRE 2",
+"SUSTAINED HITS 1",
+"TWIN-LINKED"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Defensive Array",
+"A": "18",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Hull",
+"A": "6",
+"S": 8,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D6",
+"Transport 14"
+],
+"kw": [
+"VEHICLE",
+"TRANSPORT"
+]
+},
+{
+"id": "repulsor_executioner",
+"name": "Repulsor Executioner",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 260,
+"note": ""
+}
+],
+"M": 10,
+"T": 12,
+"Sv": "3+",
+"inv": null,
+"W": 16,
+"Ld": "6+",
+"OC": 5,
+"ranged": [
+{
+"n": "Heavy Laser Destroyer",
+"A": "2",
+"S": 16,
+"AP": -4,
+"D": "D6+4",
+"kw": [
+"DEVASTATING WOUNDS",
+"HEAVY"
+],
+"range": 72,
+"BS": "3+"
+},
+{
+"n": "Heavy Onslaught Gatling Cannon",
+"A": "12",
+"S": 6,
+"AP": -1,
+"D": "1",
+"kw": [],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Macro Plasma Incinerator — Standard",
+"A": "D3+3",
+"S": 9,
+"AP": -3,
+"D": "2",
+"kw": [
+"BLAST 1"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Twin Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"SUSTAINED HITS 1",
+"RAPID FIRE 2",
+"TWIN-LINKED"
+],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Defensive Array",
+"A": "18",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Hull",
+"A": "6",
+"S": 8,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D6",
+"Transport 7"
+],
+"kw": [
+"VEHICLE",
+"TRANSPORT"
+]
+},
+{
+"id": "rhino",
+"name": "Rhino",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 70,
+"note": ""
+}
+],
+"M": 12,
+"T": 9,
+"Sv": "3+",
+"inv": null,
+"W": 10,
+"Ld": "6+",
+"OC": 2,
+"ranged": [
+{
+"n": "Storm Bolter",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Tracks",
+"A": "3",
+"S": 6,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D3",
+"Transport 12"
+],
+"kw": [
+"VEHICLE",
+"TRANSPORT"
+]
+},
+{
+"id": "roboute_guilliman",
+"name": "Roboute Guilliman",
+"role": "Epic Hero",
+"pts": [
+{
+"models": 1,
+"pts": 415,
+"note": ""
+}
+],
+"M": 8,
+"T": 10,
+"Sv": "2+",
+"inv": "4+",
+"W": 16,
+"Ld": "5+",
+"OC": 4,
+"ranged": [
+{
+"n": "Hand of Dominion",
+"A": "4",
+"S": 6,
+"AP": -2,
+"D": "2",
+"kw": [
+"RAPID FIRE 2",
+"SUSTAINED HITS 1"
+],
+"range": 36,
+"BS": "2+"
+}
+],
+"melee": [
+{
+"n": "Emperor's Sword",
+"A": "10",
+"S": 10,
+"AP": -3,
+"D": "2",
+"kw": [
+"DEVASTATING WOUNDS"
+],
+"WS": "2+"
+},
+{
+"n": "Hand of Dominion",
+"A": "7",
+"S": 14,
+"AP": -4,
+"D": "4",
+"kw": [
+"LETHAL HITS"
+],
+"WS": "2+"
+}
+],
+"abilities": [
+"Feel No Pain 5+"
+],
+"kw": [
+"CHARACTER",
+"EPIC HERO"
+]
+},
+{
+"id": "sternguard_veteran_squad",
+"name": "Sternguard Veteran Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 105,
+"note": ""
+},
+{
+"models": 10,
+"pts": 210,
+"note": ""
+}
+],
+"M": 6,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Artificer Firearm — Infernus",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"ASSAULT",
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Artificer Firearm — Purgatus",
+"A": "1",
+"S": 7,
+"AP": -2,
+"D": "2",
+"kw": [
+"ASSAULT",
+"RAPID FIRE 1"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Heavy Bolter",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "2",
+"kw": [
+"HEAVY",
+"RAPID FIRE 2",
+"SUSTAINED HITS 1"
+],
+"range": 36,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Chainsword",
+"A": "6",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [],
+"kw": [
+"INFANTRY"
+]
+},
+{
+"id": "terminator_assault_squad",
+"name": "Terminator Assault Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 170,
+"note": ""
+},
+{
+"models": 10,
+"pts": 340,
+"note": ""
+}
+],
+"M": 5,
+"T": 6,
+"Sv": "2+",
+"inv": "4+",
+"W": 3,
+"Ld": "6+",
+"OC": 1,
+"ranged": [],
+"melee": [
+{
+"n": "Thunder Hammer",
+"A": "3",
+"S": 8,
+"AP": -2,
+"D": "3",
+"kw": [
+"DEVASTATING WOUNDS"
+],
+"WS": "3+"
+},
+{
+"n": "Twin Lightning Claws",
+"A": "6",
+"S": 5,
+"AP": -2,
+"D": "1",
+"kw": [
+"TWIN-LINKED"
+],
+"WS": "3+"
+}
+],
+"abilities": [
+"Deep Strike"
+],
+"kw": [
+"INFANTRY",
+"TERMINATOR"
+]
+},
+{
+"id": "terminator_squad",
+"name": "Terminator Squad",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 190,
+"note": ""
+},
+{
+"models": 10,
+"pts": 380,
+"note": ""
+}
+],
+"M": 5,
+"T": 6,
+"Sv": "2+",
+"inv": "4+",
+"W": 3,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Storm Bolter",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Assault Cannon",
+"A": "6",
+"S": 6,
+"AP": -2,
+"D": "1",
+"kw": [
+"SUSTAINED HITS 1"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Cyclone Missile Launcher — Krak",
+"A": "2",
+"S": 10,
+"AP": -2,
+"D": "D3+3",
+"kw": [],
+"range": 36,
+"BS": "3+"
+},
+{
+"n": "Heavy Flamer",
+"A": "3",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"TORRENT",
+"BLAST 2"
+],
+"range": 12,
+"BS": "-"
+}
+],
+"melee": [
+{
+"n": "Power Fist",
+"A": "3",
+"S": 8,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "3+"
+},
+{
+"n": "Power Weapon",
+"A": "5",
+"S": 5,
+"AP": -2,
+"D": "1",
+"kw": [],
+"WS": "3+"
+}
+],
+"abilities": [
+"Deep Strike"
+],
+"kw": [
+"INFANTRY",
+"TERMINATOR"
+]
+},
+{
+"id": "vanguard_veteran_squad_with_jump_packs",
+"name": "Vanguard Veteran Squad With Jump Packs",
+"role": "Infantry",
+"pts": [
+{
+"models": 5,
+"pts": 110,
+"note": ""
+},
+{
+"models": 10,
+"pts": 220,
+"note": ""
+}
+],
+"M": 12,
+"T": 5,
+"Sv": "3+",
+"inv": null,
+"W": 2,
+"Ld": "6+",
+"OC": 1,
+"ranged": [
+{
+"n": "Heavy Bolt Pistol",
+"A": "1",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"PISTOL"
+],
+"range": 18,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Master-crafted Power Weapon",
+"A": "3",
+"S": 5,
+"AP": -2,
+"D": "2",
+"kw": [],
+"WS": "3+"
+},
+{
+"n": "Thunder Hammer",
+"A": "3",
+"S": 8,
+"AP": -2,
+"D": "3",
+"kw": [
+"DEVASTATING WOUNDS"
+],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deep Strike"
+],
+"kw": [
+"INFANTRY",
+"FLY"
+]
+},
+{
+"id": "vindicator",
+"name": "Vindicator",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 185,
+"note": ""
+}
+],
+"M": 9,
+"T": 11,
+"Sv": "2+",
+"inv": "4+",
+"W": 11,
+"Ld": "6+",
+"OC": 3,
+"ranged": [
+{
+"n": "Demolisher Cannon",
+"A": "D3+3",
+"S": 14,
+"AP": -3,
+"D": "4",
+"kw": [
+"BLAST 1"
+],
+"range": 24,
+"BS": "3+"
+},
+{
+"n": "Storm Bolter",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Tracks",
+"A": "3",
+"S": 6,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [
+"Deadly Demise D3"
+],
+"kw": [
+"VEHICLE"
+]
+},
+{
+"id": "whirlwind",
+"name": "Whirlwind",
+"role": "Vehicle",
+"pts": [
+{
+"models": 1,
+"pts": 175,
+"note": ""
+}
+],
+"M": 10,
+"T": 10,
+"Sv": "3+",
+"inv": "4+",
+"W": 11,
+"Ld": "6+",
+"OC": 3,
+"ranged": [
+{
+"n": "Whirlwind Vengeance Launcher",
+"A": "6",
+"S": 8,
+"AP": -2,
+"D": "2",
+"kw": [
+"INDIRECT FIRE",
+"BLAST 2"
+],
+"range": 72,
+"BS": "3+"
+},
+{
+"n": "Storm Bolter",
+"A": "2",
+"S": 5,
+"AP": -1,
+"D": "1",
+"kw": [
+"RAPID FIRE 2"
+],
+"range": 24,
+"BS": "3+"
+}
+],
+"melee": [
+{
+"n": "Armoured Tracks",
+"A": "3",
+"S": 6,
+"AP": 0,
+"D": "1",
+"kw": [],
+"WS": "4+"
+}
+],
+"abilities": [],
+"kw": [
+"VEHICLE"
+]
+}
+]
+}
