@@ -265,9 +265,126 @@ function customPanel(onDone) {
 }
 
 /* ---------- onglets ---------- */
+
+/* ---------- import de liste (New Recruit / BattleScribe JSON, ou texte « Nom (150 points) ») ---------- */
+function nm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\[(legends|legendes|crucible)\]/g, '').replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
+function factionByName(txt) {
+  const t = nm(txt); if (!t) return null;
+  const list = D.idx.factions.map(function (f) { return { id: f.id, n: nm(f.name.replace(/ — chapitre/, '')) }; });
+  const exact = list.filter(function (f) { return f.n === t; })[0]; if (exact) return exact.id;
+  const part = list.filter(function (f) { return t.indexOf(f.n) >= 0 || f.n.indexOf(t) >= 0; }).sort(function (a, b) { return b.n.length - a.n.length; })[0];
+  return part ? part.id : null;
+}
+function findUnit(fid, name) {
+  const fd = D.factions[fid]; if (!fd) return null;
+  const t = nm(name);
+  return fd.units.filter(function (u) { return nm(u.name) === t; })[0] || fd.units.filter(function (u) { return nm(u.name).indexOf(t) === 0 || t.indexOf(nm(u.name)) === 0; })[0] || null;
+}
+function newEntry(fid, u, models, pts, side) {
+  const e = makeEntry(fid, u.id, models);
+  if (pts) e.pts = pts;
+  if (side === 'my' && (u.abilities || []).some(function (a) { return /deep strike|burrower/i.test(a); })) e.reserve = 'ds';
+  return e;
+}
+function nrCountModels(s) { let t = 0; (s.selections || []).forEach(function (c) { t += c.type === 'model' ? (c.number || 1) : nrCountModels(c); }); return t; }
+function nrWeapons(s, acc) {
+  (s.profiles || []).forEach(function (p) {
+    if (p.typeName === 'Ranged Weapons' || p.typeName === 'Melee Weapons') {
+      const base = nm(p.name.replace(/^➤\s*/, '').split(/\s+-\s+/)[0]);
+      const key = (p.typeName === 'Ranged Weapons' ? 'ranged:' : 'melee:') + base;
+      acc[key] = Math.max(acc[key] || 0, 0) + 0; (acc.__sel = acc.__sel || []).push([key, s.number || 1, s]);
+    }
+  });
+  (s.selections || []).forEach(function (c) { nrWeapons(c, acc); });
+  return acc;
+}
+async function importRoster(data, side, fallbackFaction) {
+  const out = { added: [], missed: [] };
+  for (const force of data.roster.forces || []) {
+    const tail = String(force.catalogueName || '').split(/\s+-\s+/).pop();
+    let fid = factionByName(tail) || fallbackFaction;
+    await loadFaction(fid);
+    (force.selections || []).forEach(function (s) {
+      if (s.type !== 'unit' && s.type !== 'model') return;
+      const hasStats = JSON.stringify(s).indexOf('"typeName":"Unit"') >= 0; if (!hasStats) return;
+      const u = findUnit(fid, s.name);
+      if (!u) { out.missed.push(s.name); return; }
+      const models = nrCountModels(s) || 1;
+      const pts = (s.costs || []).filter(function (c) { return c.name === 'pts'; }).map(function (c) { return +c.value; })[0];
+      const e = newEntry(fid, u, models, pts, side);
+      /* armes équipées d'après l'export (nombre par arme) */
+      const acc = {}; nrWeapons(s, acc);
+      if (acc.__sel) {
+        const w = {}; Object.keys(e.comps[0].w).forEach(function (k) { w[k] = 0; });
+        const seen = []; let hit = 0;
+        acc.__sel.forEach(function (x) {
+          const k = Object.keys(w).filter(function (kk) { return nm(kk.split(':').slice(1).join(':')) === x[0].split(':')[1] && kk.split(':')[0] === x[0].split(':')[0]; })[0];
+          if (k && seen.indexOf(x[2]) < 0) { w[k] += x[1]; seen.push(x[2]); hit++; }
+        });
+        if (hit) e.comps[0].w = w;
+      }
+      (side === 'my' ? st.my : st.enemy).push(e); out.added.push(u.name);
+    });
+  }
+  return out;
+}
+async function importText(text, side, fid) {
+  await loadFaction(fid);
+  const out = { added: [], missed: [] };
+  const re = /([^\n()\[\]+•:]*?[A-Za-zÀ-ÿ][^\n()\[\]+•:]*?)\s*\((\d+)\s*(?:points?|pts?)\)/gi; let m;
+  while ((m = re.exec(text))) {
+    const name = m[1].replace(/^[\s\-–—*·\d×x]+/, '').replace(/^(Attached Units?|Characters?|Battleline|Other)\s*$/i, '').trim();
+    const pts = +m[2];
+    if (!name || /^(total|army|reconnaissance|strike force|incursion|onslaught)/i.test(name)) continue;
+    const u = findUnit(fid, name);
+    if (!u) { if (name.length > 2) out.missed.push(name); continue; }
+    const tier = (u.pts || []).filter(function (x) { return x.pts === pts; })[0];
+    const e = newEntry(fid, u, tier ? tier.models : undefined, pts, side);
+    (side === 'my' ? st.my : st.enemy).push(e); out.added.push(u.name);
+  }
+  return out;
+}
+function importPanel(side, onDone) {
+  const d = el('details', 'custom');
+  d.appendChild(el('summary', '', 'Importer une liste d’armée (fichier ou texte collé)'));
+  d.appendChild(el('p', 'muted', 'Accepte un export JSON de New Recruit / BattleScribe (la faction est lue dans le fichier) ou une liste en texte du type « Nom d’unité (120 points) ». Pour le texte, choisissez d’abord la faction.'));
+  const row = el('div', 'addbox');
+  const fsel = select(D.idx.factions.map(function (f) { return { value: f.id, label: f.name }; }), side === 'enemy' ? st.enemyFaction : 'tyranids', function () {}, 'faction pour une liste texte');
+  row.appendChild(fsel);
+  const file = el('input'); file.type = 'file'; file.accept = '.json,.txt,.rosz,application/json,text/plain'; file.setAttribute('aria-label', 'fichier de liste');
+  row.appendChild(file);
+  d.appendChild(row);
+  const ta = el('textarea'); ta.rows = 6; ta.placeholder = 'Ou collez ici le JSON ou la liste texte…'; ta.setAttribute('aria-label', 'liste collée'); ta.style.width = '100%';
+  d.appendChild(ta);
+  const replace = check('Remplacer la liste actuelle (sinon : ajouter)', true, function () {});
+  d.appendChild(replace);
+  const msg = el('p', 'muted', '');
+  async function run(content) {
+    msg.textContent = 'Import en cours…';
+    try {
+      if (replace.querySelector('input').checked) { if (side === 'my') st.my = []; else st.enemy = []; }
+      let res;
+      const t = content.trim();
+      if (t[0] === '{') {
+        const data = JSON.parse(t);
+        if (!data.roster) throw new Error('JSON sans « roster » : export New Recruit / BattleScribe attendu');
+        res = await importRoster(data, side, fsel.value);
+      } else res = await importText(t, side, fsel.value);
+      save();
+      msg.textContent = res.added.length + ' unité(s) importée(s)' + (res.missed.length ? ' · non reconnues : ' + res.missed.join(', ') : '') + '.';
+      if (res.added.length) setTimeout(onDone, 900);
+    } catch (e) { msg.textContent = 'Import impossible : ' + e.message; }
+  }
+  file.onchange = function () { const f = file.files[0]; if (!f) return; const r = new FileReader(); r.onload = function () { run(String(r.result)); }; r.readAsText(f); };
+  d.appendChild(btn('Importer le texte collé', function () { if (ta.value.trim()) run(ta.value); }, 'primary'));
+  d.appendChild(msg);
+  return d;
+}
+
 function renderEnemy(box) {
   box.appendChild(el('h2', '', 'Armée adverse'));
   box.appendChild(el('p', 'muted', 'Choisissez la faction, ajoutez ses unités et réglez couvert, objectif et défenses. Seules les factions déjà chargées apparaissent dans la liste.'));
+  box.appendChild(importPanel('enemy', function () { render(); }));
   box.appendChild(addPanel('enemy', function () { render(); }));
   box.appendChild(customPanel(function () { render(); }));
   if (!st.enemy.length) box.appendChild(el('p', 'empty', 'Aucune unité adverse pour l’instant. Ajoutez-en une ci-dessus pour obtenir un plan de chasse.'));
@@ -281,6 +398,7 @@ function renderMy(box) {
   box.appendChild(el('h2', '', 'Mon armée'));
   const tot = st.my.reduce(function (a, e) { return a + (+e.pts || 0); }, 0);
   box.appendChild(el('p', 'muted', D.defaultArmy.meta.nom + ' · ' + D.defaultArmy.meta.detachement + ' · ' + tot + ' pts. Les armes et les états peuvent être modifiés.'));
+  box.appendChild(importPanel('my', function () { render(); }));
   box.appendChild(addPanel('my', function () { render(); }));
   st.my.forEach(function (e) { box.appendChild(unitCard(e, 'my', function (full) { if (full) render(); })); });
   box.appendChild(btn('Rétablir ma liste du 28 novembre', function () { st.my = JSON.parse(JSON.stringify(D.defaultArmy.army)); save(); render(); }, 'ghost'));

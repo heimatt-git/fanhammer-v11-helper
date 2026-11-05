@@ -84,7 +84,9 @@ function defaultCounts(uid, u, models) {
   rg.concat(mg).forEach(function (g, i) { w[g.key] = 0; });
   if (lo) { Object.keys(lo).forEach(function (k) { if (k in w) w[k] = lo[k] * models; }); return w; }
   const single = models <= 1;
-  rg.forEach(function (g, i) { w[g.key] = single ? 1 : (i === 0 ? models : 0); });
+  /* multi-modèles : 1re arme à distance qui n'est pas un pistolet */
+  const main = single ? -1 : (function () { for (let k = 0; k < rg.length; k++) { if (!rg[k].modes.some(function (m) { return (m.kw || []).some(function (x) { return /PISTOL|CLOSE-QUARTERS/i.test(x); }); })) return k; } return 0; })();
+  rg.forEach(function (g, i) { w[g.key] = single ? 1 : (i === main ? models : 0); });
   mg.forEach(function (g, i) { w[g.key] = single ? 1 : (i === 0 ? models : 0); });
   return w;
 }
