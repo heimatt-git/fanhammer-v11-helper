@@ -364,6 +364,20 @@ function mergeXS(list) {
   return o;
 }
 
+/* ---------- contrôle d'objectif et portée de menace ---------- */
+function ocOf(e) { let t = 0; comps(e).forEach(function (x) { t += x.c.models * num(x.u.OC, 0); }); return t; }
+function reachOf(e) {
+  const att = attProfile(e);
+  let rng = 0, melee = false;
+  comps(e).forEach(function (x) {
+    weaponGroups(x.u, 'ranged').forEach(function (g) {
+      if (x.c.w && x.c.w[g.key]) rng = Math.max(rng, Math.max.apply(null, g.modes.map(function (m) { return num(m.range, 0); })));
+    });
+    weaponGroups(x.u, 'melee').forEach(function (g) { if (x.c.w && x.c.w[g.key]) melee = true; });
+  });
+  return { M: att.M, range: rng, shoot: rng ? att.M + rng : 0, charge: melee && !att.noCharge ? att.M + 12 : 0 };
+}
+
 /* ---------- plan de chasse ---------- */
 function outcome(assign, enList, results) {
   const remain = enList.map(function () { return 1; });
@@ -382,17 +396,29 @@ function plan(myList, enList, dist, opts) {
     for (let e = 0; e < nE; e++) base[u].push(evalPair(myList[u], enList[e], dist[myList[u].uid + '|' + enList[e].uid], null, opts));
   }
   /* menace de chaque unité adverse sur mon armée */
+  const threatList = [];
   const threat = enList.map(function (en, e) {
     let t = 0;
-    myList.forEach(function (my) {
+    const tg = [];
+    myList.forEach(function (my, u) {
       const enAtt = Object.assign({}, en, { reserve: 'table' });
       const r = evalPair(enAtt, my, dist[my.uid + '|' + en.uid], null, opts);
-      if (r.ok) t += r.frac * num(my.pts, 0);
+      if (r.ok) { const pts = r.frac * num(my.pts, 0); t += pts; if (r.frac > 0) tg.push({ u: u, r: r, pts: pts }); }
     });
+    tg.sort(function (a, b) { return b.pts - a.pts; });
+    const role = enList[e].role === 'shoot' || enList[e].role === 'melee' || enList[e].role === 'hybrid' ? enList[e].role : autoRole(Object.assign({}, en, { reserve: 'table' }));
+    threatList.push({ e: e, total: t, perPt: num(en.pts, 0) > 0 ? t / num(en.pts, 0) : 0, role: role, reach: reachOf(en), targets: tg });
     return t;
   });
+  const oc = enList.map(function (en) { return ocOf(en); });
+  const maxOC = Math.max.apply(null, oc.concat([1]));
   const maxT = Math.max.apply(null, threat.concat([1]));
-  const weight = enList.map(function (en, e) { return 1 + (en.objective ? 0.25 : 0) + 0.5 * threat[e] / maxT; });
+  const prio = opts.priority || 'balanced';
+  const weight = enList.map(function (en, e) {
+    if (prio === 'threat') return 1 + 1.5 * threat[e] / maxT;
+    if (prio === 'scoring') return 1 + 1.5 * oc[e] / maxOC + (en.objective ? 0.5 : 0);
+    return 1 + (en.objective ? 0.25 : 0) + 0.5 * threat[e] / maxT;
+  });
 
   /* affectation gloutonne avec rendements décroissants */
   const remain = enList.map(function () { return 1; });
@@ -463,11 +489,14 @@ function plan(myList, enList, dist, opts) {
     const hunters = [];
     for (let u = 0; u < nU; u++) if (base[u][e].ok && base[u][e].frac > 0) hunters.push({ u: u, r: base[u][e] });
     hunters.sort(function (a, b) { return b.r.frac - a.r.frac; });
-    return { e: e, weight: weight[e], threat: threat[e], hunters: hunters };
+    /* combinaison minimale de chasseurs pour neutraliser la cible (≈ 90 %) */
+    let acc = 1; const pick = [];
+    for (let k = 0; k < hunters.length && pick.length < 4 && acc > 0.1; k++) { pick.push(hunters[k].u); acc *= (1 - hunters[k].r.frac); }
+    return { e: e, weight: weight[e], threat: threat[e], oc: oc[e], hunters: hunters, combo: { units: pick, frac: 1 - acc, ocLeft: oc[e] * acc } };
   });
 
   return {
-    base: base, assign: assign, targets: targets, weight: weight, threat: threat,
+    base: base, assign: assign, targets: targets, weight: weight, threat: threat, threats: threatList, oc: oc, maxOC: maxOC,
     ptsNoStrat: outcome(assign, enList, assign.map(function (a) { return a.base; })),
     ptsStrat: outcome(assign, enList, cur),
     chosen: chosen.map(function (id) { return STRATS.filter(function (s) { return s.id === id; })[0]; }),
@@ -479,6 +508,6 @@ function plan(myList, enList, dist, opts) {
 root.Engine = {
   setResolver: setResolver, avg: avg, plus: plus, num: num, parseKW: parseKW, weaponGroups: weaponGroups,
   defaultCounts: defaultCounts, defProfile: defProfile, attProfile: attProfile, evalWeapon: evalWeapon,
-  evalPair: evalPair, plan: plan, autoRole: autoRole, roleOf: roleOf, potentials: potentials, STRATS: STRATS, chargeProb: chargeProb, DEF_PRESETS: DEF_PRESETS, comps: comps
+  evalPair: evalPair, plan: plan, autoRole: autoRole, ocOf: ocOf, reachOf: reachOf, roleOf: roleOf, potentials: potentials, STRATS: STRATS, chargeProb: chargeProb, DEF_PRESETS: DEF_PRESETS, comps: comps
 };
 })(typeof window !== 'undefined' ? window : globalThis);

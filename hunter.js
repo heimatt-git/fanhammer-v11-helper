@@ -9,6 +9,7 @@ if (!root) return;
 const D = { idx: null, factions: {}, byId: {}, defaultArmy: null };
 let st = null;      // état persistant
 let tab = 'results';
+let rview = 'plan';
 let uidN = 1;
 
 function $(s, r) { return (r || root).querySelector(s); }
@@ -107,9 +108,9 @@ async function init() {
   st = load();
   if (!st || !st.my) {
     st = { my: JSON.parse(JSON.stringify(D.defaultArmy.army)), enemy: [], dist: {}, custom: {}, enemyFaction: 'tyranids',
-      set: { cp: 4, coverRule: 'bs', tunnel: true, useStrats: true } };
+      set: { cp: 4, coverRule: 'bs', tunnel: true, useStrats: true, priority: 'balanced' } };
   }
-  st.custom = st.custom || {}; st.set = Object.assign({ cp: 4, coverRule: 'bs', tunnel: true, useStrats: true }, st.set || {});
+  st.custom = st.custom || {}; st.set = Object.assign({ cp: 4, coverRule: 'bs', tunnel: true, useStrats: true, priority: 'balanced' }, st.set || {});
   for (const fid of Array.from(new Set(st.my.concat(st.enemy).map(function (e) { return e.comps[0].f; })))) { if (fid !== 'custom') await loadFaction(fid); }
   tab = st.enemy.length ? 'results' : 'enemy';
   render();
@@ -432,7 +433,7 @@ function renderSet(box) {
   box.appendChild(ul);
   box.appendChild(btn('Tout réinitialiser (armées, distances, réglages)', function () {
     try { localStorage.removeItem(KEY); } catch (e) { /* rien */ }
-    st = { my: JSON.parse(JSON.stringify(D.defaultArmy.army)), enemy: [], dist: {}, custom: {}, enemyFaction: 'tyranids', set: { cp: 4, coverRule: 'bs', tunnel: true, useStrats: true } };
+    st = { my: JSON.parse(JSON.stringify(D.defaultArmy.army)), enemy: [], dist: {}, custom: {}, enemyFaction: 'tyranids', set: { cp: 4, coverRule: 'bs', tunnel: true, useStrats: true, priority: 'balanced' } };
     tab = 'enemy'; render();
   }, 'ghost'));
 }
@@ -468,6 +469,91 @@ function renderDist(box) {
 }
 
 /* ---------- résultats ---------- */
+function scnText(r) {
+  const parts = [['shoot', 'tir'], ['charge', 'charge'], ['both', 'les deux']].map(function (k) {
+    const v = r.sc ? r.sc[k[0]] : null;
+    const sp = el('span', r.scn === k[0] ? 'chosen' : '', k[1] + ' ' + (v && v.frac > 0 ? pct(v.frac) : '—'));
+    return sp;
+  });
+  const w = el('span', 'hm muted small');
+  parts.forEach(function (sp, i) { if (i) w.appendChild(document.createTextNode(' · ')); w.appendChild(sp); });
+  return w;
+}
+const ROLE_FR = { shoot: 'tir', melee: 'mêlée', hybrid: 'tir + mêlée' };
+
+function renderThreats(box, p) {
+  box.appendChild(el('h3', '', 'Unités adverses qui poutrent'));
+  box.appendChild(el('p', 'muted small', 'Classées par la meilleure cible qu’elles peuvent abattre : points de votre armée retirés en moyenne si l’unité frappe cette cible seule (distances saisies ; les unités sur la table sans distance ne comptent pas). Portée de menace = mouvement + portée de tir, ou mouvement + 12″ pour une charge.'));
+  const best = function (t) { return t.targets.length ? t.targets[0].pts : 0; };
+  const maxT = Math.max.apply(null, p.threats.map(best).concat([1]));
+  p.threats.slice().sort(function (a, b) { return best(b) - best(a); }).forEach(function (t, rank) {
+    const en = st.enemy[t.e];
+    const card = el('div', 'ucard');
+    const h = el('div', 'thead');
+    h.appendChild(el('span', 'rank', '#' + (rank + 1)));
+    h.appendChild(el('strong', '', en.label));
+    h.appendChild(el('span', 'muted', en.pts + ' pts'));
+    const tags = el('span', 'tags');
+    tags.appendChild(el('span', 'tag', ROLE_FR[t.role]));
+    if (best(t) / maxT > 0.6 && best(t) > 0) tags.appendChild(el('span', 'tag hot', 'menace forte'));
+    if (p.oc[t.e] >= 5) tags.appendChild(el('span', 'tag', 'scoreur'));
+    h.appendChild(tags);
+    card.appendChild(h);
+    const rch = [];
+    if (t.reach.shoot) rch.push('tir ' + Math.round(t.reach.shoot) + '″');
+    if (t.reach.charge) rch.push('charge ' + Math.round(t.reach.charge) + '″');
+    const bt = t.targets[0];
+    card.appendChild(el('p', 'muted small', (bt ? 'Peut retirer jusqu’à ' + Math.round(bt.pts) + ' pts (' + st.my[bt.u].label + ') · ' + f1(bt.pts / (+en.pts || 1)) + ' pts par point investi' : 'Aucune cible') + ' · portée de menace : ' + (rch.join(' · ') || '—')));
+    if (!t.targets.length) card.appendChild(el('p', 'muted small', 'Aucune de vos unités n’est à sa portée avec les distances actuelles.'));
+    t.targets.slice(0, 4).forEach(function (x) {
+      const row = el('div', 'hrow');
+      row.appendChild(el('span', 'hn', st.my[x.u].label));
+      row.appendChild(el('span', 'hm muted small', x.r.mode.join(' + ')));
+      const bar = el('span', 'bar'); const fill = el('i'); fill.style.width = Math.round(x.r.frac * 100) + '%'; bar.appendChild(fill); row.appendChild(bar);
+      row.appendChild(el('span', 'hv', pct(x.r.frac)));
+      card.appendChild(row);
+    });
+    box.appendChild(card);
+  });
+}
+
+function renderScoring(box, p) {
+  box.appendChild(el('h3', '', 'Unités de scoring adverses'));
+  box.appendChild(el('p', 'muted small', 'Classées par contrôle d’objectif total (OC × figurines). « OC restant » estime ce qu’il reste après vos meilleurs chasseurs, car réduire l’unité suffit souvent à lui faire perdre l’objectif. Chaque unité de votre armée ne peut servir qu’une fois : la liste montre les chasseurs possibles, pas un plan simultané.'));
+  const list = p.targets.filter(function (tg) { return tg.oc > 0; }).sort(function (a, b) { return b.oc - a.oc; });
+  if (!list.length) box.appendChild(el('p', 'muted', 'Aucune unité adverse n’a de contrôle d’objectif.'));
+  list.forEach(function (tg, rank) {
+    const en = st.enemy[tg.e];
+    const card = el('div', 'ucard');
+    const h = el('div', 'thead');
+    h.appendChild(el('span', 'rank', '#' + (rank + 1)));
+    h.appendChild(el('strong', '', en.label));
+    h.appendChild(el('span', 'muted', en.pts + ' pts'));
+    const tags = el('span', 'tags');
+    tags.appendChild(el('span', 'tag', 'OC ' + tg.oc));
+    if (tg.oc >= 5 || en.objective) tags.appendChild(el('span', 'tag hot', 'scoreur'));
+    if (en.objective) tags.appendChild(el('span', 'tag', 'objectif'));
+    if (en.cover) tags.appendChild(el('span', 'tag', 'couvert'));
+    h.appendChild(tags);
+    card.appendChild(h);
+    if (!tg.hunters.length) {
+      card.appendChild(el('p', 'muted small', 'Aucune de vos unités ne peut l’atteindre avec les distances actuelles.'));
+    } else {
+      const c = tg.combo;
+      card.appendChild(el('p', 'muted small', 'Avec ' + c.units.map(function (u) { return st.my[u].label; }).join(' + ') + ' : ' + pct(c.frac) + ' détruit · OC restant ≈ ' + f1(c.ocLeft) + ' sur ' + tg.oc));
+    }
+    tg.hunters.slice(0, 4).forEach(function (hh) {
+      const row = el('div', 'hrow');
+      row.appendChild(el('span', 'hn', st.my[hh.u].label));
+      row.appendChild(scnText(hh.r));
+      const bar = el('span', 'bar'); const fill = el('i'); fill.style.width = Math.round(hh.r.frac * 100) + '%'; bar.appendChild(fill); row.appendChild(bar);
+      row.appendChild(el('span', 'hv', pct(hh.r.frac)));
+      card.appendChild(row);
+    });
+    box.appendChild(card);
+  });
+}
+
 function renderResults(box) {
   box.appendChild(el('h2', '', 'Plan de chasse'));
   if (!st.enemy.length) {
@@ -475,8 +561,16 @@ function renderResults(box) {
     box.appendChild(btn('Saisir l’armée adverse', function () { tab = 'enemy'; render(); }, 'primary'));
     return;
   }
-  const opts = { cp: st.set.cp, coverRule: st.set.coverRule, tunnel: st.set.tunnel, useStrats: st.set.useStrats };
+  const opts = { cp: st.set.cp, coverRule: st.set.coverRule, tunnel: st.set.tunnel, useStrats: st.set.useStrats, priority: st.set.priority };
   const p = E.plan(st.my, st.enemy, st.dist, opts);
+  const vs = el('div', 'vsel');
+  [['plan', 'Plan de chasse'], ['threat', 'Menaces'], ['score', 'Scoring']].forEach(function (v) {
+    const b = btn(v[1], function () { rview = v[0]; render(); }); b.setAttribute('aria-pressed', String(rview === v[0])); vs.appendChild(b);
+  });
+  const pr = select([{ value: 'balanced', label: 'Priorité : équilibrée' }, { value: 'threat', label: 'Priorité : menaces' }, { value: 'scoring', label: 'Priorité : scoring' }],
+    st.set.priority || 'balanced', function (v) { st.set.priority = v; save(); render(); }, 'priorité');
+  vs.appendChild(pr);
+  box.appendChild(vs);
   const missing = st.my.filter(function (m) { return m.reserve === 'table'; }).some(function (m) { return st.enemy.some(function (e) { return st.dist[m.uid + '|' + e.uid] == null; }); });
   if (missing) {
     const w = el('div', 'warnbox');
@@ -497,6 +591,9 @@ function renderResults(box) {
     sb.appendChild(document.createTextNode(p.chosen.map(function (s) { return s.name + ' (' + s.cp + ' PC, ' + s.phase + ')'; }).join(' · ')));
     box.appendChild(sb);
   }
+
+  if (rview === 'threat') { renderThreats(box, p); return; }
+  if (rview === 'score') { renderScoring(box, p); return; }
 
   /* plan par unité */
   box.appendChild(el('h3', '', 'Qui chasse quoi'));
