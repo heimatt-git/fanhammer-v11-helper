@@ -345,7 +345,7 @@ async function importText(text, side, fid) {
   return out;
 }
 function importPanel(side, onDone) {
-  const d = el('details', 'custom');
+  const d = el('details', 'custom importp');
   d.appendChild(el('summary', '', 'Importer une liste d’armée (fichier ou texte collé)'));
   d.appendChild(el('p', 'muted', 'Accepte un export JSON de New Recruit / BattleScribe (la faction est lue dans le fichier) ou une liste en texte du type « Nom d’unité (120 points) ». Pour le texte, choisissez d’abord la faction.'));
   const row = el('div', 'addbox');

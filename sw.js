@@ -1,5 +1,5 @@
 /* Service worker : réseau d'abord (toujours la dernière version), cache en secours hors ligne. */
-const CACHE = 'fanhammer-v1';
+const CACHE = 'fanhammer-v2';
 const CORE = ['./', 'index.html', 'engine.js', 'hunter.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'data/index.json', 'data/mon_armee.json'];
 self.addEventListener('install', function (e) {
   e.waitUntil((async function () {

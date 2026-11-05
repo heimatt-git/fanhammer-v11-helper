@@ -1,14 +1,14 @@
 {
-  "name": "Logigramme 40K V11 + Mode Hunter",
-  "short_name": "40K V11",
+  "name": "Auspex v.11",
+  "short_name": "Auspex",
   "description": "Aide de jeu Warhammer 40 000 11e édition : logigrammes et Mode Hunter.",
   "lang": "fr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#121715",
-  "theme_color": "#121715",
+  "background_color": "#101315",
+  "theme_color": "#101315",
   "icons": [
     {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
     {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},

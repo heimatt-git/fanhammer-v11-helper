@@ -1,4 +1,4 @@
-# Logigramme 40K V11 + Mode Hunter
+# Auspex v.11
 
 Aide de jeu Warhammer 40 000 (11e édition) : logigrammes de tour, d'attaque, de tactique et de stratégie, plus un « Mode Hunter » qui estime quelle unité de ton armée doit chasser quelle unité adverse.
 
