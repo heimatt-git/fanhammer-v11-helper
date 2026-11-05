@@ -469,6 +469,24 @@ function renderDist(box) {
 }
 
 /* ---------- résultats ---------- */
+function badge(kind, title) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const sv = document.createElementNS(NS, 'svg');
+  sv.setAttribute('viewBox', '0 0 24 24'); sv.setAttribute('class', 'bdg ' + kind); sv.setAttribute('role', 'img'); sv.setAttribute('aria-label', title);
+  const t = document.createElementNS(NS, 'title'); t.textContent = title; sv.appendChild(t);
+  const add = function (tag, attrs) { const n = document.createElementNS(NS, tag); Object.keys(attrs).forEach(function (k) { n.setAttribute(k, attrs[k]); }); sv.appendChild(n); };
+  if (kind === 'skull') {
+    add('path', { fill: '#e2543a', d: 'M12 2C7 2 3.5 5.6 3.5 10.3c0 2.7 1.2 4.6 3 5.8V19c0 .6.4 1 1 1H9v-2h1.5v2h3v-2H15v2h1.5c.6 0 1-.4 1-1v-2.9c1.8-1.2 3-3.1 3-5.8C20.5 5.6 17 2 12 2z' });
+    add('circle', { cx: '8.6', cy: '10.6', r: '2.3', fill: '#0f1417' });
+    add('circle', { cx: '15.4', cy: '10.6', r: '2.3', fill: '#0f1417' });
+    add('path', { fill: '#0f1417', d: 'M12 12.8l1.3 2.6h-2.6z' });
+  } else {
+    add('path', { fill: '#e3b72c', d: 'M5 2h2v20H5z' });
+    add('path', { fill: '#e3b72c', d: 'M8 3h12l-3 4.5 3 4.5H8z' });
+  }
+  return sv;
+}
+
 function scnText(r) {
   const parts = [['shoot', 'tir'], ['charge', 'charge'], ['both', 'les deux']].map(function (k) {
     const v = r.sc ? r.sc[k[0]] : null;
@@ -600,6 +618,8 @@ function renderResults(box) {
   const wrap = el('div', 'tablewrap'); const t = el('table', 'rtab');
   const th = el('tr'); ['Mon unité', 'Cible', 'Tir seul', 'Charge seule', 'Tir + charge', 'Retenu', 'Stratagème'].forEach(function (h, i) { th.appendChild(el('th', i >= 2 && i <= 4 ? 'r scn' : '', h)); }); t.appendChild(th);
   const ROLE = { shoot: 'Tir', melee: 'Mêlée', hybrid: 'Hybride' };
+  const bestOf = function (t) { return t.targets.length ? t.targets[0].pts : 0; };
+  const maxBest = Math.max.apply(null, p.threats.map(bestOf).concat([1]));
   p.assign.slice().sort(function (a, b) { return b.final.pts - a.final.pts; }).forEach(function (a) {
     const tr = el('tr'); const my = st.my[a.u], f = a.final;
     const c0 = el('td', ''); c0.appendChild(el('div', '', my.label));
@@ -608,7 +628,14 @@ function renderResults(box) {
       { value: 'shoot', label: 'Rôle : tir' }, { value: 'melee', label: 'Rôle : mêlée' }, { value: 'hybrid', label: 'Rôle : hybride' }
     ], my.role || '', function (v) { my.role = v || undefined; save(); render(); }, 'rôle'));
     tr.appendChild(c0);
-    tr.appendChild(el('td', '', st.enemy[a.e].label));
+    const ce = el('td', ''); const en = st.enemy[a.e];
+    ce.appendChild(document.createTextNode(en.label));
+    const ib = el('span', 'bdgs');
+    const th = p.threats[a.e], bt = bestOf(th);
+    if (bt > 0 && bt / maxBest > 0.6) ib.appendChild(badge('skull', 'Menace forte : peut retirer jusqu’à ' + Math.round(bt) + ' pts de votre armée'));
+    if (p.oc[a.e] >= 5 || en.objective) ib.appendChild(badge('flag', 'Fort OC : ' + p.oc[a.e] + (en.objective ? ' · tient un objectif' : '')));
+    if (ib.childNodes.length) ce.appendChild(ib);
+    tr.appendChild(ce);
     [['shoot', 'shoot'], ['charge', 'melee'], ['both', 'hybrid']].forEach(function (k) {
       const v = f.sc ? f.sc[k[0]] : null;
       const td = el('td', 'r scn' + (f.scn === k[0] ? ' chosen' : ''));
