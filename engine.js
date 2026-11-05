@@ -238,6 +238,32 @@ function chargeProb(need) {
   return CHARGE_P[Math.round(need)] || 0;
 }
 
+/* ---------- rôle d'une unité : tir / mêlée / hybride ---------- */
+const REF_DEF = { T: 4, Sv: 3, inv: null, W: 2, models: 5, pool: 10, kw: [], fnp: null, hitMinus: 0, woundMinus: 0, dmgReduce: 0, cover: false, hidden: false, pts: 0, T0: 4 };
+function potentials(my) {
+  const att = attProfile(my), cs = comps(my);
+  let sh = 0, me = 0;
+  cs.forEach(function (x) {
+    weaponGroups(x.u, 'ranged').forEach(function (g) {
+      const n = x.c.w && x.c.w[g.key] || 0; if (!n) return;
+      const r = bestMode(g, n, att, REF_DEF, { xs: {}, dist: 12, stationary: true }); if (r) sh += r.dmg;
+    });
+    weaponGroups(x.u, 'melee').forEach(function (g) {
+      const n = x.c.w && x.c.w[g.key] || 0; if (!n) return;
+      const r = bestMode(g, n, att, REF_DEF, { xs: {}, dist: 0, stationary: false }); if (r) me += r.dmg;
+    });
+  });
+  return { shoot: sh, melee: me };
+}
+function autoRole(my) {
+  const att = attProfile(my), p = potentials(my);
+  if (p.shoot <= 0 && p.melee <= 0) return 'hybrid';
+  if (p.melee <= 0.5 * p.shoot) return 'shoot';
+  if (p.shoot <= 0.5 * p.melee) return 'melee';
+  return 'hybrid';
+}
+function roleOf(my) { return my.role === 'shoot' || my.role === 'melee' || my.role === 'hybrid' ? my.role : autoRole(my); }
+
 /* ---------- une paire (mon unité -> unité adverse) ---------- */
 function evalPair(my, en, d, xs, opts) {
   opts = opts || {};
@@ -299,13 +325,20 @@ function evalPair(my, en, d, xs, opts) {
   out.mw = mw;
   out.dist = dist;
   out.arrived = arrived;
-  const expected = shootDmg + (fightDmg + mw) * pCharge;
-  out.frac = def.pool > 0 ? clamp(expected / def.pool, 0, 1) : 0;
-  out.shootFrac = def.pool > 0 ? clamp(shootDmg / def.pool, 0, 1) : 0;
-  out.fightFrac = def.pool > 0 ? clamp((fightDmg + mw) * pCharge / def.pool, 0, 1) : 0;
+  const chDmg = (fightDmg + mw) * pCharge;
+  const mk = function (d) { const f = def.pool > 0 ? clamp(d / def.pool, 0, 1) : 0; return { dmg: d, frac: f, pts: f * def.pts }; };
+  out.sc = { shoot: mk(shootDmg), charge: mk(chDmg), both: mk(shootDmg + chDmg) };
+  out.roleAuto = !(my.role === 'shoot' || my.role === 'melee' || my.role === 'hybrid');
+  const role = (out.roleAuto && arrived && att.noCharge) ? 'shoot' : roleOf(my);
+  out.role = role;
+  const scn = role === 'shoot' ? 'shoot' : role === 'melee' ? 'charge' : 'both';
+  out.scn = scn;
+  out.frac = out.sc[scn].frac;
+  out.shootFrac = out.sc.shoot.frac;
+  out.fightFrac = out.sc.charge.frac;
   out.pts = out.frac * def.pts;
-  if (shootDmg > 0) out.mode.push(arrived ? 'Tir après arrivée (' + arrDist + '″)' : 'Tir');
-  if (pCharge > 0 && fightDmg > 0) out.mode.push((arrived ? 'Charge après arrivée' : 'Charge') + ' ' + Math.round(pCharge * 100) + ' %');
+  if (scn !== 'charge' && shootDmg > 0) out.mode.push(arrived ? 'Tir après arrivée (' + arrDist + '″)' : 'Tir');
+  if (scn !== 'shoot' && pCharge > 0 && fightDmg > 0) out.mode.push((arrived ? 'Charge après arrivée' : 'Charge') + ' ' + Math.round(pCharge * 100) + ' %');
   return out;
 }
 
@@ -314,9 +347,9 @@ const STRATS = [
   { id: 'enfilading', name: 'Enfilading Emergence', cp: 1, scope: 'all', phase: 'tir + combat',
     applies: function (my) { return my.reserve === 'ds'; }, xs: { sustained: 1, ignoreCover: true }, src: 'Subterranean Assault' },
   { id: 'swarming', name: 'Swarming Assault', cp: 1, scope: 'all', phase: 'charge',
-    applies: function (my, en, r, ctx) { return r.pCharge > 0 && r.pCharge < 0.95 && my.reserve === 'ds' && ctx.monsterArrived; }, xs: { chargeReroll: true }, src: 'Subterranean Assault' },
+    applies: function (my, en, r, ctx) { return r.scn !== 'shoot' && r.pCharge > 0 && r.pCharge < 0.95 && my.reserve === 'ds' && ctx.monsterArrived; }, xs: { chargeReroll: true }, src: 'Subterranean Assault' },
   { id: 'crushing', name: 'Crushing Impact', cp: 1, scope: 'one', phase: 'charge',
-    applies: function (my, en, r) { return attProfile(my).monster && r.pCharge > 0; }, xs: { crushing: true }, src: 'Général' }
+    applies: function (my, en, r) { return r.scn !== 'shoot' && attProfile(my).monster && r.pCharge > 0; }, xs: { crushing: true }, src: 'Général' }
 ];
 function mergeXS(list) {
   const o = {};
@@ -446,6 +479,6 @@ function plan(myList, enList, dist, opts) {
 root.Engine = {
   setResolver: setResolver, avg: avg, plus: plus, num: num, parseKW: parseKW, weaponGroups: weaponGroups,
   defaultCounts: defaultCounts, defProfile: defProfile, attProfile: attProfile, evalWeapon: evalWeapon,
-  evalPair: evalPair, plan: plan, STRATS: STRATS, chargeProb: chargeProb, DEF_PRESETS: DEF_PRESETS, comps: comps
+  evalPair: evalPair, plan: plan, autoRole: autoRole, roleOf: roleOf, potentials: potentials, STRATS: STRATS, chargeProb: chargeProb, DEF_PRESETS: DEF_PRESETS, comps: comps
 };
 })(typeof window !== 'undefined' ? window : globalThis);

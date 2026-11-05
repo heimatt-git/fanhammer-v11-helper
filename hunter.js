@@ -149,6 +149,10 @@ function unitCard(entry, side, onChange) {
   const isArriv = entry.reserve === 'ds';
   opts.appendChild(select([{ value: 'table', label: 'Sur la table' }, { value: 'ds', label: 'En réserve (arrivée / Deep Strike)' }], entry.reserve, function (v) { entry.reserve = v; save(); onChange(); }, 'position'));
   if (side === 'my') {
+    opts.appendChild(select([
+      { value: '', label: 'Rôle : auto (' + ({ shoot: 'tir', melee: 'mêlée', hybrid: 'hybride' })[E.autoRole(entry)] + ')' },
+      { value: 'shoot', label: 'Rôle : tir' }, { value: 'melee', label: 'Rôle : mêlée' }, { value: 'hybrid', label: 'Rôle : hybride' }
+    ], entry.role || '', function (v) { entry.role = v || undefined; save(); onChange(); }, 'rôle'));
     opts.appendChild(check('En portée synaptique (+1 Force en mêlée)', entry.synapse, function (v) { entry.synapse = v; save(); onChange(); }));
     opts.appendChild(check('Relance des 1 pour toucher', entry.rules && entry.rules.rerollOnes, function (v) { entry.rules = entry.rules || {}; entry.rules.rerollOnes = v; save(); onChange(); }));
   } else {
@@ -497,18 +501,32 @@ function renderResults(box) {
   /* plan par unité */
   box.appendChild(el('h3', '', 'Qui chasse quoi'));
   const wrap = el('div', 'tablewrap'); const t = el('table', 'rtab');
-  const th = el('tr'); ['Mon unité', 'Cible', 'Comment', 'Retire', 'Stratagème'].forEach(function (h) { th.appendChild(el('th', '', h)); }); t.appendChild(th);
+  const th = el('tr'); ['Mon unité', 'Cible', 'Tir seul', 'Charge seule', 'Tir + charge', 'Retenu', 'Stratagème'].forEach(function (h, i) { th.appendChild(el('th', i >= 2 && i <= 4 ? 'r scn' : '', h)); }); t.appendChild(th);
+  const ROLE = { shoot: 'Tir', melee: 'Mêlée', hybrid: 'Hybride' };
   p.assign.slice().sort(function (a, b) { return b.final.pts - a.final.pts; }).forEach(function (a) {
-    const tr = el('tr');
-    tr.appendChild(el('td', '', st.my[a.u].label));
+    const tr = el('tr'); const my = st.my[a.u], f = a.final;
+    const c0 = el('td', ''); c0.appendChild(el('div', '', my.label));
+    c0.appendChild(select([
+      { value: '', label: 'Rôle : auto (' + ROLE[E.autoRole(my)].toLowerCase() + ')' },
+      { value: 'shoot', label: 'Rôle : tir' }, { value: 'melee', label: 'Rôle : mêlée' }, { value: 'hybrid', label: 'Rôle : hybride' }
+    ], my.role || '', function (v) { my.role = v || undefined; save(); render(); }, 'rôle'));
+    tr.appendChild(c0);
     tr.appendChild(el('td', '', st.enemy[a.e].label));
-    tr.appendChild(el('td', '', a.final.mode.join(' + ') || '—'));
-    tr.appendChild(el('td', 'r', pct(a.final.frac) + ' · ' + Math.round(a.final.pts) + ' pts'));
+    [['shoot', 'shoot'], ['charge', 'melee'], ['both', 'hybrid']].forEach(function (k) {
+      const v = f.sc ? f.sc[k[0]] : null;
+      const td = el('td', 'r scn' + (f.scn === k[0] ? ' chosen' : ''));
+      td.appendChild(document.createTextNode(v && v.frac > 0 ? pct(v.frac) : '—'));
+      if (v && v.frac > 0) td.appendChild(el('div', 'muted small', Math.round(v.pts) + ' pts'));
+      tr.appendChild(td);
+    });
+    const rc = el('td', ''); rc.appendChild(el('strong', '', ROLE[f.role] + (f.roleAuto ? ' (auto)' : '')));
+    rc.appendChild(el('div', 'muted small', f.mode.join(' + ') || '—'));
+    tr.appendChild(rc);
     tr.appendChild(el('td', '', a.strats.join(', ') || '—'));
     t.appendChild(tr);
   });
   p.unassigned.forEach(function (i) {
-    const tr = el('tr', 'dim'); tr.appendChild(el('td', '', st.my[i].label)); const td = el('td', '', 'Aucune cible utile (portée, distance ou arme)'); td.colSpan = 4; tr.appendChild(td); t.appendChild(tr);
+    const tr = el('tr', 'dim'); tr.appendChild(el('td', '', st.my[i].label)); const td = el('td', '', 'Aucune cible utile (portée, distance ou arme)'); td.colSpan = 6; tr.appendChild(td); t.appendChild(tr);
   });
   wrap.appendChild(t); box.appendChild(wrap);
 
