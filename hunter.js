@@ -596,6 +596,78 @@ function attachDetail(card, row, attLabel, defLabel, r, strats) {
 }
 const ROLE_FR = { shoot: 'tir', melee: 'mêlée', hybrid: 'tir + mêlée' };
 
+function enemyBadges(tg) {
+  const w = el('span', 'bdgs');
+  if (tg.threat) w.appendChild(badge('skull', 'Menace forte pour votre armée'));
+  if (tg.oc) w.appendChild(badge('flag', 'Fort OC / objectif'));
+  return w;
+}
+
+function renderGroups(box, p) {
+  const G = E.buildGroups(p, st.my, st.enemy);
+  box.appendChild(el('h3', '', 'Groupes de chasseurs'));
+  box.appendChild(el('p', 'muted small', 'Votre armée est découpée automatiquement en groupes de 1 à 3 unités qui se complètent ou visent les mêmes proies. Chaque unité n’est dans qu’un seul groupe. Les cibles sont classées par priorité : points × (OC + menace sur votre armée). Une cible « tuée » = au moins 70 % de ses PV en moyenne.'));
+
+  /* couverture des cibles prioritaires */
+  const prioList = G.coverage.filter(function (c) { return c.tags.oc || c.tags.threat; });
+  const covList = prioList.length ? prioList : G.coverage.slice(0, 5);
+  box.appendChild(el('h3', '', 'Couverture des cibles prioritaires'));
+  const wrap = el('div', 'tablewrap'); const t = el('table', 'rtab cov');
+  const th = el('tr', 'plan-h'); ['Cible', 'Meilleur groupe', 'Aussi capable'].forEach(function (h) { th.appendChild(el('th', '', h)); }); t.appendChild(th);
+  const gname = function (g) { return g.units.map(function (u) { return st.my[u].label; }).join(' + '); };
+  covList.forEach(function (c) {
+    const en = st.enemy[c.e]; const tr = el('tr', c.best && c.best.cover >= 0.5 ? '' : 'gap');
+    const c0 = el('td', ''); c0.dataset.l = 'Cible'; c0.appendChild(document.createTextNode(en.label)); c0.appendChild(enemyBadges(c.tags)); tr.appendChild(c0);
+    const c1 = el('td', ''); c1.dataset.l = 'Meilleur groupe';
+    c1.textContent = c.best ? gname(c.best.g) + ' — ' + pct(c.best.cover) : 'Aucun groupe ne la gère';
+    if (!c.best || c.best.cover < 0.5) { c1.className = 'bad'; if (c.best) c1.textContent = gname(c.best.g) + ' — seulement ' + pct(c.best.cover); }
+    tr.appendChild(c1);
+    const c2 = el('td', 'muted small'); c2.dataset.l = 'Aussi capable'; c2.textContent = c.others.length ? c.others.slice(0, 3).map(function (o) { return gname(o.g) + ' (' + pct(o.cover) + ')'; }).join(' · ') + (c.others.length > 3 ? ' · +' + (c.others.length - 3) + ' autres' : '') : '—'; tr.appendChild(c2);
+    t.appendChild(tr);
+  });
+  wrap.appendChild(t); box.appendChild(wrap);
+  const gaps = covList.filter(function (c) { return !c.best || c.best.cover < 0.5; });
+  if (gaps.length) box.appendChild(el('p', 'warnbox', 'Trous de couverture : ' + gaps.map(function (c) { return st.enemy[c.e].label; }).join(', ') + ' — aucun de vos groupes ne les neutralise correctement avec les distances actuelles.'));
+
+  /* cartes par groupe */
+  box.appendChild(el('h3', '', 'Cibles potentielles par groupe'));
+  G.groups.forEach(function (g, i) {
+    const card = el('div', 'ucard');
+    const h = el('div', 'thead');
+    h.appendChild(el('span', 'rank', 'G' + (i + 1)));
+    h.appendChild(el('strong', '', g.units.length > 1 ? 'Combo de ' + g.units.length : 'Solo'));
+    const tags = el('span', 'tags');
+    g.units.forEach(function (u) {
+      const m = st.my[u];
+      tags.appendChild(el('span', 'tag', m.label + ' · ' + ROLE_FR[E.roleOf(m)] + (m.reserve === 'ds' ? ' · arrivée' : '')));
+    });
+    h.appendChild(tags); card.appendChild(h);
+    const info = [];
+    if (g.assigned.length) info.push('Dans le plan : ' + g.assigned.map(function (a) { return st.enemy[a.e].label + ' (' + pct(a.cover) + ')'; }).join(', '));
+    else info.push('Dans le plan : aucune cible assignée');
+    if (g.own > g.treated && g.own > 1) info.push('Meilleur groupe pour ' + g.own + ' cibles mais n’en traite que ' + g.treated + ' en une activation : les autres doivent être couvertes par un autre groupe ou attendre.');
+    card.appendChild(el('p', 'muted small', info.join(' · ')));
+    if (!g.potential.length) card.appendChild(el('p', 'muted small', 'Aucune cible utile avec les distances actuelles.'));
+    const addRow = function (x) {
+      const en = st.enemy[x.e]; const row = el('div', 'hrow');
+      const hn = el('span', 'hn'); hn.appendChild(document.createTextNode(en.label)); hn.appendChild(enemyBadges(x.tags)); row.appendChild(hn);
+      const det = x.per.filter(function (q) { return q.f >= 0.03; }).map(function (q) { return st.my[q.u].label.split(' (')[0] + ' ' + pct(q.f); }).join(' · ');
+      row.appendChild(el('span', 'hm muted small', (x.combo ? 'grâce au combo · ' : x.solo && g.units.length > 1 ? 'une unité suffit · ' : '') + det));
+      const bar = el('span', 'bar'); const fill = el('i'); fill.style.width = Math.round(x.cover * 100) + '%'; bar.appendChild(fill); row.appendChild(bar);
+      row.appendChild(el('span', 'hv', pct(x.cover)));
+      return row;
+    };
+    g.potential.slice(0, 8).forEach(function (x) { card.appendChild(addRow(x)); });
+    if (g.potential.length > 8) {
+      const d = el('details', 'matrix'); d.appendChild(el('summary', '', 'Autres cibles (' + (g.potential.length - 8) + ')'));
+      g.potential.slice(8).forEach(function (x) { d.appendChild(addRow(x)); });
+      card.appendChild(d);
+    }
+    box.appendChild(card);
+  });
+  if (G.reserve.length) box.appendChild(el('p', 'muted small', 'Sans cible utile avec les distances actuelles : ' + G.reserve.map(function (u) { return st.my[u].label; }).join(', ') + '.'));
+}
+
 function renderThreats(box, p) {
   box.appendChild(el('h3', '', 'Unités adverses qui poutrent'));
   box.appendChild(el('p', 'muted small', 'Classées par la meilleure cible qu’elles peuvent abattre : points de votre armée retirés en moyenne si l’unité frappe cette cible seule (distances saisies ; les unités sur la table sans distance ne comptent pas). Portée de menace = mouvement + portée de tir, ou mouvement + 12″ pour une charge.'));
@@ -679,7 +751,7 @@ function renderResults(box) {
   const opts = { cp: st.set.cp, coverRule: st.set.coverRule, tunnel: st.set.tunnel, useStrats: st.set.useStrats, priority: st.set.priority };
   const p = E.plan(st.my, st.enemy, st.dist, opts);
   const vs = el('div', 'vsel');
-  [['plan', 'Plan de chasse'], ['threat', 'Menaces'], ['score', 'Scoring']].forEach(function (v) {
+  [['plan', 'Plan de chasse'], ['groups', 'Groupes'], ['threat', 'Menaces'], ['score', 'Scoring']].forEach(function (v) {
     const b = btn(v[1], function () { rview = v[0]; render(); }); b.setAttribute('aria-pressed', String(rview === v[0])); vs.appendChild(b);
   });
   const pr = select([{ value: 'balanced', label: 'Priorité : équilibrée' }, { value: 'threat', label: 'Priorité : menaces' }, { value: 'scoring', label: 'Priorité : scoring' }],
@@ -707,6 +779,7 @@ function renderResults(box) {
     box.appendChild(sb);
   }
 
+  if (rview === 'groups') { renderGroups(box, p); return; }
   if (rview === 'threat') { renderThreats(box, p); return; }
   if (rview === 'score') { renderScoring(box, p); return; }
 

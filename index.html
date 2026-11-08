@@ -119,6 +119,11 @@ footer a{color:var(--accent)}
 .rtab.plan td select{max-width:100%}
 }
 /* détail du calcul */
+.rtab.cov tr.gap td{background:#2a1612}
+.rtab.cov td.bad{color:var(--alert);font-weight:700}
+.rtab.cov td .bdgs{margin-left:6px}
+.hrow .hn .bdgs{margin-left:6px}
+.hrow .hn .bdg{width:16px;height:16px}
 .dtl{background:#12171a;border:1px solid var(--line);border-left:4px solid var(--accent);padding:10px 12px;margin:6px 0 10px;text-align:left}
 .dtl p{margin:3px 0}
 .dtlt{border-collapse:collapse;width:100%;font-size:.82rem;margin:8px 0}
@@ -251,7 +256,7 @@ header{border-bottom:2px solid var(--accent);padding-bottom:12px}
   <section id="view-hunter" class="hunter" hidden></section>
   <footer>
     Règles tirées de résumés publics de la V11 (Wahapedia, Tactical40k, Bell of Lost Souls, Sprues &amp; Brews, Loaded Dice). Les points marqués « À vérifier » sont incertains ou diffèrent selon les sources : confirmez dans le PDF officiel des règles. Les conseils tactiques sont des recommandations, pas des règles.
-    <span class="build">Auspex v.11 · build b15</span>
+    <span class="build">Auspex v.11 · build b16</span>
   </footer>
 </div>
 
@@ -397,8 +402,8 @@ function fromHash(){ const h=location.hash.slice(1); if(FLOWS[h]&&h!==flow){flow
 window.addEventListener('hashchange',()=>{fromHash();render();});
 fromHash(); render();
 </script>
-<script src="engine.js?v=b15"></script>
-<script src="hunter.js?v=b15"></script>
+<script src="engine.js?v=b16"></script>
+<script src="hunter.js?v=b16"></script>
 
 <script>if("serviceWorker" in navigator&&location.protocol==="https:"||location.hostname==="localhost"){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
 </body>

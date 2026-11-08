@@ -431,10 +431,12 @@ function plan(myList, enList, dist, opts) {
   const maxOC = Math.max.apply(null, oc.concat([1]));
   const maxT = Math.max.apply(null, threat.concat([1]));
   const prio = opts.priority || 'balanced';
+  const threatBest = threatList.slice().sort(function (a, b) { return a.e - b.e; }).map(function (t) { return t.targets.length ? t.targets[0].pts : 0; });
+  const maxTB = Math.max.apply(null, threatBest.concat([1]));
   const weight = enList.map(function (en, e) {
-    if (prio === 'threat') return 1 + 1.5 * threat[e] / maxT;
+    if (prio === 'threat') return 1 + 1.5 * threatBest[e] / maxTB;
     if (prio === 'scoring') return 1 + 1.5 * oc[e] / maxOC + (en.objective ? 0.5 : 0);
-    return 1 + (en.objective ? 0.25 : 0) + 0.5 * threat[e] / maxT;
+    return 1 + (en.objective ? 0.25 : 0) + 0.75 * oc[e] / maxOC + 0.75 * threatBest[e] / maxTB;
   });
 
   /* affectation gloutonne avec rendements décroissants */
@@ -513,7 +515,7 @@ function plan(myList, enList, dist, opts) {
   });
 
   return {
-    base: base, assign: assign, targets: targets, weight: weight, threat: threat, threats: threatList, oc: oc, maxOC: maxOC,
+    base: base, assign: assign, targets: targets, weight: weight, threat: threat, threats: threatList, threatBest: threatBest, oc: oc, maxOC: maxOC,
     ptsNoStrat: outcome(assign, enList, assign.map(function (a) { return a.base; })),
     ptsStrat: outcome(assign, enList, cur),
     chosen: chosen.map(function (id) { return STRATS.filter(function (s) { return s.id === id; })[0]; }),
@@ -522,9 +524,73 @@ function plan(myList, enList, dist, opts) {
   };
 }
 
+/* ---------- groupes de chasseurs (combos automatiques) ---------- */
+function buildGroups(p, myList, enList) {
+  const nE = enList.length;
+  const tb = p.threatBest, maxTB = Math.max.apply(null, tb.concat([1])), maxOC = p.maxOC || 1;
+  const prio = enList.map(function (en, e) { return num(en.pts, 0) * (1 + 0.75 * p.oc[e] / maxOC + 0.75 * tb[e] / maxTB + (en.objective ? 0.25 : 0)); });
+  const tags = enList.map(function (en, e) { return { oc: p.oc[e] >= 5 || !!en.objective, threat: tb[e] > 0 && tb[e] / maxTB > 0.6 }; });
+  const f = myList.map(function (m, u) { return enList.map(function (en, e) { return p.base[u][e].ok ? p.base[u][e].frac : 0; }); });
+  const cand = [], reserve = [];
+  myList.forEach(function (m, u) { if (f[u].some(function (x) { return x >= 0.05; })) cand.push(u); else reserve.push(u); });
+  const cover = function (us) { return enList.map(function (en, e) { let r = 1; us.forEach(function (u) { r *= 1 - f[u][e]; }); return 1 - r; }); };
+  const score = function (a, b) {
+    const ca = cover(a), cb = cover(b), cc = cover(a.concat(b));
+    let gain = 0, base = 0, mn = 0;
+    for (let e = 0; e < nE; e++) { const m = Math.max(ca[e], cb[e]); gain += prio[e] * (cc[e] - m); base += prio[e] * m; mn += prio[e] * Math.min(ca[e], cb[e]); }
+    const syn = base > 0 ? gain / base : 0, ov = base > 0 ? mn / base : 0;
+    return 0.6 * Math.min(1, syn * 3) + 0.4 * ov;
+  };
+  let groups = cand.map(function (u) { return [u]; });
+  for (;;) {
+    let best = -1, bi = -1, bj = -1;
+    for (let i = 0; i < groups.length; i++) for (let j = i + 1; j < groups.length; j++) {
+      if (groups[i].length + groups[j].length > 3) continue;
+      const s0 = score(groups[i], groups[j]); if (s0 > best) { best = s0; bi = i; bj = j; }
+    }
+    if (best < 0.3 || bi < 0) break;
+    groups[bi] = groups[bi].concat(groups[bj]); groups.splice(bj, 1);
+  }
+  const out = groups.map(function (us) {
+    const cov = cover(us);
+    const potential = [];
+    enList.forEach(function (en, e) {
+      if (cov[e] < 0.1) return;
+      const per = us.map(function (u) { return { u: u, f: f[u][e] }; });
+      const solo = per.some(function (x) { return x.f >= 0.8; });
+      potential.push({ e: e, cover: cov[e], per: per, solo: solo, combo: !solo && cov[e] >= 0.8, prio: prio[e], tags: tags[e] });
+    });
+    potential.sort(function (a, b) { return b.prio * Math.min(1, b.cover + 0.2) - a.prio * Math.min(1, a.cover + 0.2); });
+    const asg = {};
+    p.assign.forEach(function (a) { if (us.indexOf(a.u) >= 0) { (asg[a.e] = asg[a.e] || []).push(a); } });
+    const assigned = Object.keys(asg).map(function (k) {
+      const arr = asg[k]; let r = 1; arr.forEach(function (a) { r *= 1 - a.final.frac; });
+      return { e: +k, units: arr.map(function (a) { return a.u; }), cover: 1 - r };
+    }).sort(function (a, b) { return prio[b.e] - prio[a.e]; });
+    return { units: us, potential: potential, assigned: assigned, cover: cov, own: 0, ownPrio: 0 };
+  });
+  /* couverture des cibles : on distribue les cibles par priorité décroissante, en équilibrant la charge entre groupes à efficacité égale */
+  const order = enList.map(function (en, e) { return e; }).sort(function (x, y) { return prio[y] - prio[x]; });
+  const coverage = order.map(function (e) {
+    const ranked = out.map(function (g) { return { g: g, cover: g.cover[e] }; }).sort(function (x, y) { return y.cover - x.cover; });
+    let best = null;
+    if (ranked[0] && ranked[0].cover > 0) {
+      const top = ranked[0].cover;
+      const elig = ranked.filter(function (c) { return c.cover >= top - 0.05; });
+      elig.sort(function (x, y) { return x.g.own - y.g.own || y.cover - x.cover; });
+      best = elig[0];
+      if (best.cover >= 0.7) { best.g.own++; if (tags[e].oc || tags[e].threat) best.g.ownPrio++; }
+    }
+    return { e: e, prio: prio[e], tags: tags[e], best: best, others: ranked.filter(function (x) { return x !== best && x.cover >= 0.5; }) };
+  });
+  out.forEach(function (g) { g.treated = g.assigned.filter(function (a) { return a.cover >= 0.7; }).length; });
+  out.sort(function (a, b) { return b.ownPrio - a.ownPrio || b.own - a.own; });
+  return { groups: out, reserve: reserve, coverage: coverage, prio: prio, tags: tags };
+}
+
 root.Engine = {
   setResolver: setResolver, avg: avg, plus: plus, num: num, parseKW: parseKW, weaponGroups: weaponGroups,
   defaultCounts: defaultCounts, defProfile: defProfile, attProfile: attProfile, evalWeapon: evalWeapon,
-  evalPair: evalPair, plan: plan, autoRole: autoRole, ocOf: ocOf, reachOf: reachOf, roleOf: roleOf, potentials: potentials, STRATS: STRATS, chargeProb: chargeProb, DEF_PRESETS: DEF_PRESETS, comps: comps
+  evalPair: evalPair, plan: plan, autoRole: autoRole, buildGroups: buildGroups, ocOf: ocOf, reachOf: reachOf, roleOf: roleOf, potentials: potentials, STRATS: STRATS, chargeProb: chargeProb, DEF_PRESETS: DEF_PRESETS, comps: comps
 };
 })(typeof window !== 'undefined' ? window : globalThis);
