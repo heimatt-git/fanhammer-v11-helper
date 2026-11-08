@@ -163,7 +163,7 @@ function evalWeapon(w, type, n, att, def, cx) {
   const torrent = !!kw.torrent || (type === 'ranged' && (w.BS === '-' || w.BS == null));
 
   /* touche */
-  let pH = 1, pC = 0;
+  let pH = 1, pC = 0, needHit = null;
   if (!torrent) {
     const skill = plus(type === 'ranged' ? w.BS : w.WS) || 4;
     let hitMod = (kw.heavy && cx.stationary ? 1 : 0) + (xs.hitMod || 0) - def.hitMinus;
@@ -171,7 +171,7 @@ function evalWeapon(w, type, n, att, def, cx) {
     let need = skill - hitMod;
     if (type === 'melee') need -= att.enhWS;
     if (type === 'ranged' && def.cover && !(kw.ignoresCover || xs.ignoreCover) && cx.coverRule === 'bs') need += 1;
-    need = clamp(need, 2, 6);
+    need = clamp(need, 2, 6); needHit = need;
     const critOn = xs.critOn || 6;
     let p = (7 - need) / 6, pc = (7 - critOn) / 6;
     const rr = xs.rerollHits === 'all' ? 'all' : (att.rerollOnes || xs.rerollHits === 'ones') ? 'ones' : null;
@@ -218,7 +218,21 @@ function evalWeapon(w, type, n, att, def, cx) {
   D = Math.max(1, D - def.dmgReduce);
   const perWound = Math.min(D, def.W);
   const fnpMult = 1 - (def.fnp ? (7 - def.fnp) / 6 : 0);
-  return { dmg: unsaved * perWound * fnpMult, wounds: wounds, hits: H, unsaved: unsaved, pSave: pSave };
+  const tags = [];
+  if (torrent) tags.push('Torrent (touche auto)');
+  if (lethal) tags.push('Lethal Hits');
+  if (sustained) tags.push('Sustained Hits ' + sustained);
+  if (kw.devastating || xs.devastating) tags.push('Devastating Wounds');
+  if (kw.twin) tags.push('Twin-linked');
+  if (kw.anti.length) kw.anti.forEach(function (a) { if (def.kw.some(function (k) { return k.indexOf(a.kw) >= 0; })) tags.push('Anti-' + a.kw + ' ' + a.n + '+ actif'); });
+  if (kw.blast && Math.floor(def.models / 5)) tags.push('Blast +' + Math.floor(def.models / 5) + ' att.');
+  if (type === 'ranged' && kw.rapid && cx.dist != null && cx.dist <= range / 2) tags.push('Rapid Fire +' + kw.rapid);
+  if (kw.melta && cx.dist != null && cx.dist <= range / 2) tags.push('Melta +' + kw.melta);
+  if (kw.heavy && cx.stationary) tags.push('Heavy (+1 toucher)');
+  if (def.cover && type === 'ranged' && !(kw.ignoresCover || xs.ignoreCover)) tags.push('Cible en couvert');
+  if (type === 'ranged' && (kw.ignoresCover || xs.ignoreCover) && def.cover) tags.push('Ignore le couvert');
+  return { dmg: unsaved * perWound * fnpMult, wounds: wounds, hits: H, unsaved: unsaved, pSave: pSave,
+    info: { attacks: attacks, S: S, AP: num(w.AP, 0) - (xs.apBonus || 0), needHit: needHit, pHit: pH, needWound: needW, pWound: pW, needSave: best <= 6 ? Math.max(2, best) : null, pSave: pSave, D: D, perWound: perWound, fnp: def.fnp || null, tags: tags } };
 }
 
 function bestMode(g, n, att, def, cx) {
@@ -269,7 +283,7 @@ function evalPair(my, en, d, xs, opts) {
   opts = opts || {};
   xs = xs || {};
   const att = attProfile(my), def = defProfile(en);
-  const out = { shootDmg: 0, fightDmg: 0, pCharge: 0, mw: 0, total: 0, frac: 0, shootWeapons: [], fightWeapons: [], mode: [], ok: true, missing: false };
+  const out = { shootDmg: 0, fightDmg: 0, pCharge: 0, mw: 0, total: 0, frac: 0, shootWeapons: [], fightWeapons: [], mode: [], ok: true, missing: false, skipped: [] };
   if (!def || !att.body) { out.ok = false; return out; }
   const arrived = my.reserve === 'ds';
   const arrDist = arrived ? ((att.burrower && opts.tunnel) ? 6 : 8) : null;
@@ -288,10 +302,10 @@ function evalPair(my, en, d, xs, opts) {
       if (arrived) { if (dist <= range) { eff = dist; } }
       else if (dist <= range) { eff = dist; stationary = true; }
       else if (dist - att.M <= range) { eff = dist - att.M; }
-      if (eff == null) return;
-      if (en.hidden && eff > 15) return;
+      if (eff == null) { out.skipped.push({ name: g.name, n: n, why: 'hors de portée (portée ' + range + '″, distance ' + Math.round(dist) + '″' + (arrived ? '' : ', mouvement ' + att.M + '″') + ')' }); return; }
+      if (en.hidden && eff > 15) { out.skipped.push({ name: g.name, n: n, why: 'cible cachée au-delà de 15″' }); return; }
       const r = bestMode(g, n, att, def, { xs: xs, dist: eff, stationary: stationary, coverRule: opts.coverRule });
-      if (r && r.dmg > 0) { shootDmg += r.dmg; out.shootWeapons.push({ name: g.name, mode: r.w.n, range: range, dmg: r.dmg, moved: !stationary && !arrived }); }
+      if (r && r.dmg > 0) { shootDmg += r.dmg; out.shootWeapons.push({ name: g.name, mode: r.w.n, range: range, dmg: r.dmg, moved: !stationary && !arrived, n: n, eff: eff, info: r.info }); }
     });
   });
 
@@ -311,7 +325,7 @@ function evalPair(my, en, d, xs, opts) {
         const n = x.c.w && x.c.w[g.key] || 0;
         if (!n) return;
         const r = bestMode(g, n, att, def, { xs: xs, dist: 0, stationary: false, coverRule: opts.coverRule });
-        if (r && r.dmg > 0) { fightDmg += r.dmg; out.fightWeapons.push({ name: g.name, mode: r.w.n, dmg: r.dmg }); }
+        if (r && r.dmg > 0) { fightDmg += r.dmg; out.fightWeapons.push({ name: g.name, mode: r.w.n, dmg: r.dmg, n: n, info: r.info }); }
       });
     });
   }
@@ -325,6 +339,9 @@ function evalPair(my, en, d, xs, opts) {
   out.mw = mw;
   out.dist = dist;
   out.arrived = arrived;
+  out.mw = mw;
+  out.def = { T: def.T, Sv: def.Sv, inv: def.inv, fnp: def.fnp, W: def.W, models: def.models, pool: def.pool, cover: def.cover, hidden: def.hidden, kw: def.kw, hitMinus: def.hitMinus, woundMinus: def.woundMinus, dmgReduce: def.dmgReduce, pts: def.pts };
+  out.att = { M: att.M, synapse: att.synapse, burrower: att.burrower, noCharge: att.noCharge };
   const chDmg = (fightDmg + mw) * pCharge;
   const mk = function (d) { const f = def.pool > 0 ? clamp(d / def.pool, 0, 1) : 0; return { dmg: d, frac: f, pts: f * def.pts }; };
   out.sc = { shoot: mk(shootDmg), charge: mk(chDmg), both: mk(shootDmg + chDmg) };

@@ -102,6 +102,9 @@ footer a{color:var(--accent)}
 .build{display:block;margin-top:8px;color:var(--muted);font:.72rem monospace}
 /* tableau du plan : cartes sur petit écran */
 @media(max-width:700px){
+.rtab.plan tr.dtr{padding:0;border:0;background:none}
+.rtab.plan tr.dtr td{display:block;padding:0}
+.dtlt{font-size:.74rem}
 .rtab.plan,.rtab.plan tbody{display:block;width:100%}
 .rtab.plan tr.plan-h{display:none}
 .rtab.plan tr{display:block;border:1px solid var(--line);background:var(--surface);margin:0 0 10px;padding:8px 10px}
@@ -115,6 +118,18 @@ footer a{color:var(--accent)}
 .rtab.plan td.scn.chosen{box-shadow:none;background:#2a2610}
 .rtab.plan td select{max-width:100%}
 }
+/* détail du calcul */
+.dtl{background:#12171a;border:1px solid var(--line);border-left:4px solid var(--accent);padding:10px 12px;margin:6px 0 10px;text-align:left}
+.dtl p{margin:3px 0}
+.dtlt{border-collapse:collapse;width:100%;font-size:.82rem;margin:8px 0}
+.dtlt th{font:600 .68rem monospace;text-transform:uppercase;color:var(--muted);padding:4px 6px;border-bottom:1px solid var(--line);text-align:left}
+.dtlt th.r,.dtlt td.r{text-align:right}
+.dtlt td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top;font-variant-numeric:tabular-nums}
+.dtlt tr.grp td{background:#1b2227;color:var(--accent);font:700 .72rem monospace;text-transform:uppercase}
+.dsum{margin-top:6px}
+.dsum .chosen{color:var(--accent)}
+.hrow.clk{cursor:pointer}.hrow.clk:hover{background:#1b2227}
+tr.dtr[hidden]{display:none}
 .bdgs{display:inline-flex;gap:5px;margin-left:8px;vertical-align:middle}
 .bdg{width:20px;height:20px;display:block}
 .vsel{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
@@ -236,7 +251,7 @@ header{border-bottom:2px solid var(--accent);padding-bottom:12px}
   <section id="view-hunter" class="hunter" hidden></section>
   <footer>
     Règles tirées de résumés publics de la V11 (Wahapedia, Tactical40k, Bell of Lost Souls, Sprues &amp; Brews, Loaded Dice). Les points marqués « À vérifier » sont incertains ou diffèrent selon les sources : confirmez dans le PDF officiel des règles. Les conseils tactiques sont des recommandations, pas des règles.
-    <span class="build">Auspex v.11 · build b14</span>
+    <span class="build">Auspex v.11 · build b15</span>
   </footer>
 </div>
 
@@ -382,8 +397,8 @@ function fromHash(){ const h=location.hash.slice(1); if(FLOWS[h]&&h!==flow){flow
 window.addEventListener('hashchange',()=>{fromHash();render();});
 fromHash(); render();
 </script>
-<script src="engine.js?v=b14"></script>
-<script src="hunter.js?v=b14"></script>
+<script src="engine.js?v=b15"></script>
+<script src="hunter.js?v=b15"></script>
 
 <script>if("serviceWorker" in navigator&&location.protocol==="https:"||location.hostname==="localhost"){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
 </body>

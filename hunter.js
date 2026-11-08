@@ -525,6 +525,75 @@ function scnText(r) {
   parts.forEach(function (sp, i) { if (i) w.appendChild(document.createTextNode(' · ')); w.appendChild(sp); });
   return w;
 }
+function f2(x) { return (Math.round(x * 100) / 100).toString().replace('.', ','); }
+function dcell(txt, cls) { return el('td', cls || '', txt); }
+function renderDetail(attLabel, defLabel, r, strats) {
+  const box = el('div', 'dtl');
+  if (!r || !r.def) { box.appendChild(el('p', 'muted small', 'Pas de détail (distance manquante ou unité sans profil).')); return box; }
+  const d = r.def;
+  const prof = ['E' + d.T, 'Sv ' + d.Sv + '+'];
+  if (d.inv) prof.push('invulnérable ' + d.inv + '+');
+  if (d.fnp) prof.push('FNP ' + d.fnp + '+');
+  prof.push(d.models + ' fig. × ' + d.W + ' PV = ' + d.pool + ' PV');
+  if (d.cover) prof.push('en couvert'); if (d.hidden) prof.push('caché');
+  if (d.hitMinus) prof.push('−1 pour toucher (stratagème)'); if (d.woundMinus) prof.push('−1 pour blesser (stratagème)'); if (d.dmgReduce) prof.push('dégâts −' + d.dmgReduce);
+  const l1 = el('p', 'small'); l1.appendChild(el('strong', '', 'Cible · ' + defLabel + ' : ')); l1.appendChild(document.createTextNode(prof.join(' · ')));
+  box.appendChild(l1);
+  const kws = (d.kw || []).filter(function (k, i, a) { return a.indexOf(k) === i; }).slice(0, 10);
+  if (kws.length) box.appendChild(el('p', 'muted small', 'Mots-clés de la cible : ' + kws.join(', ')));
+  const at = ['M ' + r.att.M + '″', 'distance ' + Math.round(r.dist) + '″' + (r.arrived ? ' (arrivée)' : '')];
+  if (r.pCharge > 0) at.push('charge réussie ' + pct(r.pCharge));
+  if (r.att.synapse) at.push('+1 Force en mêlée (synapse)');
+  const l2 = el('p', 'small'); l2.appendChild(el('strong', '', 'Attaquant · ' + attLabel + ' : ')); l2.appendChild(document.createTextNode(at.join(' · ')));
+  box.appendChild(l2);
+  if (strats && strats.length) box.appendChild(el('p', 'small', 'Stratagèmes appliqués : ' + strats.join(', ')));
+
+  const wrap = el('div', 'tablewrap'); const t = el('table', 'dtlt');
+  const th = el('tr'); ['Arme', 'Att.', 'Toucher', 'Blesser', 'Sauvegarde', 'Dégâts', 'Attendu'].forEach(function (h, i) { th.appendChild(el('th', i ? 'r' : '', h)); }); t.appendChild(th);
+  const addRows = function (title, list, mult) {
+    if (!list.length) return;
+    const hr = el('tr', 'grp'); const hc = el('td', '', title); hc.colSpan = 7; hr.appendChild(hc); t.appendChild(hr);
+    list.forEach(function (w) {
+      const i = w.info || {}; const tr = el('tr');
+      const c0 = el('td', ''); c0.appendChild(el('div', '', w.name + (w.mode && w.mode !== w.name ? ' — ' + w.mode.replace(w.name, '').replace(/^\s*—\s*/, '') : '') + (w.n > 1 ? ' ×' + w.n : '')));
+      c0.appendChild(el('div', 'muted small', 'F' + i.S + ' · PA' + i.AP + (w.eff != null ? ' · à ' + Math.round(w.eff) + '″' : '') + (i.tags && i.tags.length ? ' · ' + i.tags.join(' · ') : '')));
+      tr.appendChild(c0);
+      tr.appendChild(dcell(f1(i.attacks), 'r'));
+      tr.appendChild(dcell(i.needHit ? i.needHit + '+ (' + pct(i.pHit) + ')' : 'auto', 'r'));
+      tr.appendChild(dcell(i.needWound + '+ (' + pct(i.pWound) + ')', 'r'));
+      tr.appendChild(dcell(i.needSave ? i.needSave + '+ → ratée ' + pct(1 - i.pSave) : 'aucune → ratée 100 %', 'r'));
+      tr.appendChild(dcell('D' + f1(i.D) + (i.perWound < i.D ? ' (max ' + i.perWound + ' PV)' : '') + (i.fnp ? ' · FNP ' + i.fnp + '+' : ''), 'r'));
+      tr.appendChild(dcell(f2(w.dmg * (mult || 1)) + ' PV', 'r'));
+      t.appendChild(tr);
+    });
+  };
+  addRows('Tir', r.shootWeapons, 1);
+  addRows('Mêlée' + (r.pCharge > 0 && r.pCharge < 1 ? ' (valeurs avant le facteur de charge ' + pct(r.pCharge) + ')' : ''), r.fightWeapons, 1);
+  wrap.appendChild(t); box.appendChild(wrap);
+  (r.skipped || []).forEach(function (sk) { box.appendChild(el('p', 'muted small', 'Non utilisée : ' + sk.name + (sk.n > 1 ? ' ×' + sk.n : '') + ' — ' + sk.why)); });
+  if (!r.shootWeapons.length && !r.fightWeapons.length && !(r.skipped || []).length) box.appendChild(el('p', 'muted small', 'Aucune arme n’inflige de dégâts à cette cible.'));
+
+  const sc = r.sc || {};
+  const tot = el('div', 'dsum small');
+  const line = function (label, v, extra, on) { const p = el('p', on ? 'chosen' : ''); p.appendChild(el('strong', '', label + ' : ')); p.appendChild(document.createTextNode(f1(v.dmg) + ' PV sur ' + d.pool + ' (' + pct(v.frac) + ')' + (extra || ''))); tot.appendChild(p); };
+  line('Tir seul', sc.shoot, '', r.scn === 'shoot');
+  const fd = r.fightDmg + (r.mw || 0);
+  line('Charge seule', sc.charge, r.pCharge > 0 ? ' = ' + f1(fd) + ' PV de mêlée × ' + pct(r.pCharge) + ' de réussite de charge' + (r.mw ? ' (dont ' + f1(r.mw) + ' blessures mortelles à l’impact)' : '') : ' (charge impossible)', r.scn === 'charge');
+  line('Tir + charge', sc.both, '', r.scn === 'both');
+  tot.appendChild(el('p', 'muted', 'Scénario retenu selon le rôle : ' + ({ shoot: 'tir seul', charge: 'charge seule', both: 'tir + charge' })[r.scn] + ' (rôle ' + ({ shoot: 'tir', melee: 'mêlée', hybrid: 'hybride' })[r.role] + (r.roleAuto ? ', auto' : '') + '). Moyennes, hors lignes de vue et mouvements adverses.'));
+  box.appendChild(tot);
+  return box;
+}
+function attachDetail(card, row, attLabel, defLabel, r, strats) {
+  const d = renderDetail(attLabel, defLabel, r, strats); d.hidden = true;
+  const hn = row.querySelector('.hn'); const base = hn ? hn.textContent : '';
+  row.classList.add('clk'); row.setAttribute('role', 'button'); row.setAttribute('tabindex', '0'); row.title = 'Voir le détail du calcul';
+  if (hn) hn.textContent = '▸ ' + base;
+  const tg = function () { d.hidden = !d.hidden; if (hn) hn.textContent = (d.hidden ? '▸ ' : '▾ ') + base; };
+  row.addEventListener('click', tg);
+  row.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); tg(); } });
+  card.appendChild(row); card.appendChild(d);
+}
 const ROLE_FR = { shoot: 'tir', melee: 'mêlée', hybrid: 'tir + mêlée' };
 
 function renderThreats(box, p) {
@@ -557,7 +626,7 @@ function renderThreats(box, p) {
       row.appendChild(el('span', 'hm muted small', x.r.mode.join(' + ')));
       const bar = el('span', 'bar'); const fill = el('i'); fill.style.width = Math.round(x.r.frac * 100) + '%'; bar.appendChild(fill); row.appendChild(bar);
       row.appendChild(el('span', 'hv', pct(x.r.frac)));
-      card.appendChild(row);
+      attachDetail(card, row, en.label, st.my[x.u].label, x.r);
     });
     box.appendChild(card);
   });
@@ -594,7 +663,7 @@ function renderScoring(box, p) {
       row.appendChild(scnText(hh.r));
       const bar = el('span', 'bar'); const fill = el('i'); fill.style.width = Math.round(hh.r.frac * 100) + '%'; bar.appendChild(fill); row.appendChild(bar);
       row.appendChild(el('span', 'hv', pct(hh.r.frac)));
-      card.appendChild(row);
+      attachDetail(card, row, st.my[hh.u].label, en.label, hh.r);
     });
     box.appendChild(card);
   });
@@ -675,9 +744,13 @@ function renderResults(box) {
     });
     const rc = el('td', ''); rc.dataset.l = 'Retenu'; rc.appendChild(el('strong', '', ROLE[f.role] + (f.roleAuto ? ' (auto)' : '')));
     rc.appendChild(el('div', 'muted small', f.mode.join(' + ') || '—'));
+    const dtr = el('tr', 'dtr'); dtr.hidden = true;
+    const dtd = el('td', ''); dtd.colSpan = 7; dtd.appendChild(renderDetail(my.label, en.label, f, a.strats)); dtr.appendChild(dtd);
+    const db = btn('Détail ▸', function () { dtr.hidden = !dtr.hidden; db.textContent = dtr.hidden ? 'Détail ▸' : 'Détail ▾'; }, 'ghost');
+    rc.appendChild(db);
     tr.appendChild(rc);
     const cst = el('td', '', a.strats.join(', ') || '—'); cst.dataset.l = 'Stratagème'; tr.appendChild(cst);
-    t.appendChild(tr);
+    t.appendChild(tr); t.appendChild(dtr);
   });
   p.unassigned.forEach(function (i) {
     const tr = el('tr', 'dim'); tr.appendChild(el('td', '', st.my[i].label)); const td = el('td', '', 'Aucune cible utile (portée, distance ou arme)'); td.colSpan = 6; tr.appendChild(td); t.appendChild(tr);
@@ -711,7 +784,7 @@ function renderResults(box) {
       row.appendChild(el('span', 'hm muted small', hh.r.mode.join(' + ')));
       const bar = el('span', 'bar'); const fill = el('i'); fill.style.width = Math.round(hh.r.frac * 100) + '%'; bar.appendChild(fill); row.appendChild(bar);
       row.appendChild(el('span', 'hv', pct(hh.r.frac)));
-      card.appendChild(row);
+      attachDetail(card, row, st.my[hh.u].label, en.label, hh.r);
     });
     box.appendChild(card);
   });
