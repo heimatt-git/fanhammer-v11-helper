@@ -583,6 +583,26 @@ function buildGroups(p, myList, enList) {
     }
     return { e: e, prio: prio[e], tags: tags[e], best: best, others: ranked.filter(function (x) { return x !== best && x.cover >= 0.5; }) };
   });
+  /* cibles à effort minimal : plus petit sous-groupe qui neutralise (≥ 70 %), trié par points adverses */
+  const ownerOf = {};
+  coverage.forEach(function (c) { ownerOf[c.e] = c.best ? c.best.g : null; });
+  out.forEach(function (g) {
+    const us = g.units, n = us.length, rows = [];
+    enList.forEach(function (en, e) {
+      let bestSub = null;
+      for (let mask = 1; mask < (1 << n); mask++) {
+        const sub = []; for (let k = 0; k < n; k++) if (mask & (1 << k)) sub.push(us[k]);
+        let r = 1; sub.forEach(function (u) { r *= 1 - f[u][e]; });
+        const c = 1 - r; if (c < 0.7) continue;
+        if (!bestSub || sub.length < bestSub.units.length || (sub.length === bestSub.units.length && c > bestSub.cover)) bestSub = { units: sub, cover: c };
+      }
+      const owner = ownerOf[e] === g;
+      if (bestSub) rows.push({ e: e, units: bestSub.units, cover: bestSub.cover, pts: num(en.pts, 0), full: true, owner: owner, tags: tags[e] });
+      else if (g.cover[e] >= 0.4) rows.push({ e: e, units: us.slice(), cover: g.cover[e], pts: num(en.pts, 0), full: false, owner: false, tags: tags[e] });
+    });
+    rows.sort(function (a, b) { return b.pts - a.pts; });
+    g.targets = rows;
+  });
   out.forEach(function (g) { g.treated = g.assigned.filter(function (a) { return a.cover >= 0.7; }).length; });
   out.sort(function (a, b) { return b.ownPrio - a.ownPrio || b.own - a.own; });
   return { groups: out, reserve: reserve, coverage: coverage, prio: prio, tags: tags };

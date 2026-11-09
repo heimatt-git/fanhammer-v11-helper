@@ -10,6 +10,7 @@ const D = { idx: null, factions: {}, byId: {}, defaultArmy: null };
 let st = null;      // état persistant
 let tab = 'results';
 let rview = 'plan';
+let simple = false;
 let uidN = 1;
 
 function $(s, r) { return (r || root).querySelector(s); }
@@ -118,6 +119,7 @@ async function init() {
 
 /* ---------- rendu général ---------- */
 function render() {
+  if (simple) { renderSimple(); return; }
   root.textContent = '';
   const nav = el('div', 'htabs');
   [['results', 'Résultats'], ['enemy', 'Armée adverse'], ['my', 'Mon armée'], ['dist', 'Distances'], ['set', 'Réglages']].forEach(function (t) {
@@ -668,6 +670,85 @@ function renderGroups(box, p) {
   if (G.reserve.length) box.appendChild(el('p', 'muted small', 'Sans cible utile avec les distances actuelles : ' + G.reserve.map(function (u) { return st.my[u].label; }).join(', ') + '.'));
 }
 
+function sumPts(list) { return list.reduce(function (a, e) { return a + (+e.pts || 0); }, 0); }
+
+function renderSimple() {
+  root.textContent = '';
+  const box = el('div', 'hbody simple'); root.appendChild(box);
+  box.appendChild(el('h2', '', 'Mode simplifié'));
+  box.appendChild(el('p', 'muted', 'Trois étapes : importez votre liste et celle de l’adversaire, choisissez la distance, lisez qui attaque quoi. Pour tout régler en détail (armes, couvert, distances unité par unité…), utilisez le Mode Hunter.'));
+
+  /* 1. listes */
+  box.appendChild(el('h3', '', '1. Importez les deux listes'));
+  const two = el('div', 'simp2');
+  [['my', 'Ma liste', st.my], ['enemy', 'Liste adverse', st.enemy]].forEach(function (c) {
+    const card = el('div', 'ucard');
+    card.appendChild(el('h3', '', c[1]));
+    const sm = el('p', 'tot', c[2].length ? c[2].length + ' unités · ' + sumPts(c[2]) + ' pts' : 'Aucune unité pour l’instant');
+    card.appendChild(sm);
+    const ip = importPanel(c[0], function () { render(); }); ip.open = !c[2].length || c[0] === 'enemy'; card.appendChild(ip);
+    if (c[2].length) {
+      const names = el('p', 'muted small', c[2].map(function (e) { return e.label; }).join(' · ')); card.appendChild(names);
+      card.appendChild(btn('Vider cette liste', function () { if (c[0] === 'my') st.my = []; else st.enemy = []; save(); render(); }, 'ghost'));
+    }
+    two.appendChild(card);
+  });
+  box.appendChild(two);
+
+  /* 2. distance */
+  box.appendChild(el('h3', '', '2. Distance entre les deux armées'));
+  const dv = st.set.simpleDist || 18;
+  const dr = el('div', 'fillbar');
+  dr.appendChild(el('span', '', 'Distance supposée entre chacune de vos unités et chaque unité adverse :'));
+  dr.appendChild(palBar(dv, function (v) { st.set.simpleDist = v; save(); keepScroll(render); }));
+  box.appendChild(dr);
+  box.appendChild(el('p', 'muted small', 'Les unités en réserve arrivent à leur distance légale. Ce réglage ne touche pas aux distances saisies dans le Mode Hunter.'));
+
+  /* 3. résultat */
+  box.appendChild(el('h3', '', '3. Qui attaque quoi'));
+  if (!st.my.length || !st.enemy.length) { box.appendChild(el('p', 'empty', 'Importez les deux listes pour obtenir le résultat.')); return; }
+  const dist = {};
+  st.my.forEach(function (m) { st.enemy.forEach(function (e) { dist[m.uid + '|' + e.uid] = dv; }); });
+  const p = E.plan(st.my, st.enemy, dist, { cp: st.set.cp, coverRule: st.set.coverRule, tunnel: st.set.tunnel, useStrats: false, priority: st.set.priority });
+  const G = E.buildGroups(p, st.my, st.enemy);
+  const totE = sumPts(st.enemy);
+  const sum = el('div', 'summary');
+  const s1 = el('div', 'stat'); s1.appendChild(el('div', 'big', Math.round(p.ptsNoStrat) + ' pts')); s1.appendChild(el('div', 'muted small', 'retirés en moyenne à l’adversaire'));
+  const s2 = el('div', 'stat'); s2.appendChild(el('div', 'big acc', totE ? pct(p.ptsNoStrat / totE) : '—')); s2.appendChild(el('div', 'muted small', 'de sa liste (' + totE + ' pts)'));
+  sum.appendChild(s1); sum.appendChild(s2); box.appendChild(sum);
+  box.appendChild(el('p', 'muted small', 'Pour chaque groupe de votre liste : les unités adverses qu’il neutralise (70 % de leurs PV ou plus) avec le moins d’unités possible, de la plus chère à la moins chère. ★ = cible attribuée à ce groupe pour répartir l’effort ; sans étoile, un autre groupe est mieux placé. Moyennes, sans lignes de vue.'));
+  G.groups.forEach(function (g, i) {
+    const card = el('div', 'ucard');
+    const h = el('div', 'thead');
+    h.appendChild(el('span', 'rank', 'G' + (i + 1)));
+    h.appendChild(el('strong', '', g.units.length > 1 ? 'Combo de ' + g.units.length : 'Solo'));
+    const tg = el('span', 'tags');
+    g.units.forEach(function (u) { const m = st.my[u]; tg.appendChild(el('span', 'tag', m.label + (m.reserve === 'ds' ? ' · arrivée' : ''))); });
+    h.appendChild(tg); card.appendChild(h);
+    const full = g.targets.filter(function (r) { return r.full; }), part = g.targets.filter(function (r) { return !r.full; });
+    if (!full.length) card.appendChild(el('p', 'muted small', 'Aucune cible neutralisée à 70 % ou plus par ce groupe.'));
+    const mkTable = function (rows, isPart) {
+      const wrap = el('div', 'tablewrap'); const t = el('table', 'rtab plan simp');
+      const th = el('tr', 'plan-h'); ['Cible', 'Points', 'Effort minimal', 'Résultat'].forEach(function (x, k) { th.appendChild(el('th', k === 1 || k === 3 ? 'r' : '', x)); }); t.appendChild(th);
+      rows.forEach(function (r) {
+        const tr = el('tr', r.owner || isPart ? '' : 'alt');
+        const c0 = el('td', 'c-unit'); c0.dataset.l = 'Cible'; c0.appendChild(document.createTextNode((r.owner ? '★ ' : '') + st.enemy[r.e].label)); c0.appendChild(enemyBadges(r.tags)); tr.appendChild(c0);
+        const c1 = el('td', 'r'); c1.dataset.l = 'Points'; c1.textContent = r.pts + ' pts'; tr.appendChild(c1);
+        const c2 = el('td', ''); c2.dataset.l = 'Effort minimal';
+        c2.textContent = isPart ? 'tout le groupe' : (r.units.length === g.units.length && g.units.length > 1 ? 'tout le groupe' : r.units.map(function (u) { return st.my[u].label; }).join(' + '));
+        tr.appendChild(c2);
+        const c3 = el('td', 'r'); c3.dataset.l = 'Résultat'; c3.textContent = pct(r.cover); tr.appendChild(c3);
+        t.appendChild(tr);
+      });
+      wrap.appendChild(t); return wrap;
+    };
+    if (full.length) card.appendChild(mkTable(full, false));
+    if (part.length) { const d = el('details', 'matrix'); d.appendChild(el('summary', '', 'Cibles partielles, 40 à 70 % (' + part.length + ')')); d.appendChild(mkTable(part, true)); card.appendChild(d); }
+    box.appendChild(card);
+  });
+  if (G.reserve.length) box.appendChild(el('p', 'muted small', 'Sans cible utile à cette distance : ' + G.reserve.map(function (u) { return st.my[u].label; }).join(', ') + '.'));
+}
+
 function renderThreats(box, p) {
   box.appendChild(el('h3', '', 'Unités adverses qui poutrent'));
   box.appendChild(el('p', 'muted small', 'Classées par la meilleure cible qu’elles peuvent abattre : points de votre armée retirés en moyenne si l’unité frappe cette cible seule (distances saisies ; les unités sur la table sans distance ne comptent pas). Portée de menace = mouvement + portée de tir, ou mouvement + 12″ pour une charge.'));
@@ -878,19 +959,20 @@ function renderResults(box) {
 /* ---------- bascule logigramme / Hunter ---------- */
 function setMode(m) {
   const flow = document.getElementById('view-flow');
-  if (flow) flow.hidden = m === 'hunter';
-  root.hidden = m !== 'hunter';
+  if (flow) flow.hidden = m !== 'flow';
+  root.hidden = m === 'flow';
+  const wasSimple = simple; simple = m === 'simple';
   document.querySelectorAll('#modebar button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.mode === m)); });
-  if (m === 'hunter' && !st) init();
+  if (m !== 'flow') { if (!st) init(); else if (wasSimple !== simple) render(); }
 }
 const mb = document.getElementById('modebar');
 if (mb) {
-  [['flow', 'Logigramme'], ['hunter', 'Mode Hunter']].forEach(function (x) {
-    const b = btn(x[1], function () { location.hash = x[0] === 'hunter' ? 'hunter' : 'tour'; });
+  [['flow', 'Logigramme'], ['simple', 'Mode simplifié'], ['hunter', 'Mode Hunter']].forEach(function (x) {
+    const b = btn(x[1], function () { location.hash = x[0] === 'hunter' ? 'hunter' : x[0] === 'simple' ? 'simple' : 'tour'; });
     b.dataset.mode = x[0]; mb.appendChild(b);
   });
 }
-function route() { setMode(location.hash === '#hunter' ? 'hunter' : 'flow'); }
+function route() { setMode(location.hash === '#hunter' ? 'hunter' : location.hash === '#simple' ? 'simple' : 'flow'); }
 window.addEventListener('hashchange', route);
 route();
 })();

@@ -124,6 +124,19 @@ footer a{color:var(--accent)}
 .rtab.cov td .bdgs{margin-left:6px}
 .hrow .hn .bdgs{margin-left:6px}
 .hrow .hn .bdg{width:16px;height:16px}
+@media(max-width:700px){
+.rtab.plan.simp tr{display:grid;grid-template-columns:1fr 1fr;column-gap:14px;padding:6px 10px}
+.rtab.plan.simp tr.plan-h{display:none}
+.rtab.plan.simp td.c-unit{grid-column:1/-1;margin-bottom:2px;padding-bottom:4px}
+.rtab.plan.simp td:nth-child(2){order:2}
+.rtab.plan.simp td:nth-child(4){order:3}
+.rtab.plan.simp td:nth-child(3){order:4;grid-column:1/-1}
+}
+.simp2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.simp2{grid-template-columns:minmax(0,1fr)}}
+.rtab.simp tr.alt td{color:var(--muted)}
+.rtab.simp th{padding-top:4px}
+.hbody.simple .tablewrap{margin:6px 0}
 .dtl{background:#12171a;border:1px solid var(--line);border-left:4px solid var(--accent);padding:10px 12px;margin:6px 0 10px;text-align:left}
 .dtl p{margin:3px 0}
 .dtlt{border-collapse:collapse;width:100%;font-size:.82rem;margin:8px 0}
@@ -256,7 +269,7 @@ header{border-bottom:2px solid var(--accent);padding-bottom:12px}
   <section id="view-hunter" class="hunter" hidden></section>
   <footer>
     Règles tirées de résumés publics de la V11 (Wahapedia, Tactical40k, Bell of Lost Souls, Sprues &amp; Brews, Loaded Dice). Les points marqués « À vérifier » sont incertains ou diffèrent selon les sources : confirmez dans le PDF officiel des règles. Les conseils tactiques sont des recommandations, pas des règles.
-    <span class="build">Auspex v.11 · build b16</span>
+    <span class="build">Auspex v.11 · build b17</span>
   </footer>
 </div>
 
@@ -402,8 +415,8 @@ function fromHash(){ const h=location.hash.slice(1); if(FLOWS[h]&&h!==flow){flow
 window.addEventListener('hashchange',()=>{fromHash();render();});
 fromHash(); render();
 </script>
-<script src="engine.js?v=b16"></script>
-<script src="hunter.js?v=b16"></script>
+<script src="engine.js?v=b17"></script>
+<script src="hunter.js?v=b17"></script>
 
 <script>if("serviceWorker" in navigator&&location.protocol==="https:"||location.hostname==="localhost"){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
 </body>
